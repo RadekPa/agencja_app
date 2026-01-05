@@ -106,7 +106,7 @@ export function Sidebar({ collapsed = false }: Props) {
       <div className="p-6 border-b">
         <div className="flex items-center gap-2">
           <Building2 className="h-6 w-6 text-primary" />
-          <span className="font-bold text-lg">O P I S</span>
+          <span className="font-bold text-lg">{t('common.appName')}</span>
         </div>
       </div>
 
