@@ -293,11 +293,11 @@ export default function ClientDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Podstawowe dane */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
               Podstawowe dane
             </h3>
             <div>
-              <label className="label text-xs text-gray-500">Nazwa</label>
+              <label className="label text-xs">Nazwa</label>
               {editMode ? (
                 <Input value={client.name} onChange={e => setClient({ ...client, name: e.target.value })} />
               ) : (
@@ -305,7 +305,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Email</label>
+              <label className="label text-xs">Email</label>
               {editMode ? (
                 <Input value={client.email ?? ''} onChange={e => setClient({ ...client, email: e.target.value })} />
               ) : (
@@ -313,7 +313,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Telefon</label>
+              <label className="label text-xs">Telefon</label>
               {editMode ? (
                 <Input value={client.phone ?? ''} onChange={e => setClient({ ...client, phone: e.target.value })} />
               ) : (
@@ -324,11 +324,11 @@ export default function ClientDetailPage() {
 
           {/* Adres */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
               Adres
             </h3>
             <div>
-              <label className="label text-xs text-gray-500">Ulica i numer</label>
+              <label className="label text-xs">Ulica i numer</label>
               {editMode ? (
                 <Input value={client.address ?? ''} onChange={e => setClient({ ...client, address: e.target.value })} />
               ) : (
@@ -336,7 +336,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Miasto</label>
+              <label className="label text-xs">Miasto</label>
               {editMode ? (
                 <Input value={client.city ?? ''} onChange={e => setClient({ ...client, city: e.target.value })} />
               ) : (
@@ -344,7 +344,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Kod pocztowy</label>
+              <label className="label text-xs">Kod pocztowy</label>
               {editMode ? (
                 <Input value={client.postalCode ?? ''} onChange={e => setClient({ ...client, postalCode: e.target.value })} />
               ) : (
@@ -352,7 +352,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Kraj</label>
+              <label className="label text-xs">Kraj</label>
               {editMode ? (
                 <Input value={client.country ?? ''} onChange={e => setClient({ ...client, country: e.target.value })} />
               ) : (
@@ -363,11 +363,11 @@ export default function ClientDetailPage() {
 
           {/* Dane firmowe */}
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
               Dane firmowe
             </h3>
             <div>
-              <label className="label text-xs text-gray-500">NIP</label>
+              <label className="label text-xs">NIP</label>
               {editMode ? (
                 <Input value={client.nip ?? ''} onChange={e => setClient({ ...client, nip: e.target.value })} />
               ) : (
@@ -375,7 +375,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">REGON</label>
+              <label className="label text-xs">REGON</label>
               {editMode ? (
                 <Input value={client.regon ?? ''} onChange={e => setClient({ ...client, regon: e.target.value })} />
               ) : (
@@ -383,7 +383,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Forma prawna</label>
+              <label className="label text-xs">Forma prawna</label>
               {editMode ? (
                 <Input value={client.legalForm ?? ''} onChange={e => setClient({ ...client, legalForm: e.target.value })} />
               ) : (
@@ -391,7 +391,7 @@ export default function ClientDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Konto bankowe</label>
+              <label className="label text-xs">Konto bankowe</label>
               {editMode ? (
                 <Input value={client.bankAccount ?? ''} onChange={e => setClient({ ...client, bankAccount: e.target.value })} />
               ) : (
@@ -402,9 +402,9 @@ export default function ClientDetailPage() {
         </div>
 
         {/* Notatki - full width */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+        <div className="mt-6 pt-6 border-t border-border">
           <div>
-            <label className="label text-xs text-gray-500">Notatki</label>
+            <label className="label text-xs">Notatki</label>
             {editMode ? (
               <textarea 
                 className="input w-full min-h-[80px]" 
@@ -418,7 +418,7 @@ export default function ClientDetailPage() {
         </div>
 
         {/* Metadata */}
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 grid grid-cols-2 gap-4 text-sm text-gray-500">
+        <div className="mt-6 pt-6 border-t border-border grid grid-cols-2 gap-4 text-sm text-muted-foreground">
           <div>
             <span className="font-medium">Utworzono:</span> {new Intl.DateTimeFormat('pl-PL', { 
               year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' 
@@ -441,7 +441,7 @@ export default function ClientDetailPage() {
               className={`px-6 py-3 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'documents'
                   ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                  : 'border-transparent text-muted-foreground hover:text-card-foreground hover:border-border'
               }`}
             >
               Dokumenty
@@ -451,7 +451,7 @@ export default function ClientDetailPage() {
               className={`px-6 py-3 border-b-2 font-medium text-sm transition-colors ${
                 activeTab === 'invoices'
                   ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
+                  : 'border-transparent text-muted-foreground hover:text-card-foreground hover:border-border'
               }`}
             >
               Faktury

@@ -36,12 +36,12 @@ export default function InvoiceShow({ params }: { params: { id: string } }){
       <Card>
         <div className="flex justify-between">
           <div>
-            <h2 className="text-lg font-semibold">Faktura #{invoice.id}</h2>
-            <p className="text-sm text-gray-500">{invoice.title}</p>
+            <h2 className="text-lg font-semibold text-card-foreground">Faktura #{invoice.id}</h2>
+            <p className="text-sm text-muted-foreground">{invoice.title}</p>
           </div>
           <div className="text-right">
-            <div className="text-sm text-gray-400">Data wystawienia: {new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.issueDate))}</div>
-            <div className="text-sm text-gray-400">Data zapłaty: {new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.paymentDate))}</div>
+            <div className="text-sm text-muted-foreground">Data wystawienia: {new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.issueDate))}</div>
+            <div className="text-sm text-muted-foreground">Data zapłaty: {new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.paymentDate))}</div>
           </div>
         </div>
 
@@ -49,7 +49,7 @@ export default function InvoiceShow({ params }: { params: { id: string } }){
           <div>
             <h3 className="font-semibold">Klient</h3>
             <div>{invoice.client?.name}</div>
-            <div className="text-sm text-gray-500">{invoice.client?.email}</div>
+            <div className="text-sm text-muted-foreground">{invoice.client?.email}</div>
           </div>
           <div>
             <h3 className="font-semibold">Podsumowanie</h3>

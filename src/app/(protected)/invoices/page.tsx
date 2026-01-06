@@ -80,12 +80,12 @@ export default function InvoicesPage(){
         <Modal isOpen={showForm} onClose={() => setShowForm(false)} title="Dodaj nową fakturę">
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Klient</label>
+              <label className="block text-sm font-medium text-muted-foreground">Klient</label>
               <select 
                 value={form.clientId} 
                 onChange={e=>setForm({...form, clientId: e.target.value})} 
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
               >
                 <option value="">Wybierz klienta</option>
                 {(Array.isArray(clients) ? clients : []).map(c=> <option key={c.id} value={c.id}>{c.name}</option>)}
@@ -93,39 +93,39 @@ export default function InvoicesPage(){
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Tytuł</label>
+              <label className="block text-sm font-medium text-muted-foreground">Tytuł</label>
               <input 
                 placeholder="Tytuł faktury" 
                 value={form.title} 
                 onChange={e=>setForm({...form, title: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
               />
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Data wystawienia</label>
+                <label className="block text-sm font-medium text-muted-foreground">Data wystawienia</label>
                 <input 
                   type="date" 
                   value={form.issueDate} 
                   onChange={e=>setForm({...form, issueDate: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Data zapłaty</label>
+                <label className="block text-sm font-medium text-muted-foreground">Data zapłaty</label>
                 <input 
                   type="date" 
                   value={form.paymentDate} 
                   onChange={e=>setForm({...form, paymentDate: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary-500"
+                  className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Netto</label>
+                <label className="block text-sm font-medium text-muted-foreground">Netto</label>
                 <input 
                   placeholder="0.00" 
                   type="number" 
@@ -136,7 +136,7 @@ export default function InvoicesPage(){
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">VAT %</label>
+                <label className="block text-sm font-medium text-muted-foreground">VAT %</label>
                 <input 
                   placeholder="0.00" 
                   type="number" 
@@ -149,18 +149,18 @@ export default function InvoicesPage(){
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Status</label>
+              <label className="block text-sm font-medium text-muted-foreground">Status</label>
               <select 
                 value={form.status} 
                 onChange={e=>setForm({...form, status: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md dark:bg-gray-800 dark:border-gray-600 dark:text-white focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
               >
                 <option value="issued">Wystawiona</option>
                 <option value="planned">Planowana</option>
               </select>
             </div>
 
-            <div className="flex gap-2 pt-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex gap-2 pt-4 border-t border-border">
               <Button variant="primary" type="submit" className="flex-1">Utwórz fakturę</Button>
               <Button type="button" onClick={() => setShowForm(false)} className="flex-1">Anuluj</Button>
             </div>

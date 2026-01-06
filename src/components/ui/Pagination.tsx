@@ -9,7 +9,7 @@ export function Pagination({ page, pages, onPage }: { page: number; pages: numbe
   return (
     <div className="flex items-center gap-2">
       <Button onClick={prev} disabled={page<=1}>{t('previous')}</Button>
-      <span className="text-sm text-gray-600 dark:text-gray-300">{t('page')} {page} {t('of')} {pages}</span>
+      <span className="text-sm text-muted-foreground">{t('page')} {page} {t('of')} {pages}</span>
       <Button onClick={next} disabled={page>=pages}>{t('next')}</Button>
     </div>
   )

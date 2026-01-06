@@ -160,11 +160,11 @@ export default function ContactDetailPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
               Dane osobowe
             </h3>
             <div>
-              <label className="label text-xs text-gray-500">{t('firstName')}</label>
+              <label className="label text-xs">{t('firstName')}</label>
               {editMode ? (
                 <Input value={contact.firstName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, firstName: e.target.value })} />
               ) : (
@@ -172,7 +172,7 @@ export default function ContactDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">{t('middleName')}</label>
+              <label className="label text-xs">{t('middleName')}</label>
               {editMode ? (
                 <Input value={contact.middleName ?? ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, middleName: e.target.value })} />
               ) : (
@@ -180,7 +180,7 @@ export default function ContactDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">{t('lastName')}</label>
+              <label className="label text-xs">{t('lastName')}</label>
               {editMode ? (
                 <Input value={contact.lastName} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, lastName: e.target.value })} />
               ) : (
@@ -188,7 +188,7 @@ export default function ContactDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Telefon</label>
+              <label className="label text-xs">Telefon</label>
               {editMode ? (
                 <Input value={contact.phoneNumber ?? ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, phoneNumber: e.target.value })} />
               ) : (
@@ -196,7 +196,7 @@ export default function ContactDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Email</label>
+              <label className="label text-xs">Email</label>
               {editMode ? (
                 <Input type="email" value={contact.email ?? ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, email: e.target.value })} />
               ) : (
@@ -204,7 +204,7 @@ export default function ContactDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Fax</label>
+              <label className="label text-xs">Fax</label>
               {editMode ? (
                 <Input value={contact.fax ?? ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, fax: e.target.value })} />
               ) : (
@@ -212,7 +212,7 @@ export default function ContactDetailPage() {
               )}
             </div>
             <div>
-              <label className="label text-xs text-gray-500">Stanowisko</label>
+              <label className="label text-xs">Stanowisko</label>
               {editMode ? (
                 <Input value={contact.contactPosition ?? ''} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setContact({ ...contact, contactPosition: e.target.value })} />
               ) : (
@@ -222,13 +222,13 @@ export default function ContactDetailPage() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+            <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
               Informacje dodatkowe
             </h3>
           </div>
         </div>
 
-        <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700 grid grid-cols-2 gap-4 text-sm text-gray-500">
+        <div className="mt-6 pt-6 border-t border-border grid grid-cols-2 gap-4 text-sm text-muted-foreground">
           <div>
             <span className="font-medium">{tCommon('createdAt')}:</span> {new Intl.DateTimeFormat('pl-PL', { 
               year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' 
@@ -264,7 +264,7 @@ export default function ContactDetailPage() {
             {contact.photos.map((photoUrl, index) => (
               <div key={index} className="relative group">
                 <div 
-                  className="relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-gray-100 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-all"
+                  className="relative aspect-square rounded-xl overflow-hidden cursor-pointer bg-background dark:bg-card border border-border shadow-sm hover:shadow-md transition-all"
                   onClick={() => setSelectedImage(photoUrl)}
                 >
                   <Image
@@ -287,9 +287,9 @@ export default function ContactDetailPage() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 text-muted-foreground bg-gray-50 dark:bg-gray-900 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700">
+          <div className="text-center py-16 text-muted-foreground bg-background dark:bg-card rounded-lg border-2 border-dashed border-border">
             <p className="text-lg">{t('noPhotos')}</p>
-            <p className="text-sm mt-2 text-gray-500">{t('addFirstPhoto') || 'Dodaj pierwsze zdjęcie klikając przycisk powyżej'}</p>
+            <p className="text-sm mt-2 text-muted-foreground">{t('addFirstPhoto') || 'Dodaj pierwsze zdjęcie klikając przycisk powyżej'}</p>
           </div>
         )}
       </Card>
@@ -301,7 +301,7 @@ export default function ContactDetailPage() {
         title={t('photoPreview')}
       >
         {selectedImage && (
-          <div className="relative w-full bg-gray-100 dark:bg-gray-900 rounded-lg" style={{ height: '70vh' }}>
+          <div className="relative w-full bg-background dark:bg-card rounded-lg" style={{ height: '70vh' }}>
             <Image
               src={selectedImage}
               alt={t('photoPreview')}
