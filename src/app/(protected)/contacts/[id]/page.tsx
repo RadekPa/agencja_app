@@ -139,10 +139,10 @@ export default function ContactDetailPage() {
               </Button>
             ) : (
               <>
-                <Button variant="secondary" onClick={() => { setEditMode(false); loadAuthor() }}>
+                <Button variant="secondary" onClick={() => { setEditMode(false); loadContact() }}>
                   {tCommon('cancel')}
                 </Button>
-                <Button variant="primary" onClick={updateAuthor}>
+                <Button variant="primary" onClick={updateContact}>
                   {tCommon('save')}
                 </Button>
               </>
@@ -232,7 +232,7 @@ export default function ContactDetailPage() {
           <div>
             <span className="font-medium">{tCommon('createdAt')}:</span> {new Intl.DateTimeFormat('pl-PL', { 
               year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' 
-            }).format(new Date(contact.dateMod))}
+            }).format(new Date(contact.createdAt))}
           </div>
         </div>
       </Card>
