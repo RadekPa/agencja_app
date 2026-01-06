@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Menu, LogOut, User2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { LanguageSwitcher } from './LanguageSwitcher'
+import ThemeToggle from './ThemeToggle'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import {
@@ -67,6 +68,7 @@ export function Header({ collapsed = false, onToggleSidebar }: Props) {
         </div>
 
         <div className="flex items-center gap-3">
+          <ThemeToggle />
           <LanguageSwitcher />
           
           <DropdownMenu>

@@ -36,24 +36,24 @@ export function LanguageSwitcher() {
   return (
     <div className="relative group">
       <button 
-        className="flex items-center gap-2 px-3 py-2 rounded hover:bg-gray-100 transition-colors"
+        className="flex items-center gap-2 px-3 py-2 rounded bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
         disabled={isPending}
       >
-        <Globe className="w-4 h-4 text-gray-600" />
-        <span className="text-sm font-medium">
+        <Globe className="w-4 h-4 text-muted-foreground" />
+        <span className="text-sm font-medium text-foreground">
           {languages.find(lang => lang.code === currentLocale)?.flag}
         </span>
       </button>
       
       {/* Dropdown menu */}
-      <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+      <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
         {languages.map((lang) => (
           <button
             key={lang.code}
             onClick={() => changeLanguage(lang.code)}
             disabled={isPending}
-            className={`w-full text-left px-4 py-2 hover:bg-gray-50 first:rounded-t-lg last:rounded-b-lg flex items-center gap-2 ${
-              currentLocale === lang.code ? 'bg-blue-50 text-blue-700' : 'text-gray-700'
+            className={`w-full text-left px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 first:rounded-t-lg last:rounded-b-lg flex items-center gap-2 ${
+              currentLocale === lang.code ? 'bg-blue-50 dark:bg-blue-900 text-blue-700 dark:text-blue-200' : 'text-foreground'
             }`}
           >
             <span>{lang.flag}</span>

@@ -205,7 +205,7 @@ export default function LanguagesPage() {
         if (childElements.length > 0) {
           elements.push(
             <div key={fullPath} className="mb-6">
-              <h3 className="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">
+              <h3 className="text-lg font-semibold mb-3 text-card-foreground">
                 {currentPath.join(' → ')}
               </h3>
               <div className="ml-4 space-y-3">
@@ -226,9 +226,9 @@ export default function LanguagesPage() {
           }
         }
         
-        elements.push(
+          elements.push(
           <div key={fullPath} className="mb-3">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-muted-foreground mb-1">
               {fullPath}
             </label>
             <Input
@@ -277,14 +277,14 @@ export default function LanguagesPage() {
                 className={`p-3 rounded cursor-pointer transition-colors ${
                   selectedLanguage === lang.code
                     ? 'bg-blue-100 dark:bg-blue-900 border-2 border-blue-500'
-                    : 'bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700'
+                    : 'bg-background dark:bg-card hover:bg-muted/10 dark:hover:bg-muted/20'
                 }`}
                 onClick={() => loadTranslations(lang.code)}
               >
                 <div className="flex justify-between items-center">
                   <div>
                     <div className="font-semibold">{lang.name}</div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
+                    <div className="text-sm text-muted-foreground">
                       {lang.code} • {lang.keysCount} {t('key', { count: lang.keysCount })}
                     </div>
                   </div>
@@ -336,7 +336,7 @@ export default function LanguagesPage() {
               </div>
             </>
           ) : (
-            <div className="text-center text-gray-500 dark:text-gray-400 py-12">
+            <div className="text-center text-muted-foreground py-12">
               Wybierz język z listy, aby edytować tłumaczenia
             </div>
           )}

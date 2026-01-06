@@ -10,10 +10,10 @@ export default function Layout({ children }: Props) {
   const [collapsed, setCollapsed] = useState(false)
 
   return (
-    <div className="min-h-screen bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+    <div className="min-h-screen bg-background text-foreground">
       <SessionProvider>
         <div className="flex h-screen overflow-hidden">
-          <aside className={`bg-white dark:bg-gray-900 border-r dark:border-gray-700 transition-all duration-200 ${collapsed ? 'w-16' : 'w-64'}`}>
+          <aside className={`bg-card text-card-foreground border-r border-border transition-all duration-200 ${collapsed ? 'w-16' : 'w-64'}`}>
             <Sidebar collapsed={collapsed} />
           </aside>
 
@@ -24,7 +24,7 @@ export default function Layout({ children }: Props) {
                 {children}
               </div>
             </main>
-            <footer className="bg-white dark:bg-gray-900 border-t dark:border-gray-700 p-3 text-sm text-gray-500">
+            <footer className="bg-card border-t border-border p-3 text-sm text-muted-foreground">
               © {new Date().getFullYear()} Admin Panel
             </footer>
           </div>

@@ -143,7 +143,7 @@ export default function UsersPage() {
       {/* Add user modal */}
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded shadow w-full max-w-lg">
+          <div className="bg-card text-card-foreground p-6 rounded shadow w-full max-w-lg border border-border">
             <h3 className="text-lg font-semibold mb-4">Dodaj użytkownika</h3>
             <div className="grid grid-cols-1 gap-3">
               <div>
@@ -183,7 +183,7 @@ export default function UsersPage() {
       {/* Simple edit modal */}
       {editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded shadow w-full max-w-lg">
+          <div className="bg-card text-card-foreground p-6 rounded shadow w-full max-w-lg border border-border">
             <h3 className="text-lg font-semibold mb-4">Edytuj użytkownika</h3>
             <div className="grid grid-cols-1 gap-3">
               <label className="label">Email</label>
@@ -200,10 +200,10 @@ export default function UsersPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <label className="label">Uprawnienia per moduł</label>
-                  <div className="text-sm text-gray-600">Zarządzanie uprawnieniami przeniesione do dedykowanej strony.</div>
+                  <div className="text-sm text-muted-foreground">Zarządzanie uprawnieniami przeniesione do dedykowanej strony.</div>
                 </div>
                 <div>
-                  <a className="underline text-sm text-blue-600" href={`/permissions?userId=${editingUser.id}`}>Edytuj uprawnienia</a>
+                  <a className="underline text-sm text-primary" href={`/permissions?userId=${editingUser.id}`}>Edytuj uprawnienia</a>
                 </div>
               </div>
             </div>
