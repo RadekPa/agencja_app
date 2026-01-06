@@ -1,21 +1,19 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
-import { NullableJsonNullValueInputSchema } from '../enums/NullableJsonNullValueInput.schema'
 
-import { JsonValueSchema as jsonSchema } from '../../helpers/json-helpers';
 
 const makeSchema = () => z.object({
-  id: z.number().int().optional(),
-  firstName: z.string(),
-  middleName: z.string().optional().nullable(),
-  lastName: z.string(),
-  description: z.string().optional().nullable(),
-  workEmail: z.string().optional().nullable(),
-  personalEmail: z.string().optional().nullable(),
-  photos: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  clientId: z.number().int().optional().nullable(),
-  createdAt: z.coerce.date().optional(),
-  updatedAt: z.coerce.date().optional()
+  phoneNumber: z.string().max(20).optional().nullable(),
+  firstName: z.string().max(30),
+  middleName: z.string().max(30).optional().nullable(),
+  lastName: z.string().max(50),
+  informal: z.number().int().optional(),
+  fax: z.string().max(20).optional().nullable(),
+  email: z.string().max(50).optional().nullable(),
+  userMod: z.string().max(30).optional(),
+  dateMod: z.coerce.date().optional(),
+  contactPosition: z.string().max(50).optional().nullable(),
+  accountant: z.number().int().optional().nullable()
 }).strict();
 export const AuthorCreateManyInputObjectSchema: z.ZodType<Prisma.AuthorCreateManyInput> = makeSchema() as unknown as z.ZodType<Prisma.AuthorCreateManyInput>;
 export const AuthorCreateManyInputObjectZodSchema = makeSchema();

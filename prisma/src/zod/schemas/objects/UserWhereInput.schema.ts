@@ -3,9 +3,6 @@ import type { Prisma } from '@prisma/client';
 import { IntFilterObjectSchema as IntFilterObjectSchema } from './IntFilter.schema';
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { StringFilterObjectSchema as StringFilterObjectSchema } from './StringFilter.schema';
-import { EnumRoleFilterObjectSchema as EnumRoleFilterObjectSchema } from './EnumRoleFilter.schema';
-import { RoleSchema } from '../enums/Role.schema';
-import { JsonNullableFilterObjectSchema as JsonNullableFilterObjectSchema } from './JsonNullableFilter.schema';
 import { DateTimeFilterObjectSchema as DateTimeFilterObjectSchema } from './DateTimeFilter.schema'
 
 const userwhereinputSchema = z.object({
@@ -16,8 +13,8 @@ const userwhereinputSchema = z.object({
   name: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   email: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   passwordHash: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
-  role: z.union([z.lazy(() => EnumRoleFilterObjectSchema), RoleSchema]).optional(),
-  permissions: z.lazy(() => JsonNullableFilterObjectSchema).optional(),
+  role: z.union([z.lazy(() => StringFilterObjectSchema), z.string().max(32)]).optional(),
+  permissions: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string()]).optional().nullable(),
   locale: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
   createdAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional(),
   updatedAt: z.union([z.lazy(() => DateTimeFilterObjectSchema), z.coerce.date()]).optional()

@@ -1,15 +1,15 @@
 import * as z from 'zod';
 export const AuthorUpsertResultSchema = z.object({
   id: z.number().int(),
+  phoneNumber: z.string().optional(),
   firstName: z.string(),
   middleName: z.string().optional(),
   lastName: z.string(),
-  description: z.string().optional(),
-  workEmail: z.string().optional(),
-  personalEmail: z.string().optional(),
-  photos: z.unknown().optional(),
-  clientId: z.number().int().optional(),
-  client: z.unknown().optional(),
-  createdAt: z.date(),
-  updatedAt: z.date()
+  informal: z.number().int(),
+  fax: z.string().optional(),
+  email: z.string().optional(),
+  userMod: z.string(),
+  dateMod: z.date(),
+  contactPosition: z.string().optional(),
+  accountant: z.number().int().optional()
 });

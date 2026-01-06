@@ -1,11 +1,10 @@
 import * as z from 'zod';
-import { DocStatusSchema } from '../../enums/DocStatus.schema';
 // prettier-ignore
 export const DocumentResultSchema = z.object({
     id: z.number().int(),
     title: z.string(),
     description: z.string().nullable(),
-    status: DocStatusSchema,
+    status: z.string(),
     createdAt: z.date(),
     updatedAt: z.date(),
     clientId: z.number().int(),

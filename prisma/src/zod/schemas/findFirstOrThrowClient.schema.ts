@@ -27,7 +27,6 @@ export const ClientFindFirstOrThrowSelectSchema: z.ZodType<Prisma.ClientSelect> 
     updatedAt: z.boolean().optional(),
     documents: z.boolean().optional(),
     invoices: z.boolean().optional(),
-    authors: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.ClientSelect>;
 
@@ -49,7 +48,6 @@ export const ClientFindFirstOrThrowSelectZodSchema = z.object({
     updatedAt: z.boolean().optional(),
     documents: z.boolean().optional(),
     invoices: z.boolean().optional(),
-    authors: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

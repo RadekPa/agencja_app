@@ -11,19 +11,8 @@ generator zod {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlserver"
   url      = env("DATABASE_URL")
-}
-
-enum Role {
-  ADMIN
-  ADVANCED
-  USER
-}
-
-enum DocStatus {
-  DRAFT
-  SIGNED
 }
 
 model User {
@@ -31,8 +20,8 @@ model User {
   name         String?
   email        String   @unique
   passwordHash String
-  role         Role     @default(USER)
-  permissions  Json?
+  role         String   @db.NVarChar(32) @default("USER")
+  permissions  String?  @db.NVarChar(Max)
   locale       String   @default("pl")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
@@ -66,29 +55,30 @@ model Client {
   updatedAt    DateTime   @updatedAt
   documents    Document[]
   invoices     Invoice[]
-  authors      Author[]   // Relacja: jeden klient może mieć wiele osób
 }
 
 model Author {
-  id            Int      @id @default(autoincrement())
-  firstName     String
-  middleName    String?
-  lastName      String
-  description   String?
-  workEmail     String?
-  personalEmail String?
-  photos        Json?
-  clientId      Int?     // Relacja: osoba może być przypisana do jednego klienta
-  client        Client?  @relation(fields: [clientId], references: [id], onDelete: SetNull)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id              Int      @id @default(autoincrement()) @map("ContactID")
+  phoneNumber     String?  @db.VarChar(20) @map("PhoneNumber")
+  firstName       String   @db.VarChar(30) @map("FirstName")
+  middleName      String?  @db.VarChar(30) @map("MiddleName")
+  lastName        String   @db.VarChar(50) @map("LastName")
+  informal        Int      @default(0) @map("Informal")
+  fax             String?  @db.VarChar(20) @map("Fax")
+  email           String?  @db.VarChar(50) @map("Email")
+  userMod         String   @default("suser_sname()") @db.VarChar(30) @map("UserMod")
+  dateMod         DateTime @default(now()) @map("DateMod")
+  contactPosition String?  @db.VarChar(50) @map("ContactPosition")
+  accountant      Int?     @map("Accountant")
+
+  @@map("tblContacts")
 }
 
 model Document {
   id          Int        @id @default(autoincrement())
   title       String
   description String?
-  status      DocStatus  @default(DRAFT)
+  status      String     @db.NVarChar(32) @default("DRAFT")
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
   clientId    Int

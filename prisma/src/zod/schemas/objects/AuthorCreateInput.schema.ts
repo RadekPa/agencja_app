@@ -1,20 +1,19 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
-import { NullableJsonNullValueInputSchema } from '../enums/NullableJsonNullValueInput.schema';
-import { ClientCreateNestedOneWithoutAuthorsInputObjectSchema as ClientCreateNestedOneWithoutAuthorsInputObjectSchema } from './ClientCreateNestedOneWithoutAuthorsInput.schema'
 
-import { JsonValueSchema as jsonSchema } from '../../helpers/json-helpers';
 
 const makeSchema = () => z.object({
-  firstName: z.string(),
-  middleName: z.string().optional().nullable(),
-  lastName: z.string(),
-  description: z.string().optional().nullable(),
-  workEmail: z.string().optional().nullable(),
-  personalEmail: z.string().optional().nullable(),
-  photos: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
-  createdAt: z.coerce.date().optional(),
-  client: z.lazy(() => ClientCreateNestedOneWithoutAuthorsInputObjectSchema).optional()
+  phoneNumber: z.string().max(20).optional().nullable(),
+  firstName: z.string().max(30),
+  middleName: z.string().max(30).optional().nullable(),
+  lastName: z.string().max(50),
+  informal: z.number().int().optional(),
+  fax: z.string().max(20).optional().nullable(),
+  email: z.string().max(50).optional().nullable(),
+  userMod: z.string().max(30).optional(),
+  dateMod: z.coerce.date().optional(),
+  contactPosition: z.string().max(50).optional().nullable(),
+  accountant: z.number().int().optional().nullable()
 }).strict();
 export const AuthorCreateInputObjectSchema: z.ZodType<Prisma.AuthorCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.AuthorCreateInput>;
 export const AuthorCreateInputObjectZodSchema = makeSchema();

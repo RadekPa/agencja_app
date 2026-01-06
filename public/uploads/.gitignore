@@ -1,2 +1,2 @@
-public/uploads/authors/*
-!public/uploads/authors/.gitkeep
+public/uploads/contacts/*
+!public/uploads/contacts/.gitkeep

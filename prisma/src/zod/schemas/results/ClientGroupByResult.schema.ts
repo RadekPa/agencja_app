@@ -32,8 +32,7 @@ export const ClientGroupByResultSchema = z.array(z.object({
     createdAt: z.number(),
     updatedAt: z.number(),
     documents: z.number(),
-    invoices: z.number(),
-    authors: z.number()
+    invoices: z.number()
   }).optional(),
   _sum: z.object({
     id: z.number().nullable()

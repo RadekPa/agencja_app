@@ -3,6 +3,7 @@ export const DocumentGroupByResultSchema = z.array(z.object({
   id: z.number().int(),
   title: z.string(),
   description: z.string(),
+  status: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
   clientId: z.number().int(),
@@ -28,6 +29,7 @@ export const DocumentGroupByResultSchema = z.array(z.object({
     id: z.number().int().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
+    status: z.string().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable(),
     clientId: z.number().int().nullable()
@@ -36,6 +38,7 @@ export const DocumentGroupByResultSchema = z.array(z.object({
     id: z.number().int().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
+    status: z.string().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable(),
     clientId: z.number().int().nullable()

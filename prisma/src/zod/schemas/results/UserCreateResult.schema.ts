@@ -4,8 +4,8 @@ export const UserCreateResultSchema = z.object({
   name: z.string().optional(),
   email: z.string(),
   passwordHash: z.string(),
-  role: z.unknown(),
-  permissions: z.unknown().optional(),
+  role: z.string(),
+  permissions: z.string().optional(),
   locale: z.string(),
   createdAt: z.date(),
   updatedAt: z.date()

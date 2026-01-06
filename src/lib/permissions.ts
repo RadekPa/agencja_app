@@ -2,7 +2,7 @@
 
 export type ModuleKey = 
   | 'dashboard' 
-  | 'authors' 
+  | 'contacts' 
   | 'clients' 
   | 'documents' 
   | 'invoices' 
@@ -46,14 +46,14 @@ export function hasModuleAccess(
     }
   }
   
-  // For nested authors/clients, check both specific and parent 'clients' module
-  if (moduleKey === 'authors') {
-    const authorsPerm = permissions['authors']
+  // For nested contacts/clients, check both specific and parent 'clients' module
+  if (moduleKey === 'contacts') {
+    const contactsPerm = permissions['contacts']
     const clientsPerm = permissions['clients']
     
-    if (!authorsPerm && !clientsPerm) return false
+    if (!contactsPerm && !clientsPerm) return false
     
-    const perm = authorsPerm || clientsPerm
+    const perm = contactsPerm || clientsPerm
     
     if (userRole === 'ADVANCED') {
       return perm.advancedAccess

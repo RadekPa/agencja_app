@@ -3,8 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { SortOrderSchema } from '../enums/SortOrder.schema';
 import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
 import { DocumentOrderByRelationAggregateInputObjectSchema as DocumentOrderByRelationAggregateInputObjectSchema } from './DocumentOrderByRelationAggregateInput.schema';
-import { InvoiceOrderByRelationAggregateInputObjectSchema as InvoiceOrderByRelationAggregateInputObjectSchema } from './InvoiceOrderByRelationAggregateInput.schema';
-import { AuthorOrderByRelationAggregateInputObjectSchema as AuthorOrderByRelationAggregateInputObjectSchema } from './AuthorOrderByRelationAggregateInput.schema'
+import { InvoiceOrderByRelationAggregateInputObjectSchema as InvoiceOrderByRelationAggregateInputObjectSchema } from './InvoiceOrderByRelationAggregateInput.schema'
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
@@ -23,8 +22,7 @@ const makeSchema = () => z.object({
   createdAt: SortOrderSchema.optional(),
   updatedAt: SortOrderSchema.optional(),
   documents: z.lazy(() => DocumentOrderByRelationAggregateInputObjectSchema).optional(),
-  invoices: z.lazy(() => InvoiceOrderByRelationAggregateInputObjectSchema).optional(),
-  authors: z.lazy(() => AuthorOrderByRelationAggregateInputObjectSchema).optional()
+  invoices: z.lazy(() => InvoiceOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const ClientOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.ClientOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.ClientOrderByWithRelationInput>;
 export const ClientOrderByWithRelationInputObjectZodSchema = makeSchema();

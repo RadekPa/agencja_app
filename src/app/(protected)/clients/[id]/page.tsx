@@ -98,11 +98,11 @@ export default function ClientDetailPage() {
   
   const loadAvailableAuthors = async () => {
     try {
-      const res = await fetch('/api/authors?pageSize=1000')
+      const res = await fetch('/api/contacts?pageSize=1000')
       if (res.ok) {
         const json = await res.json()
         const allAuthors = Array.isArray(json?.data) ? json.data : []
-        // Pokaż tylko osoby, które nie są przypisane do żadnego klienta
+        // Pokaż tylko kontakty, które nie są przypisane do żadnego klienta
         setAvailableAuthors(allAuthors.filter((a: any) => !a.client))
       }
     } catch (error) {
@@ -127,16 +127,16 @@ export default function ClientDetailPage() {
         setAuthorSearchQuery('')
       } else {
         const error = await res.json()
-        alert(error.error || 'Nie udało się przypisać osoby')
+        alert(error.error || 'Nie udało się przypisać kontaktu')
       }
     } catch (error) {
       console.error('Error assigning author:', error)
-      alert('Wystąpił błąd podczas przypisywania osoby')
+      alert('Wystąpił błąd podczas przypisywania kontaktu')
     }
   }
   
   const unassignAuthor = async (authorId: number) => {
-    if (!confirm('Czy na pewno chcesz odpiąć tę osobę od klienta?')) return
+    if (!confirm('Czy na pewno chcesz odpiąć ten kontakt od klienta?')) return
     
     try {
       const res = await fetch(`/api/clients/${id}/authors?authorId=${authorId}`, {
@@ -191,7 +191,7 @@ export default function ClientDetailPage() {
   useEffect(()=>{ if (id) loadInvoices(invoicesType) }, [id, invoicesType])
   useEffect(() => { loadDocs(1) }, [search, status, sortBy, sortOrder, pageSize])
   
-  // Filtruj dostępne osoby na podstawie wyszukiwania
+  // Filtruj dostępne kontakty na podstawie wyszukiwania
   useEffect(() => {
     if (!authorSearchQuery.trim()) {
       setFilteredAuthors(availableAuthors)
@@ -456,16 +456,6 @@ export default function ClientDetailPage() {
             >
               Faktury
             </button>
-            <button
-              onClick={() => setActiveTab('authors')}
-              className={`px-6 py-3 border-b-2 font-medium text-sm transition-colors ${
-                activeTab === 'authors'
-                  ? 'border-primary-500 text-primary-600 dark:text-primary-400'
-                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300'
-              }`}
-            >
-              Osoby
-            </button>
           </nav>
         </div>
 
@@ -618,115 +608,6 @@ export default function ClientDetailPage() {
                   </tbody>
                 </Table>
               </div>
-            </div>
-          )}
-          
-          {activeTab === 'authors' && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">Osoby przypisane do klienta</h2>
-              </div>
-              
-              {/* Formularz przypisywania osoby */}
-              <div className="p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg space-y-3">
-                <h3 className="font-medium text-sm">Przypisz osobę do klienta</h3>
-                
-                {availableAuthors.length > 0 ? (
-                  <>
-                    <Input 
-                      placeholder="Szukaj osoby po imieniu, nazwisku lub emailu..."
-                      value={authorSearchQuery}
-                      onChange={e => setAuthorSearchQuery(e.target.value)}
-                    />
-                    
-                    <div className="flex gap-3">
-                      {filteredAuthors.length > 0 ? (
-                        <>
-                          <select 
-                            className="input flex-1"
-                            value={selectedAuthorId ?? ''}
-                            onChange={e => setSelectedAuthorId(e.target.value ? Number(e.target.value) : null)}
-                          >
-                            <option value="">Wybierz osobę...</option>
-                            {filteredAuthors.map(author => (
-                              <option key={author.id} value={author.id}>
-                                {author.firstName} {author.middleName ? author.middleName + ' ' : ''}{author.lastName}
-                                {author.workEmail ? ` (${author.workEmail})` : ''}
-                              </option>
-                            ))}
-                          </select>
-                          <Button 
-                            variant="primary" 
-                            onClick={assignAuthor}
-                            disabled={!selectedAuthorId}
-                          >
-                            Przypisz
-                          </Button>
-                        </>
-                      ) : (
-                        <p className="text-sm text-muted-foreground w-full">
-                          Nie znaleziono osób pasujących do "{authorSearchQuery}"
-                        </p>
-                      )}
-                    </div>
-                  </>
-                ) : (
-                  <p className="text-sm text-muted-foreground">
-                    Wszystkie osoby są już przypisane do klientów. 
-                    <Link href="/authors" className="text-primary-600 hover:underline ml-1">
-                      Dodaj nową osobę
-                    </Link>
-                  </p>
-                )}
-              </div>
-              
-              {/* Lista przypisanych osób */}
-              {authorsLoading ? (
-                <p className="text-center text-muted-foreground py-8">Ładowanie...</p>
-              ) : authors.length === 0 ? (
-                <div className="text-center py-12 border-2 border-dashed border-gray-200 dark:border-gray-700 rounded-lg">
-                  <p className="text-muted-foreground">Brak przypisanych osób</p>
-                  <p className="text-sm text-muted-foreground mt-1">
-                    Użyj formularza powyżej, aby przypisać osobę do tego klienta
-                  </p>
-                </div>
-              ) : (
-                <div className="space-y-3">
-                  {authors.map(author => (
-                    <div 
-                      key={author.id}
-                      className="flex items-center justify-between p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:bg-accent/50 transition-colors"
-                    >
-                      <div className="flex-1">
-                        <Link 
-                          href={`/authors/${author.id}`}
-                          className="font-medium text-primary-600 hover:underline"
-                        >
-                          {author.firstName} {author.middleName ? author.middleName + ' ' : ''}{author.lastName}
-                        </Link>
-                        <div className="text-sm text-muted-foreground mt-1 space-y-0.5">
-                          {author.workEmail && (
-                            <div>Email (służbowy): {author.workEmail}</div>
-                          )}
-                          {author.personalEmail && (
-                            <div>Email (prywatny): {author.personalEmail}</div>
-                          )}
-                          {author.description && (
-                            <div className="mt-2 text-xs">{author.description}</div>
-                          )}
-                        </div>
-                      </div>
-                      <Button
-                        variant="destructive"
-                        onClick={() => unassignAuthor(author.id)}
-                        className="ml-4"
-                      >
-                        Odepnij
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           )}
         </div>

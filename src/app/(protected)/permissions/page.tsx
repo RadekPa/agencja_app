@@ -25,7 +25,7 @@ type Permission = {
 
 const MODULES = [
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, category: 'main' },
-  { key: 'authors', label: 'Osoby', icon: UserCircle, category: 'data' },
+  { key: 'contacts', label: 'Kontakty', icon: UserCircle, category: 'data' },
   { key: 'clients', label: 'Klienci', icon: Building2, category: 'data' },
   { key: 'documents', label: 'Dokumenty', icon: FileText, category: 'main' },
   { key: 'invoices', label: 'Faktury', icon: Receipt, category: 'main' },

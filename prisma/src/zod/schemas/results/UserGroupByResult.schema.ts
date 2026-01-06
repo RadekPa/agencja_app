@@ -4,7 +4,8 @@ export const UserGroupByResultSchema = z.array(z.object({
   name: z.string(),
   email: z.string(),
   passwordHash: z.string(),
-  permissions: z.unknown(),
+  role: z.string(),
+  permissions: z.string(),
   locale: z.string(),
   createdAt: z.date(),
   updatedAt: z.date(),
@@ -30,6 +31,8 @@ export const UserGroupByResultSchema = z.array(z.object({
     name: z.string().nullable(),
     email: z.string().nullable(),
     passwordHash: z.string().nullable(),
+    role: z.string().nullable(),
+    permissions: z.string().nullable(),
     locale: z.string().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable()
@@ -39,6 +42,8 @@ export const UserGroupByResultSchema = z.array(z.object({
     name: z.string().nullable(),
     email: z.string().nullable(),
     passwordHash: z.string().nullable(),
+    role: z.string().nullable(),
+    permissions: z.string().nullable(),
     locale: z.string().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable()

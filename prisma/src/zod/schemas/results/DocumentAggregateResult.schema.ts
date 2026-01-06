@@ -21,6 +21,7 @@ export const DocumentAggregateResultSchema = z.object({  _count: z.object({
     id: z.number().int().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
+    status: z.string().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable(),
     clientId: z.number().int().nullable()
@@ -29,6 +30,7 @@ export const DocumentAggregateResultSchema = z.object({  _count: z.object({
     id: z.number().int().nullable(),
     title: z.string().nullable(),
     description: z.string().nullable(),
+    status: z.string().nullable(),
     createdAt: z.date().nullable(),
     updatedAt: z.date().nullable(),
     clientId: z.number().int().nullable()

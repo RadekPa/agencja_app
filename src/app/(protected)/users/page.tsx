@@ -7,7 +7,7 @@ import { Table, Th, Td } from '../../../components/ui/Table'
 import { Pagination } from '../../../components/ui/Pagination'
 import { UserCreateSchema, UserUpdateSchema } from '../../../validation/user'
 
-type User = { id: number; name?: string | null; email: string; role: 'ADMIN' | 'ADVANCED' | 'USER'; createdAt?: string; permissions?: any }
+type User = { id: number; name?: string | null; email: string; role: 'ADMIN' | 'ADVANCED' | 'USER'; dateMod?: string; permissions?: any }
 
 export default function UsersPage() {
   const [users, setUsers] = useState<User[]>([])

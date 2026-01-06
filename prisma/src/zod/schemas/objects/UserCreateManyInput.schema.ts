@@ -1,17 +1,13 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
-import { RoleSchema } from '../enums/Role.schema';
-import { NullableJsonNullValueInputSchema } from '../enums/NullableJsonNullValueInput.schema'
 
-import { JsonValueSchema as jsonSchema } from '../../helpers/json-helpers';
 
 const makeSchema = () => z.object({
-  id: z.number().int().optional(),
   name: z.string().optional().nullable(),
   email: z.string(),
   passwordHash: z.string(),
-  role: RoleSchema.optional(),
-  permissions: z.union([NullableJsonNullValueInputSchema, jsonSchema]).optional(),
+  role: z.string().max(32).optional(),
+  permissions: z.string().optional().nullable(),
   locale: z.string().optional(),
   createdAt: z.coerce.date().optional(),
   updatedAt: z.coerce.date().optional()

@@ -47,7 +47,7 @@ export function Sidebar({ collapsed = false }: Props) {
         const json = await res.json()
         const permMap: RolePermissionsMap = {
           dashboard: { userAccess: false, advancedAccess: false, adminAccess: true },
-          authors: { userAccess: false, advancedAccess: false, adminAccess: true },
+          contacts: { userAccess: false, advancedAccess: false, adminAccess: true },
           clients: { userAccess: false, advancedAccess: false, adminAccess: true },
           documents: { userAccess: false, advancedAccess: false, adminAccess: true },
           invoices: { userAccess: false, advancedAccess: false, adminAccess: true },
@@ -129,13 +129,13 @@ export function Sidebar({ collapsed = false }: Props) {
           )}
 
           {/* Data group */}
-          {(canAccess('authors') || canAccess('clients')) && (
+          {(canAccess('contacts') || canAccess('clients')) && (
             <div className="space-y-1">
               <button 
                 onClick={() => toggle('data')} 
                 className={cn(
                   "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  (pathname.startsWith('/clients') || pathname.startsWith('/authors'))
+                  (pathname.startsWith('/clients') || pathname.startsWith('/contacts'))
                     ? "bg-accent text-accent-foreground" 
                     : "hover:bg-accent hover:text-accent-foreground"
                 )}
@@ -150,18 +150,18 @@ export function Sidebar({ collapsed = false }: Props) {
                 "overflow-hidden transition-all duration-200 space-y-1",
                 open.data ? "max-h-40 mt-1" : "max-h-0"
               )}>
-                {canAccess('authors') && (
+                {canAccess('contacts') && (
                   <Link 
-                    href="/authors" 
+                    href="/contacts" 
                     className={cn(
                       "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.startsWith('/authors')
+                      pathname.startsWith('/contacts')
                         ? "bg-primary/10 text-primary font-medium" 
                         : "hover:bg-accent hover:text-accent-foreground"
                     )}
                   >
                     <UserCircle className="h-3.5 w-3.5" />
-                    <span>{t('navigation.authors')}</span>
+                    <span>{t('navigation.contacts')}</span>
                   </Link>
                 )}
                 {canAccess('clients') && (
