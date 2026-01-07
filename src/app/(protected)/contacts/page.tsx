@@ -272,7 +272,7 @@ export default function ContactsPage() {
                     <Td>{c.contactPosition ?? '-'}</Td>
                     <Td>
                       {c.client ? (
-                        <Link className="text-primary-600 hover:underline" href={`/clients/${c.client.id}`}>
+                        <Link className="text-primary-600 hover:underline" href={`/customers/${c.client.id}`}>
                           {c.client.name}
                         </Link>
                       ) : (

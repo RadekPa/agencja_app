@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl'
 export default function LoginPage() {
   const t = useTranslations()
   const [email, setEmail] = useState('admin@example.com')
-  const [password, setPassword] = useState('admin123')
+  const [password, setPassword] = useState('iSs8lrq34IIc')
   const [error, setError] = useState('')
   const router = useRouter()
 

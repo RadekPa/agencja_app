@@ -32,7 +32,7 @@ export default function InvoicesPage(){
   useEffect(()=>{ load(1); fetchClients() }, [])
 
   const fetchClients = async ()=>{
-    const res = await fetch('/api/clients')
+    const res = await fetch('/api/customers')
     if (!res.ok) return
     const json = await res.json()
     // API może zwrócić { data: [...] } lub bezpośrednio tablicę

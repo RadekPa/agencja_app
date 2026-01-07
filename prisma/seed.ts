@@ -19,7 +19,7 @@ async function main() {
     }
   })
 
-  const clientA = await prisma.client.create({
+  const clientA = await prisma.customer.create({
     data: {
       name: 'Klient Alfa',
       email: 'alfa@firma.pl',
@@ -27,23 +27,15 @@ async function main() {
     }
   })
 
-  const clientB = await prisma.client.create({
+  const clientB = await prisma.customer.create({
     data: {
       name: 'Klient Beta',
       email: 'beta@firma.pl'
     }
   })
 
-  await prisma.document.createMany({
-    data: [
-      { title: 'Umowa 2025/01', description: 'Umowa serwisowa', status: 'SIGNED', clientId: clientA.id },
-      { title: 'Oferta 2025/15', description: 'Oferta wdrożenia', status: 'DRAFT', clientId: clientA.id },
-      { title: 'Umowa 2025/02', description: 'Umowa utrzymaniowa', status: 'SIGNED', clientId: clientB.id }
-    ]
-  })
-
   // Generate many sample invoices for all clients
-  const clients = await prisma.client.findMany()
+  const clients = await prisma.customer.findMany()
   const invoicesData: any[] = []
   const now = new Date()
 

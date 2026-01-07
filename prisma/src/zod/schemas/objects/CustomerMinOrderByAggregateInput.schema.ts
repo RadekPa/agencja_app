@@ -1,0 +1,20 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+import { SortOrderSchema } from '../enums/SortOrder.schema'
+
+const makeSchema = () => z.object({
+  id: SortOrderSchema.optional(),
+  name: SortOrderSchema.optional(),
+  email: SortOrderSchema.optional(),
+  phone: SortOrderSchema.optional(),
+  address: SortOrderSchema.optional(),
+  city: SortOrderSchema.optional(),
+  postalCode: SortOrderSchema.optional(),
+  country: SortOrderSchema.optional(),
+  nip: SortOrderSchema.optional(),
+  regon: SortOrderSchema.optional(),
+  notes: SortOrderSchema.optional(),
+  createdAt: SortOrderSchema.optional()
+}).strict();
+export const CustomerMinOrderByAggregateInputObjectSchema: z.ZodType<Prisma.CustomerMinOrderByAggregateInput> = makeSchema() as unknown as z.ZodType<Prisma.CustomerMinOrderByAggregateInput>;
+export const CustomerMinOrderByAggregateInputObjectZodSchema = makeSchema();

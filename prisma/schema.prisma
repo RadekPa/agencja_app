@@ -25,6 +25,8 @@ model User {
   locale       String   @default("pl")
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
+
+  @@map("LocalUser")
 }
 
 model RolePermissions {
@@ -37,24 +39,22 @@ model RolePermissions {
   updatedAt   DateTime @updatedAt
 }
 
-model Client {
-  id           Int        @id @default(autoincrement())
-  name         String
-  email        String?
-  phone        String?
-  address      String?
-  city         String?
-  postalCode   String?
-  country      String?     @default("Polska")
-  nip          String?
-  regon        String?
-  legalForm    String?     // np. "Sp. z o.o.", "S.A.", "JDG", etc.
-  bankAccount  String?
-  notes        String?
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
-  documents    Document[]
+model Customer {
+  id           Int        @id @default(autoincrement()) @map("CustID")
+  name         String?    @map("Name") @db.VarChar(250)
+  email        String?    @map("DefaultEmail") @db.VarChar(50)
+  phone        String?    @map("DefaultPhone") @db.VarChar(20)
+  address      String?    @map("Address1") @db.VarChar(150)
+  city         String?    @map("City") @db.VarChar(50)
+  postalCode   String?    @map("Zip") @db.VarChar(50)
+  country      Int?       @map("CountryID")
+  nip          String?    @map("TaxID") @db.VarChar(50)
+  regon        String?    @map("VATID") @db.VarChar(50)
+  notes        String?    @map("Remarks") @db.VarChar(250)
+  createdAt    DateTime?  @default(now(), map: "DF__tblCustom__DateM__2D27B809") @map("DateMod") @db.DateTime
   invoices     Invoice[]
+
+  @@map("tblCustomers")
 }
 
 model Author {
@@ -74,21 +74,10 @@ model Author {
   @@map("tblContacts")
 }
 
-model Document {
-  id          Int        @id @default(autoincrement())
-  title       String
-  description String?
-  status      String     @db.NVarChar(32) @default("DRAFT")
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  clientId    Int
-  client      Client     @relation(fields: [clientId], references: [id], onDelete: Cascade)
-}
-
 model Invoice {
   id         Int      @id @default(autoincrement())
   clientId   Int
-  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  client     Customer @relation(fields: [clientId], references: [id], onDelete: Cascade)
   title      String
   issueDate  DateTime
   paymentDate DateTime

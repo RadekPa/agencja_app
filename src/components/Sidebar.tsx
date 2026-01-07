@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react'
 import { 
   LayoutDashboard, 
   Database, 
-  FileText, 
   Receipt, 
   Users as UsersIcon, 
   Shield, 
@@ -12,8 +11,7 @@ import {
   ChevronDown,
   UserCircle,
   Building2,
-  TrendingUp,
-  Menu
+  TrendingUp
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
@@ -49,7 +47,6 @@ export function Sidebar({ collapsed = false }: Props) {
           dashboard: { userAccess: false, advancedAccess: false, adminAccess: true },
           contacts: { userAccess: false, advancedAccess: false, adminAccess: true },
           clients: { userAccess: false, advancedAccess: false, adminAccess: true },
-          documents: { userAccess: false, advancedAccess: false, adminAccess: true },
           invoices: { userAccess: false, advancedAccess: false, adminAccess: true },
           cashflow: { userAccess: false, advancedAccess: false, adminAccess: true },
           users: { userAccess: false, advancedAccess: false, adminAccess: true },
@@ -135,14 +132,14 @@ export function Sidebar({ collapsed = false }: Props) {
                 onClick={() => toggle('data')} 
                 className={cn(
                   "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  (pathname.startsWith('/clients') || pathname.startsWith('/contacts'))
+                  (pathname.startsWith('/customers') || pathname.startsWith('/contacts'))
                     ? "bg-accent text-accent-foreground" 
                     : "hover:bg-accent hover:text-accent-foreground"
                 )}
               >
                 <div className="flex items-center gap-3">
                   <Database className="h-4 w-4" />
-                  <span>{t('navigation.clients')}</span>
+                  <span>{t('navigation.customers')}</span>
                 </div>
                 <ChevronDown className={cn("h-4 w-4 transition-transform", open.data && "rotate-180")} />
               </button>
@@ -166,36 +163,20 @@ export function Sidebar({ collapsed = false }: Props) {
                 )}
                 {canAccess('clients') && (
                   <Link 
-                    href="/clients" 
+                    href="/customers" 
                     className={cn(
                       "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.startsWith('/clients')
+                      pathname.startsWith('/customers')
                         ? "bg-primary/10 text-primary font-medium" 
                         : "hover:bg-accent hover:text-accent-foreground"
                     )}
                   >
                     <Building2 className="h-3.5 w-3.5" />
-                    <span>{t('clients.title')}</span>
+                    <span>{t('customers.title')}</span>
                   </Link>
                 )}
               </div>
             </div>
-          )}
-
-          {/* Documents */}
-          {canAccess('documents') && (
-            <Link 
-              href="/documents" 
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                pathname.startsWith('/documents')
-                  ? "bg-primary text-primary-foreground" 
-                  : "hover:bg-accent hover:text-accent-foreground"
-              )}
-            >
-              <FileText className="h-4 w-4" />
-              <span>{t('navigation.documents')}</span>
-            </Link>
           )}
 
           {/* Invoices */}

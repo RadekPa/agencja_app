@@ -4,7 +4,7 @@ import { StringFieldUpdateOperationsInputObjectSchema as StringFieldUpdateOperat
 import { DateTimeFieldUpdateOperationsInputObjectSchema as DateTimeFieldUpdateOperationsInputObjectSchema } from './DateTimeFieldUpdateOperationsInput.schema';
 import { FloatFieldUpdateOperationsInputObjectSchema as FloatFieldUpdateOperationsInputObjectSchema } from './FloatFieldUpdateOperationsInput.schema';
 import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema';
-import { ClientUpdateOneRequiredWithoutInvoicesNestedInputObjectSchema as ClientUpdateOneRequiredWithoutInvoicesNestedInputObjectSchema } from './ClientUpdateOneRequiredWithoutInvoicesNestedInput.schema'
+import { CustomerUpdateOneRequiredWithoutInvoicesNestedInputObjectSchema as CustomerUpdateOneRequiredWithoutInvoicesNestedInputObjectSchema } from './CustomerUpdateOneRequiredWithoutInvoicesNestedInput.schema'
 
 const makeSchema = () => z.object({
   title: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -17,7 +17,7 @@ const makeSchema = () => z.object({
   status: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputObjectSchema)]).optional(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
   updatedAt: z.union([z.coerce.date(), z.lazy(() => DateTimeFieldUpdateOperationsInputObjectSchema)]).optional(),
-  client: z.lazy(() => ClientUpdateOneRequiredWithoutInvoicesNestedInputObjectSchema).optional()
+  client: z.lazy(() => CustomerUpdateOneRequiredWithoutInvoicesNestedInputObjectSchema).optional()
 }).strict();
 export const InvoiceUpdateInputObjectSchema: z.ZodType<Prisma.InvoiceUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.InvoiceUpdateInput>;
 export const InvoiceUpdateInputObjectZodSchema = makeSchema();

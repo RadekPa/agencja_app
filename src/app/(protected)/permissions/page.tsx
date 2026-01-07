@@ -27,7 +27,6 @@ const MODULES = [
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, category: 'main' },
   { key: 'contacts', label: 'Kontakty', icon: UserCircle, category: 'data' },
   { key: 'clients', label: 'Klienci', icon: Building2, category: 'data' },
-  { key: 'documents', label: 'Dokumenty', icon: FileText, category: 'main' },
   { key: 'invoices', label: 'Faktury', icon: Receipt, category: 'main' },
   { key: 'cashflow', label: 'Cashflow', icon: TrendingUp, category: 'main' },
   { key: 'users', label: 'Użytkownicy', icon: UsersIcon, category: 'admin' },
