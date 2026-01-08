@@ -12,34 +12,27 @@ export async function GET(req: Request) {
     const invoice = await (prisma as any).invoice.findUnique({ where: { id }, include: { client: true } })
     if (!invoice) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
-    // Synthesize items if the model doesn't store them separately
-    const items = [
-      {
-        description: invoice.title,
-        qty: 1,
-        unitNet: invoice.net,
-        vatPerc: invoice.vatPerc,
-        vat: invoice.vat,
-        totalGross: invoice.gross,
-      },
-    ]
-
     return NextResponse.json({
       invoice: {
         id: invoice.id,
         client: invoice.client,
-        title: invoice.title,
-        issueDate: invoice.issueDate.toISOString(),
-        paymentDate: invoice.paymentDate.toISOString(),
-        net: invoice.net,
-        vatPerc: invoice.vatPerc,
-        vat: invoice.vat,
-        gross: invoice.gross,
-        status: invoice.status,
-        items,
-      },
+        title: invoice.title || '',
+        date: invoice.date?.toISOString() || null,
+        dateIssued: invoice.dateIssued?.toISOString() || null,
+        payDate: invoice.payDate?.toISOString() || null,
+        netAmt: invoice.netAmt ?? 0,
+        vatPerc: invoice.vatPerc ?? 0,
+        vatAmt: invoice.vatAmt ?? 0,
+        grossAmt: invoice.grossAmt ?? 0,
+        status: invoice.status || 'ISSUED',
+        invType: invoice.invType || 'FV',
+        fvDescription: invoice.fvDescription || '',
+        payType: invoice.payType || '',
+        vatCode: invoice.vatCode || '',
+      }
     })
   } catch (err: any) {
+    console.error('Error in GET /api/invoices/[id]:', err)
     return NextResponse.json({ error: err?.message ?? String(err) }, { status: 500 })
   }
 }
@@ -53,13 +46,13 @@ export async function PATCH(req: Request) {
     if (!id) return NextResponse.json({ error: 'Invalid id' }, { status: 400 })
 
     const body = await req.json()
-    const status = body.status === 'planned' ? 'planned' : body.status === 'issued' ? 'issued' : null
-    if (!status) return NextResponse.json({ error: 'Invalid status' }, { status: 400 })
+    const status = body.status === 'DRAFT' || body.status === 'ISSUED' ? body.status : 'ISSUED'
 
     const p = prisma as any
     const updated = await p.invoice.update({ where: { id }, data: { status } })
     return NextResponse.json({ id: updated.id, status: updated.status })
   } catch (err: any) {
+    console.error('Error in PATCH /api/invoices/[id]:', err)
     return NextResponse.json({ error: err?.message ?? String(err) }, { status: 500 })
   }
 }

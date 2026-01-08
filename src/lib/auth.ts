@@ -14,11 +14,29 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
-        const user = await prisma.user.findUnique({ where: { email: credentials.email } })
-        if (!user) return null
-        const ok = await bcrypt.compare(credentials.password, user.passwordHash)
-        if (!ok) return null
-  return { id: String(user.id), name: user.name ?? user.email, email: user.email, role: user.role, permissions: (user as any).permissions ?? {}, locale: user.locale }
+        
+        try {
+          // Timeout dla zapytania do bazy (10 sekund)
+          const userPromise = prisma.user.findUnique({ 
+            where: { email: credentials.email },
+            select: { id: true, passwordHash: true, email: true, name: true, role: true, permissions: true, locale: true }
+          })
+          
+          const timeoutPromise = new Promise((_, reject) =>
+            setTimeout(() => reject(new Error('Database timeout')), 10000)
+          )
+          
+          const user = await Promise.race([userPromise, timeoutPromise]) as any
+          if (!user) return null
+          
+          const ok = await bcrypt.compare(credentials.password, user.passwordHash)
+          if (!ok) return null
+          
+          return { id: String(user.id), name: user.name ?? user.email, email: user.email, role: user.role, permissions: user.permissions ?? {}, locale: user.locale }
+        } catch (error) {
+          console.error('Auth error:', error)
+          return null
+        }
       }
     })
   ],

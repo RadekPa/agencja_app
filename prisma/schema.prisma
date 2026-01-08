@@ -27,6 +27,7 @@ model User {
   updatedAt    DateTime @updatedAt
 
   @@map("LocalUser")
+  @@index([email])
 }
 
 model RolePermissions {
@@ -75,19 +76,41 @@ model Author {
 }
 
 model Invoice {
-  id         Int      @id @default(autoincrement())
-  clientId   Int
-  client     Customer @relation(fields: [clientId], references: [id], onDelete: Cascade)
-  title      String
-  issueDate  DateTime
-  paymentDate DateTime
-  net        Float
-  vatPerc    Int
-  vat        Float
-  gross      Float
-  status     String   @default("issued") // 'issued' | 'planned'
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id                Int       @id @map("FVNr")
+  date              DateTime  @map("FVDate")
+  dateIssued        DateTime? @map("FVDateIssued")
+  type              Int?      @map("FVType")
+  clientId          Int?      @map("CustID")
+  client            Customer? @relation(fields: [clientId], references: [id], onDelete: NoAction)
+  origCurrency      String?   @db.NVarChar(Max) @map("OrigCurrency")
+  fvCurrency        String?   @db.NVarChar(Max) @map("FVCurrency")
+  graalPerc         Float?    @map("GraalPerc") @db.Money
+  vatCode           String?   @db.NVarChar(Max) @map("VATCode")
+  vatPerc           Float?    @map("VatPerc") @db.Money
+  netAmt            Float?    @map("NetAmt") @db.Money
+  netAmtCurr        Float?    @map("NetAmtCurr") @db.Money
+  vatAmt            Float?    @map("VatAmt") @db.Money
+  xrate             Float?    @map("XRate") @db.Money
+  vatAmtCurr        Float?    @map("VatAmtCurr") @db.Money
+  grossAmt          Float?    @map("GrossAmt") @db.Money
+  invNr             Int?      @map("InvNr")
+  invAmt            Float?    @map("InvAmt") @db.Money
+  title             String?   @db.NVarChar(Max) @map("Title")
+  isbnNr            String?   @db.NVarChar(Max) @map("ISBNNr")
+  payType           String?   @db.NVarChar(Max) @map("PayType")
+  invType           String?   @db.NVarChar(Max) @map("InvType")
+  fvDescription     String?   @db.NVarChar(Max) @map("FVDescription")
+  bilNr             Int?      @map("BilNr")
+  origFVNr          Int?      @map("OrigFVNr")
+  correctFVNr       Int?      @map("CorrectFVNr")
+  creditId          Int?      @map("CreditID")
+  applyId           Int?      @map("ApplyID")
+  payDate           DateTime? @db.Date @map("PayDate")
+  enterDate         DateTime? @map("EnterDate") @default(now())
+  enterEmployee     String?   @db.NChar(10) @map("EnterEmployee")
+  status            String?   @db.NChar(10) @map("Status")
+
+  @@map("tblFraVAT_New")
 }
 
 model BalanceAdjustment {

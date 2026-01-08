@@ -11,7 +11,8 @@ import {
   ChevronDown,
   UserCircle,
   Building2,
-  TrendingUp
+  TrendingUp,
+  Wallet
 } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
@@ -28,7 +29,7 @@ export function Sidebar({ collapsed = false }: Props) {
   const { data: session } = useSession()
   const role = (session as any)?.user?.role as 'USER' | 'ADVANCED' | 'ADMIN' | undefined
   const pathname = usePathname() || ''
-  const [open, setOpen] = useState<{ [k: string]: boolean }>({ data: false, admin: false })
+  const [open, setOpen] = useState<{ [k: string]: boolean }>({ data: false, admin: false, finance: false })
   const [permissions, setPermissions] = useState<RolePermissionsMap | null>(null)
   const [loading, setLoading] = useState(true)
 
@@ -179,36 +180,58 @@ export function Sidebar({ collapsed = false }: Props) {
             </div>
           )}
 
-          {/* Invoices */}
-          {canAccess('invoices') && (
-            <Link 
-              href="/invoices" 
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                pathname.startsWith('/invoices') && !pathname.startsWith('/invoices/calendar')
-                  ? "bg-primary text-primary-foreground" 
-                  : "hover:bg-accent hover:text-accent-foreground"
-              )}
-            >
-              <Receipt className="h-4 w-4" />
-              <span>{t('navigation.invoices')}</span>
-            </Link>
-          )}
-
-          {/* Cashflow */}
-          {canAccess('cashflow') && (
-            <Link 
-              href="/invoices/calendar" 
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                pathname.startsWith('/invoices/calendar')
-                  ? "bg-primary text-primary-foreground" 
-                  : "hover:bg-accent hover:text-accent-foreground"
-              )}
-            >
-              <TrendingUp className="h-4 w-4" />
-              <span>Cashflow</span>
-            </Link>
+          {/* Finance group */}
+          {(canAccess('invoices') || canAccess('cashflow')) && (
+            <div className="space-y-1">
+              <button 
+                onClick={() => toggle('finance')} 
+                className={cn(
+                  "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                  (pathname.startsWith('/finances') || pathname.startsWith('/invoices/calendar'))
+                    ? "bg-accent text-accent-foreground" 
+                    : "hover:bg-accent hover:text-accent-foreground"
+                )}
+              >
+                <div className="flex items-center gap-3">
+                  <Wallet className="h-4 w-4" />
+                  <span>Finanse</span>
+                </div>
+                <ChevronDown className={cn("h-4 w-4 transition-transform", open.finance && "rotate-180")} />
+              </button>
+              <div className={cn(
+                "overflow-hidden transition-all duration-200 space-y-1",
+                open.finance ? "max-h-40 mt-1" : "max-h-0"
+              )}>
+                {canAccess('invoices') && (
+                  <Link 
+                    href="/finances/invoices" 
+                    className={cn(
+                      "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
+                      pathname.startsWith('/finances/invoices')
+                        ? "bg-primary/10 text-primary font-medium" 
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <Receipt className="h-3.5 w-3.5" />
+                    <span>Faktury VAT</span>
+                  </Link>
+                )}
+                {canAccess('cashflow') && (
+                  <Link 
+                    href="/invoices/calendar" 
+                    className={cn(
+                      "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
+                      pathname.startsWith('/invoices/calendar')
+                        ? "bg-primary/10 text-primary font-medium" 
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <TrendingUp className="h-3.5 w-3.5" />
+                    <span>Cashflow</span>
+                  </Link>
+                )}
+              </div>
+            </div>
           )}
 
           <Separator className="my-2" />
