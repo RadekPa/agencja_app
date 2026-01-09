@@ -12,18 +12,55 @@ export async function GET(req: Request) {
     const invoice = await (prisma as any).invoice.findUnique({ where: { id }, include: { client: true } })
     if (!invoice) return NextResponse.json({ error: 'Not found' }, { status: 404 })
 
+    const originalInvoice = invoice.origFVNr
+      ? await (prisma as any).invoice.findUnique({
+          where: { id: invoice.origFVNr },
+          select: {
+            invAmt: true,
+            graalPerc: true,
+            xrate: true,
+            vatCode: true,
+            vatAmtCurr: true,
+            grossAmt: true,
+            fvCurrency: true,
+            origCurrency: true,
+          }
+        })
+      : null
+
     return NextResponse.json({
       invoice: {
         id: invoice.id,
+        invNr: invoice.invNr ?? null,
+        fvType: invoice.type ?? null,
+        origFVNr: invoice.origFVNr ?? null,
+        originalInvoice: originalInvoice
+          ? {
+              invAmt: originalInvoice.invAmt ?? 0,
+              graalPerc: originalInvoice.graalPerc ?? 0,
+              xRate: originalInvoice.xrate ?? 0,
+              vatCode: originalInvoice.vatCode || '',
+              vatAmtCurr: originalInvoice.vatAmtCurr ?? 0,
+              grossAmt: originalInvoice.grossAmt ?? 0,
+              fvCurrency: originalInvoice.fvCurrency || originalInvoice.origCurrency || 'PLN'
+            }
+          : null,
         client: invoice.client,
         title: invoice.title || '',
         date: invoice.date?.toISOString() || null,
         dateIssued: invoice.dateIssued?.toISOString() || null,
         payDate: invoice.payDate?.toISOString() || null,
+        invAmt: invoice.invAmt ?? invoice.netAmt ?? 0,
+        graalPerc: invoice.graalPerc ?? 0,
+        xRate: invoice.xrate ?? 0,
         netAmt: invoice.netAmt ?? 0,
+        netAmtCurr: invoice.netAmtCurr ?? invoice.netAmt ?? 0,
         vatPerc: invoice.vatPerc ?? 0,
         vatAmt: invoice.vatAmt ?? 0,
+        vatAmtCurr: invoice.vatAmtCurr ?? invoice.vatAmt ?? 0,
         grossAmt: invoice.grossAmt ?? 0,
+        fvCurrency: invoice.fvCurrency || invoice.origCurrency || 'PLN',
+        origCurrency: invoice.origCurrency || '',
         status: invoice.status || 'ISSUED',
         invType: invoice.invType || 'FV',
         fvDescription: invoice.fvDescription || '',

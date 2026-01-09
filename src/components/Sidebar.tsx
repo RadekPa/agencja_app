@@ -133,7 +133,7 @@ export function Sidebar({ collapsed = false }: Props) {
                 onClick={() => toggle('data')} 
                 className={cn(
                   "w-full flex items-center justify-between px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                  (pathname.startsWith('/customers') || pathname.startsWith('/contacts'))
+                  (pathname.startsWith('/customers') || pathname.startsWith('/contacts') || pathname.startsWith('/authors'))
                     ? "bg-accent text-accent-foreground" 
                     : "hover:bg-accent hover:text-accent-foreground"
                 )}
@@ -146,7 +146,7 @@ export function Sidebar({ collapsed = false }: Props) {
               </button>
               <div className={cn(
                 "overflow-hidden transition-all duration-200 space-y-1",
-                open.data ? "max-h-40 mt-1" : "max-h-0"
+                open.data ? "max-h-60 mt-1" : "max-h-0"
               )}>
                 {canAccess('contacts') && (
                   <Link 
@@ -174,6 +174,20 @@ export function Sidebar({ collapsed = false }: Props) {
                   >
                     <Building2 className="h-3.5 w-3.5" />
                     <span>{t('customers.title')}</span>
+                  </Link>
+                )}
+                {canAccess('contacts') && (
+                  <Link 
+                    href="/authors" 
+                    className={cn(
+                      "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
+                      pathname.startsWith('/authors')
+                        ? "bg-primary/10 text-primary font-medium" 
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <UserCircle className="h-3.5 w-3.5" />
+                    <span>Autorzy</span>
                   </Link>
                 )}
               </div>

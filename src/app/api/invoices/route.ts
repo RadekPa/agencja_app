@@ -25,7 +25,7 @@ export async function GET(req: Request) {
     if (dateFrom || dateTo) where.date = {}
     if (dateFrom) where.date.gte = new Date(dateFrom)
     if (dateTo) where.date.lte = new Date(dateTo)
-    if (title) where.title = { contains: title }
+    if (title) where.fvDescription = { contains: title }
     if (currency) where.fvCurrency = currency
 
     const orderBy: any = {}
@@ -52,6 +52,7 @@ export async function GET(req: Request) {
       dateIssued: d.dateIssued?.toISOString() || null,
       payDate: d.payDate?.toISOString() || null,
       title: d.title || '',
+      fvDescription: d.fvDescription || d.title || '',
         typeCode: d.type ?? null,
         currency: d.fvCurrency || d.origCurrency || null,
         netAmt: d.netAmt ?? 0,

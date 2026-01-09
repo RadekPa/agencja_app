@@ -3,17 +3,17 @@ import { NextResponse } from 'next/server'
 
 export async function GET(_: Request, { params }: { params: { id: string } }) {
   const id = Number(params.id)
-  const author = await prisma.author.findUnique({ 
+  const contact = await prisma.contact.findUnique({ 
     where: { id }
   })
-  return NextResponse.json(author)
+  return NextResponse.json(contact)
 }
 
 export async function PUT(req: Request, { params }: { params: { id: string } }) {
   const id = Number(params.id)
   const body = await req.json()
   
-  const author = await prisma.author.update({ 
+  const contact = await prisma.contact.update({ 
     where: { id }, 
     data: { 
       phoneNumber: body.phoneNumber || null,
@@ -27,11 +27,11 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
       accountant: body.accountant || null,
     }
   })
-  return NextResponse.json(author)
+  return NextResponse.json(contact)
 }
 
 export async function DELETE(_: Request, { params }: { params: { id: string } }) {
   const id = Number(params.id)
-  await prisma.author.delete({ where: { id } })
+  await prisma.contact.delete({ where: { id } })
   return NextResponse.json({ ok: true })
 }

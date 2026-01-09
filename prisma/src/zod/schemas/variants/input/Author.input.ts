@@ -2,17 +2,15 @@ import * as z from 'zod';
 // prettier-ignore
 export const AuthorInputSchema = z.object({
     id: z.number().int(),
-    phoneNumber: z.string().optional().nullable(),
-    firstName: z.string(),
+    fullName: z.string().optional().nullable(),
+    firstName: z.string().optional().nullable(),
     middleName: z.string().optional().nullable(),
-    lastName: z.string(),
-    informal: z.number().int(),
-    fax: z.string().optional().nullable(),
-    email: z.string().optional().nullable(),
+    lastName: z.string().optional().nullable(),
+    suffix: z.string().optional().nullable(),
+    penName: z.string().optional().nullable(),
     userMod: z.string(),
     dateMod: z.date(),
-    contactPosition: z.string().optional().nullable(),
-    accountant: z.number().int().optional().nullable()
+    remarks: z.string().optional().nullable()
 }).strict();
 
 export type AuthorInputType = z.infer<typeof AuthorInputSchema>;

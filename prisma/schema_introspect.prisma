@@ -1,0 +1,2407 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model xlsKursy2016 {
+  data               DateTime? @db.DateTime
+  THB                Float?    @map("1 THB")
+  USD                Float?    @map("1 USD")
+  AUD                Float?    @map("1 AUD")
+  HKD                Float?    @map("1 HKD")
+  CAD                Float?    @map("1 CAD")
+  NZD                Float?    @map("1 NZD")
+  SGD                Float?    @map("1 SGD")
+  EUR                Float?    @map("1 EUR")
+  HUF                Float?    @map("100 HUF")
+  CHF                Float?    @map("1 CHF")
+  GBP                Float?    @map("1 GBP")
+  UAH                Float?    @map("1 UAH")
+  JPY                Float?    @map("100 JPY")
+  CZK                Float?    @map("1 CZK")
+  DKK                Float?    @map("1 DKK")
+  ISK                Float?    @map("100 ISK")
+  NOK                Float?    @map("1 NOK")
+  SEK                Float?    @map("1 SEK")
+  HRK                Float?    @map("1 HRK")
+  RON                Float?    @map("1 RON")
+  BGN                Float?    @map("1 BGN")
+  TRY                Float?    @map("1 TRY")
+  ILS                Float?    @map("1 ILS")
+  CLP                Float?    @map("100 CLP")
+  PHP                Float?    @map("1 PHP")
+  MXN                Float?    @map("1 MXN")
+  ZAR                Float?    @map("1 ZAR")
+  BRL                Float?    @map("1 BRL")
+  MYR                Float?    @map("1 MYR")
+  RUB                Float?    @map("1 RUB")
+  IDR                Float?    @map("10000 IDR")
+  INR                Float?    @map("100 INR")
+  KRW                Float?    @map("100 KRW")
+  CNY                Float?    @map("1 CNY")
+  XDR                Float?    @map("1 XDR")
+  nr_tabeli          Float?    @map("nr tabeli")
+  pe_ny_numer_tabeli String?   @map("pełny numer tabeli") @db.NVarChar(255)
+
+  @@map(".xlsKursy2016")
+  @@ignore
+}
+
+model ArAccount {
+  AccountID          Int    @id(map: "PK_ArAccount")
+  AccountDescription String @db.NVarChar(40)
+}
+
+model ArApply {
+  ApplyID       Int           @id(map: "PK_ArApply") @default(autoincrement())
+  DebitID       Int
+  CreditID      Int
+  TaxPerc       Float?        @db.Money
+  TaxAmt        Float?        @db.Money
+  AmtApplied    Float?        @db.Money
+  GraalPerc     Float?        @db.Money
+  GraalAmt      Float?        @db.Money
+  Notes         String?       @db.Text
+  ApplyDate     DateTime?     @db.Date
+  TaxSet        Boolean?
+  ArTransaction ArTransaction @relation(fields: [CreditID], references: [TransactionID], onDelete: Cascade, map: "FK_ArApply_ArTransaction")
+}
+
+model ArDefaultAccount {
+  TransactionType      Int @id(map: "PK_ArDefaultAccount") @db.TinyInt
+  DefaultDebitAccount  Int
+  DefaultCreditAccount Int
+}
+
+model ArTransaction {
+  TransactionID       Int                   @id(map: "PK_ArTransaction") @default(autoincrement())
+  DefaultDocRef       String?               @db.NVarChar(50)
+  InvNr               Int?
+  TransactionDate     DateTime?             @db.DateTime
+  TransactionType     Int?                  @db.TinyInt
+  Currency            String?               @db.Char(3)
+  TransactionAmt      Float?                @db.Money
+  RCustID             Int?
+  PCustID             Int?
+  RBalance            Float?                @db.Money
+  PBalance            Float?                @db.Money
+  IFTBalance          Float?                @db.Money
+  GraalBalance        Float?                @db.Money
+  ClientReference     String?               @db.NVarChar(50)
+  OurBankTransRef     String?               @db.NVarChar(50)
+  NetDate             DateTime?             @db.DateTime
+  IsChargeInterest    Boolean?
+  Notes               String?               @db.NText
+  ReversalTransID     Int?
+  OriginTransID       Int?
+  EntryDate           DateTime?             @db.DateTime
+  OriginUserID        String?               @db.VarChar(50)
+  ErrorID             Int?                  @db.SmallInt
+  Status              String?               @db.Char(1)
+  CreditID            Int?
+  ApplyID             Int?
+  TaxCode             String?               @db.Char(1)
+  TaxValue            Float?                @db.Money
+  ArApply             ArApply[]
+  ArTransactionDetail ArTransactionDetail[]
+  ArTransferDetail    ArTransferDetail[]
+
+  @@index([RCustID], map: "IX_ArTrans")
+  @@index([TransactionType], map: "IX_ArTrans_1")
+  @@index([TransactionDate], map: "IX_ArTrans_2")
+  @@index([Currency], map: "IX_ArTrans_3")
+  @@index([PCustID], map: "IX_ArTrans_4")
+  @@index([InvNr], map: "IX_ArTransaction")
+}
+
+model ArTransactionDetail {
+  ItemID        Int            @id(map: "PK_ArTransactionDetail") @default(autoincrement())
+  TransactionID Int?
+  AccountID     Int?
+  Amount        Float?         @db.Money
+  ArTransaction ArTransaction? @relation(fields: [TransactionID], references: [TransactionID], onDelete: Cascade, map: "FK_ArTransactionDetail_ArTransaction")
+
+  @@index([TransactionID], map: "IX_ArTransDetail")
+}
+
+model ArTransactionType {
+  ArType              Int     @id(map: "PK_ArType") @db.TinyInt
+  ArTypeDescription   String? @db.NVarChar(40)
+  ArTypeDescriptionPL String? @db.NVarChar(50)
+}
+
+model ArTransferDetail {
+  TransferID    Int
+  DebitID       Int
+  AmtWired      Float?        @db.Money
+  Notes         String?       @db.Text
+  ArTransaction ArTransaction @relation(fields: [TransferID], references: [TransactionID], onDelete: Cascade, onUpdate: NoAction, map: "FK_ArTransferDetail_ArTransaction")
+
+  @@id([DebitID, TransferID], map: "PK_ArTransferDetail")
+}
+
+model ArType {
+  ArType              String  @id(map: "PK_ArType_1") @db.Char(3)
+  ArTypeDescription   String? @db.NVarChar(40)
+  ArTypeDescriptionPL String? @db.NVarChar(50)
+}
+
+model ArVat {
+  VatCode       String @id(map: "PK_ArVat") @db.NVarChar(2)
+  Description   String @db.VarChar(50)
+  VatRate       Float
+  DescriptionPL String @db.VarChar(50)
+}
+
+model dbo_LocalUser {
+  id           Int      @id(map: "User_pkey") @default(autoincrement())
+  name         String?  @db.NVarChar(Max)
+  email        String   @db.NVarChar(Max)
+  passwordHash String   @db.NVarChar(Max)
+  role         String   @default("USER", map: "DF__User__role__24DE2179") @db.NVarChar(50)
+  permissions  String?  @db.NVarChar(Max)
+  createdAt    DateTime @default(now(), map: "DF__User__createdAt__25D245B2")
+  updatedAt    DateTime
+  locale       String   @default("pl", map: "DF__User__locale__26C669EB") @db.NVarChar(Max)
+
+  @@map("dbo.LocalUser")
+}
+
+model dictAdvTerm {
+  AdvTermId   Int     @id(map: "PK_dictAdvTerm") @db.TinyInt
+  AdvTermDesc String? @db.VarChar(50)
+  AdvTermPL   String? @db.VarChar(50)
+}
+
+model dictAdvType {
+  AdvTypeId     Int     @id(map: "PK_dictAdvType") @db.TinyInt
+  AdvTypeDesc   String? @db.VarChar(50)
+  AdvTypeDescPL String? @db.VarChar(50)
+}
+
+model dictAdvWithoutInvExcludeReason {
+  ExcludeReasonID   Int     @id(map: "PK_dictAdvWithoutInvExclReason") @default(autoincrement())
+  ExcludeReasonCode String? @db.VarChar(3)
+  ExcludeReasonDesc String? @db.VarChar(50)
+}
+
+model dictAgrEvents {
+  AgrEventCode Int            @id(map: "PK_dictAgrEvents")
+  AgrEventDesc String         @db.Char(255)
+  Status       String?        @db.Char(1)
+  tblAgrEvents tblAgrEvents[]
+}
+
+model dictAgrTemplates {
+  Name     String @id(map: "PK_dictAgrTemplates") @db.VarChar(30)
+  FileName String @db.VarChar(255)
+}
+
+model dictArticles {
+  Article       String         @id(map: "PK_DICTARTICLES") @db.Char(10)
+  LangAbb       String?        @db.Char(3)
+  dictLanguages dictLanguages? @relation(fields: [LangAbb], references: [LangAbb], onDelete: NoAction, onUpdate: NoAction, map: "FK_DICTARTI_RELATIONS_DICTLANG")
+
+  @@index([LangAbb], map: "Relationship_60_FK")
+}
+
+model dictCopyType {
+  CopyTypeID     Int              @id(map: "PK_DICTCOPYTYPE") @default(autoincrement()) @db.TinyInt
+  CopyType       String?          @db.Char(30)
+  tblSubmissions tblSubmissions[]
+  tblTitCopies   tblTitCopies[]   @ignore
+  tblTitEvents   tblTitEvents[]
+}
+
+model dictCountries {
+  CountryID   Int     @id(map: "PK_dictCountries_1") @default(autoincrement())
+  CountryDesc String? @db.NVarChar(Max)
+  CountryPL   String? @db.NVarChar(Max)
+  Tax         Float?  @db.Money
+  Code        String? @db.NVarChar(255)
+  EU          String? @db.NChar(10)
+}
+
+model dictCountries_old {
+  CountryID     Int             @id(map: "PK_DICTCOUNTRIES") @default(autoincrement())
+  CountryDesc   String          @db.VarChar(150)
+  CountryPL     String?         @db.VarChar(150)
+  Tax           Float?          @db.Money
+  Code          String?         @db.NChar(10)
+  EU            String?         @db.NChar(1)
+  dictStates    dictStates[]
+  tblAgreements tblAgreements[]
+}
+
+model dictCoverFormat {
+  CoverFormatID   Int         @id(map: "PK_dictCoverFormat") @default(autoincrement())
+  CoverFormatDesc String      @db.Char(30)
+  tblTitles       tblTitles[]
+}
+
+model dictCurrencies {
+  CurrID        String          @id(map: "PK_DICTCURRENCIES") @db.Char(3)
+  CurrDesc      String          @db.VarChar(50)
+  tblAgreements tblAgreements[]
+}
+
+model dictCustTypes {
+  CustTypeID   Int            @id(map: "PK_dictCustTypes") @default(autoincrement())
+  CustTypeName String         @db.VarChar(50)
+  CustTypeDesc String?        @db.VarChar(250)
+  tblCustTypes tblCustTypes[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model dictDictionaries {
+  Name String? @db.Char(30)
+
+  @@ignore
+}
+
+model dictDistributionType {
+  DistID       Int            @id(map: "PK_DICTDISTRIBUTIONTYPE") @default(autoincrement()) @db.TinyInt
+  DistDesc     String         @db.Char(30)
+  tblAgrRights tblAgrRights[]
+}
+
+model dictEvents {
+  EventCode     Int             @id(map: "PK_DICTEVENTS")
+  EventDesc     String          @db.Char(50)
+  tblEvents     tblEvents[]     @ignore
+  tblSubmEvents tblSubmEvents[]
+  tblTitEvents  tblTitEvents[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model dictISBN {
+  GRUPA String? @db.VarChar(255)
+  MIN   String? @db.VarChar(255)
+  MAX   String? @db.VarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model dictISBN_old {
+  GRUPA String? @db.VarChar(255)
+  MIN   String? @db.VarChar(255)
+  MAX   String? @db.VarChar(255)
+
+  @@ignore
+}
+
+model dictLanguages {
+  LangAbb       String          @id(map: "PK_DICTLANGUAGES") @db.Char(3)
+  LangDesc      String          @db.VarChar(30)
+  LangPL        String          @db.VarChar(30)
+  dictArticles  dictArticles[]
+  tblAgreements tblAgreements[]
+  tblCustomers  tblCustomers[]
+  tblTitles     tblTitles[]
+}
+
+model dictMatType {
+  MatTypeID     Int     @id(map: "PK_dictMatType") @db.TinyInt
+  MatTypeDesc   String  @db.Char(50)
+  MatTypeDescPL String? @db.Char(50)
+}
+
+model dictMissRoyExcludeReason {
+  ExcludeReasonID   Int     @id(map: "PK_dictMissRoyReason") @default(autoincrement())
+  ExcludeReasonCode String? @db.VarChar(3)
+  ExcludeReasonDesc String? @db.VarChar(50)
+}
+
+model dictPriceType {
+  PriceTypeID   Int            @id(map: "PK_dictPriceType") @db.TinyInt
+  PriceTypeDesc String?        @db.VarChar(50)
+  PriceTypePL   String?        @db.VarChar(50)
+  tblAgrRights  tblAgrRights[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model dictPrintType {
+  PrintType String? @db.VarChar(1)
+  PrintDesc String? @db.VarChar(50)
+
+  @@ignore
+}
+
+model dictRepModes {
+  RepModeID           Int                   @id(map: "PK_DICTREPMODES") @default(autoincrement()) @db.TinyInt
+  RepModeDesc         String                @db.Char(30)
+  tblClients_obsolete tblClients_obsolete[]
+}
+
+model dictRightsForm {
+  RightFormID    Int            @id(map: "PK_DICTRIGHTSFORM") @default(autoincrement()) @db.SmallInt
+  RightFormDesc  String         @db.VarChar(50)
+  RightFormPL    String?        @db.VarChar(100)
+  RightFormAbbPL String?        @db.VarChar(10)
+  RightFormAbbEN String?        @db.VarChar(10)
+  tblAgrRights   tblAgrRights[]
+}
+
+model dictRoyAccountInterval {
+  RoyAccountIntervalID   Int            @id(map: "PK_DICTROYACCOUNTINTERVAL") @db.TinyInt
+  RoyAccountIntervalDesc String         @db.Char(50)
+  IntervalAbb            String?        @db.Char(8)
+  tblAgrRights           tblAgrRights[]
+}
+
+model dictRoyPriceType {
+  RoyPriceTypeID   Int            @id(map: "PK_DICTROYPRICETYPE") @db.TinyInt
+  RoyPriceTypeDesc String         @db.VarChar(50)
+  RoyPriceTypePL   String?        @db.VarChar(50)
+  tblAgrRights     tblAgrRights[]
+}
+
+model dictRoyType {
+  RoyTypeID    Decimal       @id(map: "PK_DICTROYTYPE") @db.Decimal(18, 0)
+  AgrRightID   Int?
+  RoyTypeDesc  String        @db.Char(30)
+  tblAgrRights tblAgrRights? @relation(fields: [AgrRightID], references: [AgrRightID], onDelete: NoAction, onUpdate: NoAction, map: "FK_DICTROYT_RLSH_45_TBLAGRRI")
+
+  @@index([AgrRightID], map: "Rlsh_45_FK")
+}
+
+model dictStates {
+  StateID           Int                @default(autoincrement()) @db.TinyInt
+  CountryID         Int?
+  StateAbb          String             @id(map: "PK_dictStates") @db.Char(2)
+  StateName         String             @db.VarChar(30)
+  dictCountries_old dictCountries_old? @relation(fields: [CountryID], references: [CountryID], onDelete: NoAction, onUpdate: NoAction, map: "FK_DICTSTAT_RLSH_37_DICTCOUN")
+  tblCustomers      tblCustomers[]
+
+  @@index([CountryID], map: "Rlsh_37_FK")
+}
+
+model dictSubmSentType {
+  SubmSentTypeID Int              @id(map: "PK_DICTSUBMSENTTYPE") @default(autoincrement()) @db.TinyInt
+  SubmSentType   String           @db.Char(30)
+  tblSubmissions tblSubmissions[]
+}
+
+model dictTargetGroups {
+  TargetGroupID      Decimal              @id(map: "PK_DICTTARGETGROUPS") @db.Decimal(18, 0)
+  TargetGroupDesc    String?              @db.Char(50)
+  tblTitTargetGroups tblTitTargetGroups[] @ignore
+}
+
+model dictTitMainClass {
+  ClassCode       String            @id(map: "PK_DICTTITMAINCLASS") @db.VarChar(10)
+  ClassDesc       String?           @db.VarChar(50)
+  dictTitSubClass dictTitSubClass[]
+  tblMailingLists tblMailingLists[]
+  tblTitles       tblTitles[]
+}
+
+model dictTitSubClass {
+  SubClassCode     String            @id(map: "PK_DICTTITSUBCLASS") @db.Char(5)
+  ClassCode        String?           @db.VarChar(10)
+  SubClassDesc     String?           @db.VarChar(50)
+  dictTitMainClass dictTitMainClass? @relation(fields: [ClassCode], references: [ClassCode], onDelete: NoAction, onUpdate: NoAction, map: "FK_DICTTITS_RLSH_19_DICTTITM")
+  tblMailingLists  tblMailingLists[]
+  tblTitSubClass   tblTitSubClass[]
+
+  @@index([ClassCode], map: "Rlsh_19_FK")
+}
+
+model dictXRateExcelNames {
+  CurrID String @db.Char(3)
+  Name   String @db.Char(50)
+
+  @@id([CurrID, Name], map: "PK_dictXRateExcelNames")
+  @@index([CurrID], map: "IX_dictXRateExcelNames")
+}
+
+model dictXRates {
+  CurrDate DateTime @db.DateTime
+  CurrID   String   @db.Char(3)
+  XRate    Float    @db.Money
+
+  @@id([CurrID, CurrDate], map: "PK_dictXRates1")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model dictxrates_temp {
+  CurrDate DateTime? @db.Date
+  CurrID   String    @db.Char(3)
+  XRate    Float     @db.Money
+
+  @@ignore
+}
+
+model HelionLocal {
+  ISBNORG     String  @db.VarChar(13)
+  ISBNHELION  String  @db.VarChar(13)
+  TYTULORG    String? @db.NVarChar(120)
+  TYTULHELION String? @db.NVarChar(120)
+
+  @@id([ISBNORG, ISBNHELION], map: "PK_HelionLocal")
+}
+
+model lkpPayType {
+  PayTypeID     Int     @id(map: "PK_LKPPAYTYPE")
+  Description   String? @db.Char(100)
+  DescriptionPL String? @db.Char(100)
+}
+
+model LocalUser {
+  id           Int      @id @default(autoincrement())
+  name         String?  @db.NVarChar(255)
+  email        String   @db.NVarChar(255)
+  passwordHash String
+  role         String   @default("USER", map: "DF__LocalUser__role__36FCD1B4") @db.NVarChar(50)
+  permissions  String?  @db.NVarChar(255)
+  createdAt    DateTime @default(now(), map: "DF__LocalUser__creat__37F0F5ED")
+  updatedAt    DateTime
+  locale       String   @default("pl", map: "DF__LocalUser__local__38E51A26") @db.NVarChar(Max)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Numery {
+  licznik Int      @default(autoincrement())
+  data    DateTime @db.DateTime
+  numer   Int
+
+  @@ignore
+}
+
+model pdxBilans {
+  Bil_nr        Int       @id(map: "PK_pdxBilans") @default(autoincrement())
+  Waluta        String?   @db.VarChar(4)
+  Wyci_g        Int?      @map("Wyciąg") @db.SmallInt
+  Data_wyc      DateTime? @db.DateTime
+  Nasz_inv      Int?
+  Type          String?   @db.VarChar(20)
+  Kwota_wp_ywu  Float?    @map("Kwota_wpływu") @db.Money
+  PayType       String?   @db.VarChar(10)
+  Graal_perc    Float?
+  Kwota_wyp_aty Float?    @map("Kwota_wypłaty")
+  Kwota_inv     Float?    @db.Money
+  Tax_10_       Boolean?  @map("Tax_10%")
+  TaxPerc       Float?
+  Tax           Float?    @db.Money
+  Wyd_Debit     Float?    @db.Money
+  Extra_Bank    Float?    @map("Extra Bank") @db.Money
+  Transfer      Float?    @db.Money
+  AGNR          Int?
+  RIGHT         Int?      @db.SmallInt
+  AUTOR         String?   @db.VarChar(35)
+  Title         String?   @db.VarChar(50)
+  WYDAB         String?   @db.VarChar(5)
+  WYD           String?   @db.VarChar(50)
+  OWNAB         String?   @db.VarChar(5)
+  OWNER         String?   @db.VarChar(50)
+  Sum           Float?    @db.Money
+  SumPLN        Float?
+  GRAAL_INCOME  Float?    @db.Money
+  Kurs          Float?    @db.Money
+  GraalPLN      Float?    @db.Money
+  Notes         String?   @db.NText
+}
+
+model pdxTRANSFER {
+  Bil_nr       Int       @id(map: "PK_pdxTRANSFER")
+  Date         DateTime? @db.DateTime
+  PayType      String?   @db.VarChar(10)
+  Nasz_inv     Int?
+  Waluta       String?   @db.VarChar(4)
+  Kwota_wp_ywu Float?    @map("Kwota_wpływu") @db.Money
+  Kwota_inv    Float?    @db.Money
+  Tax_10_      Boolean?  @map("Tax_10%")
+  Tax          Float?    @db.Money
+  AgrID        Int?
+  AUTOR        String?   @db.VarChar(50)
+  Title        String?   @db.VarChar(50)
+  WYD          String?   @db.VarChar(50)
+  OWNAB        String?   @db.VarChar(5)
+  GRAAL_INCOME Float?    @db.Money
+  Transfer     Float?    @db.Money
+}
+
+model PearsonAdvAndRoy {
+  ContractID                   Float     @id(map: "PK_PearsonAdvAnd Roy")
+  ISBN                         String    @db.VarChar(13)
+  ContractDate                 DateTime? @db.DateTime
+  PublisherName                String?   @db.NVarChar(255)
+  TermDate                     DateTime? @db.DateTime
+  Status                       String?   @db.NVarChar(255)
+  Title                        String?   @db.NVarChar(255)
+  AuthorNames                  String?   @db.NVarChar(255)
+  Edition                      Float?
+  BBD                          DateTime? @db.DateTime
+  CopyrightYear                Float?
+  SeriesName                   String?   @db.NVarChar(255)
+  FISBN                        Float?
+  IsPublished                  String?   @db.NVarChar(255)
+  SamplesReceivedDate          DateTime? @db.DateTime
+  PubDate                      String?   @db.NVarChar(255)
+  RequiredToPublish            DateTime? @db.DateTime
+  IsPaid                       String?   @db.NVarChar(255)
+  TotalAdvances                Float?
+  TotalRoyalties               Float?
+  Last_Royalty_Period_Reported String?   @map("Last Royalty Period Reported") @db.NVarChar(255)
+  Date_Royalty_Paid            DateTime? @map("Date Royalty Paid") @db.DateTime
+
+  @@index([ISBN], map: "IX_PearsonAdvAnd Roy")
+}
+
+model PearsonMaterial {
+  MyNumber      Int       @id(map: "PK_PearsonMaterial") @default(autoincrement())
+  ContractID    Int
+  InvoiceNumber String?   @db.NVarChar(255)
+  InvoiceDate   DateTime? @db.DateTime
+  Publisher     String?   @db.NVarChar(255)
+  Title         String?   @db.NVarChar(255)
+  ISBN          String?   @db.NVarChar(255)
+  Amount        Float?
+
+  @@index([InvoiceNumber], map: "IX_PearsonMaterial")
+}
+
+model RolePermissions {
+  id             Int      @id @default(autoincrement())
+  module         String   @unique @db.NVarChar(255)
+  userAccess     Boolean  @default(false, map: "DF__RolePermi__userA__304FD425")
+  advancedAccess Boolean  @default(false, map: "DF__RolePermi__advan__3143F85E")
+  adminAccess    Boolean  @default(true, map: "DF__RolePermi__admin__32381C97")
+  createdAt      DateTime @default(now(), map: "DF__RolePermi__creat__332C40D0")
+  updatedAt      DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model states {
+  CustID  Int      @default(autoincrement())
+  StateID Decimal? @db.Decimal(18, 0)
+
+  @@ignore
+}
+
+model sysdiagrams {
+  name         String @db.NVarChar(128)
+  principal_id Int
+  diagram_id   Int    @id(map: "PK__sysdiagr__C2B05B6153391DAF") @default(autoincrement())
+  version      Int?
+  definition   Bytes?
+
+  @@unique([principal_id, name], map: "UK_principal_name")
+}
+
+model tblAdvance {
+  AdvID         Int           @id(map: "PK_tblAdvance") @default(autoincrement())
+  Inst          Int           @db.TinyInt
+  AgrID         Int
+  AdvTermId     Int?          @db.TinyInt
+  AdvTypeId     Int?          @db.TinyInt
+  Amount        Float?        @db.Money
+  AdvTermDate   DateTime?     @db.DateTime
+  RoyID         Int?
+  tblAgreements tblAgreements @relation(fields: [AgrID], references: [AgrID], onUpdate: NoAction, map: "FK_TBLADVAN_RLSH_3_TBLAGREE")
+
+  @@index([AgrID], map: "RLSH_3_FK")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblAdvanceBonus {
+  AdvBonusID Int      @default(autoincrement())
+  AgrId      Int
+  Amount     Float    @db.Money
+  Condition  String?  @db.NChar(1000)
+  DateMod    DateTime @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblAdvWithoutInvExcl {
+  AdvID             Int
+  ExcludeReasonID   Int?
+  ExcludeReasonCode String?   @db.VarChar(3)
+  ExcludeReasonDesc String?   @db.VarChar(200)
+  EnterDate         DateTime? @default(now(), map: "AdvWI_EnterDate") @db.Date
+
+  @@ignore
+}
+
+model tblAgreements {
+  AgrID               Int                @id(map: "PK_TBLAGREEMENTS") @default(autoincrement())
+  CustID              Int?
+  CountryID           Int?
+  LangAbbr            String?            @db.Char(3)
+  TitleID             Int?
+  CurrID              String?            @db.Char(3)
+  AgrDate             DateTime           @db.DateTime
+  ValidYY             Int?               @db.TinyInt
+  PubTermMM           Int?               @db.TinyInt
+  MaxNoOfCopies       Int?
+  MinNoOfCopies       Int?
+  Commission          Decimal?           @db.Decimal(18, 2)
+  ClientReference     String?            @db.VarChar(50)
+  DateMod             DateTime?          @default(now(), map: "DF__tblAgreem__DateM__20C1E124") @db.DateTime
+  UserMod             String?            @default("suser_sname()", map: "DF__tblAgreem__UserM__21B6055D") @db.Char(30)
+  GraalAgentID        Int?
+  GraalShare          Decimal?           @db.Decimal(5, 2)
+  EstimatedCopyPrice  Float?             @db.Money
+  GraalRepresent      Boolean?           @default(true, map: "DF__tblAgreem__Graal__0FB750B3")
+  Remarks             String?            @db.VarChar(1000)
+  AgrDoc              String?            @db.Char(250)
+  Status              String?            @db.Char(1)
+  CopiesToOwner       Int?               @db.TinyInt
+  CopiesToGraal       Int?               @db.TinyInt
+  LocalTitle          String?            @db.VarChar(150)
+  LocalISBN           String?            @db.VarChar(16)
+  LocalPubDate        DateTime?          @db.DateTime
+  ClientID            Int?
+  CommissionMaterials Decimal?           @db.Decimal(18, 2)
+  AgentID             Int?
+  PropID              Int?
+  tblAdvance          tblAdvance[]
+  dictCurrencies      dictCurrencies?    @relation(fields: [CurrID], references: [CurrID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGREE_RELATIONS_DICTCURR")
+  tblTitles           tblTitles?         @relation(fields: [TitleID], references: [TitleID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGREE_RLSH_14_TBLTITLE")
+  dictLanguages       dictLanguages?     @relation(fields: [LangAbbr], references: [LangAbb], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGREE_RLSH_39_DICTLANG")
+  tblCustomers        tblCustomers?      @relation(fields: [CustID], references: [CustID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGREE_RLSH_4_TBLCUSTO")
+  dictCountries_old   dictCountries_old? @relation(fields: [CountryID], references: [CountryID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGREE_RLSH_41_DICTCOUN")
+  tblAgrEvents        tblAgrEvents[]
+  tblAgrRights        tblAgrRights[]
+  tblPubLocal         tblPubLocal[]
+  tblRoyalty          tblRoyalty[]
+  tblRoyRates         tblRoyRates[]
+
+  @@index([CustID], map: "indAgrCustID")
+  @@index([CurrID], map: "Relationship_61_FK")
+  @@index([TitleID], map: "RLSH_14_FK")
+  @@index([LangAbbr], map: "Rlsh_39_FK")
+  @@index([CustID], map: "RLSH_4_FK")
+  @@index([CountryID], map: "Rlsh_41_FK")
+}
+
+model tblAgrEvents {
+  AgrEventID    Decimal        @id(map: "PK_TBLAGREVENTS") @db.Decimal(18, 0)
+  AgrID         Int?
+  AgrEventCode  Int?
+  EventDate     DateTime?      @db.DateTime
+  NoOfCopies    Int?
+  EndDate       DateTime?      @db.DateTime
+  DateMod       DateTime?      @default(now(), map: "DF_tblAgrEvents_DateMod_1") @db.DateTime
+  UserMod       String?        @default("suser_sname()", map: "DF_tblAgrEvents_UserMod_1") @db.Char(30)
+  tblAgreements tblAgreements? @relation(fields: [AgrID], references: [AgrID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGREV_RLSH_51_TBLAGREE")
+  dictAgrEvents dictAgrEvents? @relation(fields: [AgrEventCode], references: [AgrEventCode], onDelete: NoAction, onUpdate: NoAction, map: "FK_tblAgrEvents_dictAgrEvents")
+
+  @@index([AgrID], map: "Rlsh_51_FK")
+  @@index([AgrEventCode], map: "Rlsh_52_FK")
+}
+
+model tblAgrRights {
+  AgrRightID             Int                     @id(map: "PK_TBLAGRRIGHTS") @default(autoincrement())
+  AgrID                  Int?
+  RightID                Int?                    @db.SmallInt
+  PriceTypeID            Int?                    @db.TinyInt
+  RoyPriceTypeID         Int?                    @db.TinyInt
+  RoyAccountIntervalID   Int?                    @db.TinyInt
+  DistID                 Int?                    @db.TinyInt
+  dictRoyType            dictRoyType[]
+  tblAgreements          tblAgreements?          @relation(fields: [AgrID], references: [AgrID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGRRI_RLSH_2_TBLAGREE")
+  dictDistributionType   dictDistributionType?   @relation(fields: [DistID], references: [DistID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGRRI_RLSH_43_DICTDIST")
+  dictRightsForm         dictRightsForm?         @relation(fields: [RightID], references: [RightFormID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGRRI_RLSH_44_DICTRIGH")
+  dictRoyPriceType       dictRoyPriceType?       @relation(fields: [RoyPriceTypeID], references: [RoyPriceTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLAGRRI_RLSH_48_DICTROYP")
+  dictPriceType          dictPriceType?          @relation(fields: [PriceTypeID], references: [PriceTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tblAgrRights_dictPriceType")
+  dictRoyAccountInterval dictRoyAccountInterval? @relation(fields: [RoyAccountIntervalID], references: [RoyAccountIntervalID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tblAgrRights_dictRoyAccountInterval")
+  tblRoyRates            tblRoyRates[]
+
+  @@index([AgrID], map: "RLSH_2_FK")
+  @@index([DistID], map: "Rlsh_43_FK")
+  @@index([RightID], map: "Rlsh_44_FK")
+  @@index([RoyPriceTypeID], map: "Rlsh_48_FK")
+}
+
+model tblAuthors {
+  AuthorID      Int             @id(map: "PK_TBLAUTHORS") @default(autoincrement())
+  FullName      String?         @db.VarChar(150)
+  FirstName     String?         @db.VarChar(150)
+  MiddleName    String?         @db.VarChar(100)
+  LastName      String?         @db.VarChar(150)
+  Suffix        String?         @db.VarChar(50)
+  PenName       String?         @db.VarChar(150)
+  UserMod       String          @default("suser_sname()", map: "DF__tblAuthor__UserM__10AB74EC") @db.Char(30)
+  DateMod       DateTime        @default(now(), map: "DF__tblAuthor__DateM__119F9925") @db.DateTime
+  Remarks       String?         @db.VarChar(1000)
+  tblTitAuthors tblTitAuthors[]
+}
+
+model tblCertPub {
+  ClientID Int
+  Year     Int
+  PubID    Int
+  DateSent DateTime? @db.DateTime
+  Original Boolean?
+
+  @@id([ClientID, Year, PubID], map: "PK_tblCertPub")
+}
+
+model tblClients_obsolete {
+  CustID       Int           @id(map: "PK_tblClients")
+  RepModeID    Int?          @db.TinyInt
+  GraalID      Int?
+  Commission   Decimal?      @db.Decimal(18, 2)
+  DefAgrDoc    String?       @db.VarChar(30)
+  Jurisdiction String?       @db.VarChar(200)
+  tblCustomers tblCustomers  @relation(fields: [CustID], references: [CustID], onDelete: Cascade, map: "FK_TBLCLIEN_RLSH_29_TBLCUSTO")
+  dictRepModes dictRepModes? @relation(fields: [RepModeID], references: [RepModeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLCLIEN_RLSH_36_DICTREPM")
+
+  @@index([CustID], map: "Rlsh_29_FK")
+  @@index([RepModeID], map: "Rlsh_36_FK")
+}
+
+model tblContacts {
+  ContactID       Int               @id(map: "PK_TBLCONTACTS") @default(autoincrement())
+  PhoneNumber     String?           @db.VarChar(20)
+  FirstName       String?           @db.VarChar(30)
+  MiddleName      String?           @db.VarChar(30)
+  LastName        String?           @db.VarChar(50)
+  Informal        Int
+  Fax             String?           @db.VarChar(20)
+  Email           String?           @db.VarChar(50)
+  UserMod         String            @default("suser_sname()", map: "DF__tblContac__UserM__6D6238AF") @db.VarChar(30)
+  DateMod         DateTime          @default(now(), map: "DF__tblContac__DateM__6E565CE8") @db.DateTime
+  ContactPosition String?           @db.VarChar(50)
+  Accountant      Int?
+  tblCustContacts tblCustContacts[]
+}
+
+model tblCustBank {
+  CustID       Int          @id(map: "PK_tblCustBank")
+  BankName     String       @db.VarChar(150)
+  BankAddress  String?      @db.VarChar(150)
+  AccountNo    String?      @db.VarChar(50)
+  RoutingNo    String?      @db.VarChar(50)
+  AccountName  String?      @db.VarChar(250)
+  tblCustomers tblCustomers @relation(fields: [CustID], references: [CustID], onDelete: Cascade, map: "FK_tblCustBank_tblCustomers")
+
+  @@index([CustID], map: "Rlsh_28_FK")
+}
+
+model tblCustContacts {
+  ContactID      Int
+  CustID         Int
+  DefaultContact Int
+  TypeOfContact  Int
+  Phone          String?      @db.VarChar(20)
+  CellPhone      String?      @db.VarChar(20)
+  Fax            String?      @db.VarChar(20)
+  Email          String?      @db.VarChar(50)
+  IsSameAsClient Boolean?     @default(true, map: "DF__tblCustCo__IsSam__1293BD5E")
+  tblCustomers   tblCustomers @relation(fields: [CustID], references: [CustID], onDelete: Cascade, onUpdate: NoAction, map: "FK_TBLCUSTC_RLSH_25_TBLCUSTO")
+  tblContacts    tblContacts  @relation(fields: [ContactID], references: [ContactID], onUpdate: NoAction, map: "FK_TBLCUSTC_RLSH_26_TBLCONTA")
+
+  @@id([ContactID, CustID], map: "PK_tblCustContacts")
+  @@index([CustID], map: "Rlsh_25_FK")
+  @@index([ContactID], map: "Rlsh_26_FK")
+}
+
+model tblCustomers {
+  CustID              Int                  @id(map: "PK_TBLCUSTOMERS") @default(autoincrement())
+  CustAbb             String?              @unique(map: "IX_tblCustomers") @db.VarChar(10)
+  Account             Int?
+  CountryID           Int?
+  Name                String?              @db.VarChar(250)
+  Address1            String?              @db.VarChar(150)
+  Address2            String?              @db.VarChar(150)
+  City                String?              @db.VarChar(50)
+  Zip                 String?              @db.VarChar(50)
+  StateAbb            String?              @db.Char(2)
+  DefaultPhone        String?              @db.VarChar(20)
+  DefaultFax          String?              @db.VarChar(50)
+  DefaultEmail        String?              @db.VarChar(50)
+  DefaultWWW          String?              @db.VarChar(100)
+  ParentCustID        Int?
+  LangAbb             String?              @db.Char(3)
+  Remarks             String?              @db.VarChar(250)
+  DateMod             DateTime?            @default(now(), map: "DF__tblCustom__DateM__2D27B809") @db.DateTime
+  UserMod             String?              @default("suser_sname()", map: "DF__tblCustom__UserM__2E1BDC42") @db.Char(30)
+  TaxID               String?              @db.VarChar(50)
+  VATID               String?              @db.VarChar(50)
+  RepModeID           Int?                 @db.TinyInt
+  GraalID             Int?
+  Commission          Decimal?             @db.Decimal(18, 2)
+  DefAgrDoc           String?              @db.VarChar(30)
+  Jurisdiction        String?              @db.VarChar(200)
+  CommissionForeign   Decimal?             @db.Decimal(18, 2)
+  CommissionMaterials Decimal?             @db.Decimal(18, 2)
+  Status              String?              @db.Char(1)
+  tblAgreements       tblAgreements[]
+  tblClients_obsolete tblClients_obsolete?
+  tblCustBank         tblCustBank?
+  tblCustContacts     tblCustContacts[]
+  dictLanguages       dictLanguages?       @relation(fields: [LangAbb], references: [LangAbb], onDelete: NoAction, onUpdate: NoAction, map: "FK_tblCustomers_dictLanguages")
+  dictStates          dictStates?          @relation(fields: [StateAbb], references: [StateAbb], onDelete: NoAction, onUpdate: NoAction, map: "FK_tblCustomers_dictStates")
+  tblCustTypes        tblCustTypes[]
+  tblCustUsers        tblCustUsers[]
+  tblMailingLists     tblMailingLists[]
+  tblSeries           tblSeries[]
+  tblSubmissions      tblSubmissions[]
+  tblTitles           tblTitles[]
+
+  @@index([CountryID], map: "Rlsh_35_FK")
+  @@index([StateAbb], map: "Rlsh_38_FK")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblCustomers_backup {
+  CustID       Int       @default(autoincrement())
+  CustAbb      String?   @db.VarChar(10)
+  Account      Int?
+  CountryID    Int?
+  Name         String?   @db.VarChar(250)
+  Address1     String?   @db.VarChar(150)
+  Address2     String?   @db.VarChar(150)
+  City         String?   @db.VarChar(50)
+  Zip          String?   @db.VarChar(50)
+  StateAbb     String?   @db.Char(2)
+  DefaultPhone String?   @db.VarChar(20)
+  DefaultFax   String?   @db.VarChar(50)
+  DefaultEmail String?   @db.VarChar(50)
+  DefaultWWW   String?   @db.VarChar(100)
+  ParentCustID Int?
+  LangAbb      String?   @db.Char(3)
+  Remarks      String?   @db.VarChar(250)
+  DateMod      DateTime? @db.DateTime
+  UserMod      String?   @db.Char(30)
+  TaxID        String?   @db.VarChar(50)
+  VATID        String?   @db.VarChar(50)
+  RepModeID    Int?      @db.TinyInt
+  GraalID      Int?
+  Commission   Decimal?  @db.Decimal(18, 2)
+  DefAgrDoc    String?   @db.VarChar(30)
+  Jurisdiction String?   @db.VarChar(200)
+
+  @@ignore
+}
+
+model tblCustTypes {
+  CustID        Int
+  CustTypeID    Int
+  dictCustTypes dictCustTypes @relation(fields: [CustTypeID], references: [CustTypeID], onUpdate: NoAction, map: "FK_tblCustTypes_dictCustTypes")
+  tblCustomers  tblCustomers  @relation(fields: [CustID], references: [CustID], onDelete: Cascade, onUpdate: NoAction, map: "FK_tblCustTypes_tblCustomers")
+
+  @@id([CustID, CustTypeID], map: "PK_tblCustTypes")
+}
+
+model tblCustUsers {
+  CustID       Int
+  Login        String       @db.VarChar(30)
+  tblCustomers tblCustomers @relation(fields: [CustID], references: [CustID], onUpdate: NoAction, map: "FK_tblCustUsers_tblCustomers")
+  tblUsers     tblUsers     @relation(fields: [Login], references: [Login], onDelete: Cascade, map: "FK_tblCustUsers_tblUsers")
+
+  @@id([CustID, Login], map: "PK_tblCustUsers")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblDtgUserColumns {
+  Login    String   @db.VarChar(30)
+  dtgName  String   @db.VarChar(30)
+  ColName  String   @db.VarChar(30)
+  State    Int
+  tblUsers tblUsers @relation(fields: [Login], references: [Login], onUpdate: NoAction, map: "FK_tblDtgUserColumns_tblUsers")
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblEvents {
+  TitleID    Int?
+  EventCode  Int?
+  ID         Int?
+  DateMod    DateTime?   @default(now(), map: "DF__tblEvents__DateM__30F848ED") @db.DateTime
+  UserMod    String?     @default("suser_sname()", map: "DF__tblEvents__UserM__31EC6D26") @db.Char(30)
+  dictEvents dictEvents? @relation(fields: [EventCode], references: [EventCode], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLEVENT_RELATIONS_DICTEVEN")
+  tblTitles  tblTitles?  @relation(fields: [TitleID], references: [TitleID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLEVENT_RELATIONS_TBLTITLE")
+
+  @@index([TitleID], map: "Relationship_57_FK")
+  @@index([EventCode], map: "Relationship_58_FK")
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblEvents_2004_02_25 {
+  TitleID   Decimal?  @db.Decimal(18, 0)
+  EventCode Int?
+  ID        Int?
+  DateMod   DateTime? @db.DateTime
+  UserMod   String?   @db.Char(30)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblFraVAT {
+  Bil_nr      Int
+  FraID       Int
+  FraNumer    Int?
+  Waluta      String?   @db.NVarChar(4)
+  Wyciag      Int?      @db.SmallInt
+  Type        String?   @db.NVarChar(20)
+  Data_wyc    DateTime? @db.DateTime
+  Nasz_inv    Int?
+  AGNR        Int?
+  KwotaInv    Float?    @db.Money
+  TaxPerc     Float?    @db.Money
+  Tax         Float?    @db.Money
+  KwotaWplywu Float?    @db.Money
+  GraalPerc   Float?    @db.Money
+  GraalWaluta Float?    @db.Money
+
+  @@ignore
+}
+
+model tblFraVAT_New {
+  FVNr          Int
+  FVDate        DateTime  @db.DateTime
+  FVDateIssued  DateTime? @db.DateTime
+  FVType        Int?      @db.SmallInt
+  CustID        Int?
+  OrigCurrency  String?   @db.NVarChar(3)
+  FVCurrency    String?   @db.NVarChar(3)
+  GraalPerc     Float?    @db.Money
+  VATCode       String?   @db.NVarChar(10)
+  VatPerc       Float?    @db.Money
+  NetAmt        Float?    @db.Money
+  NetAmtCurr    Float?    @db.Money
+  VatAmt        Float?    @db.Money
+  XRate         Float?    @db.Money
+  VatAmtCurr    Float?    @db.Money
+  GrossAmt      Float?    @db.Money
+  InvNr         Int?
+  InvAmt        Float?    @db.Money
+  Title         String?   @db.NVarChar(200)
+  ISBNNr        String?   @db.NVarChar(50)
+  PayType       String?   @db.NVarChar(255)
+  InvType       String?   @db.NVarChar(1)
+  FVDescription String?   @db.NVarChar(100)
+  BilNr         Int?
+  OrigFVNr      Int?
+  CorrectFVNr   Int?
+  CreditID      Int?
+  ApplyID       Int?
+  PayDate       DateTime? @db.Date
+  EnterDate     DateTime? @default(now(), map: "DF_GetDate") @db.DateTime
+  EnterEmployee String?   @db.NChar(100)
+  Status        String?   @db.NChar(10)
+
+  @@id([FVNr, FVDate], map: "PK_tblFraVAT_New")
+}
+
+model tblInvoice {
+  InvNum      Int       @id(map: "PK_tblInvoice_1")
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @default(" ", map: "DF_tblInvoice_SumInWords") @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_19227 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_22270 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_25357 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_25732 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_29210 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_5195 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_5360 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_8088 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_8693 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_9133 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoice_9636 {
+  InvNum      Int
+  InvType     String    @db.Char(1)
+  InvDate     DateTime? @db.DateTime
+  BillToId    Int
+  ClientId    Int?
+  ShipToId    Int?
+  CurrId      String?   @db.Char(3)
+  TotalInvNET Float?    @db.Money
+  VATPerc     Int?
+  TermDD      Int?
+  Remarks     String?   @db.VarChar(255)
+  Status      String?   @db.Char(1)
+  SumInWords  String?   @db.VarChar(500)
+  Balance     Float?    @db.Money
+  CliRef      String?   @db.VarChar(50)
+  Descr       String?   @db.VarChar(200)
+  DateDue     DateTime? @db.DateTime
+  UserName    String?   @db.VarChar(50)
+  AgentID     Int?
+  TaxCode     String?   @db.Char(1)
+  TaxValue    Float?    @db.Money
+  TaxInfo     String?   @db.NChar(1)
+  PropID      Int?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceCorrect {
+  InvNumOrig    Int?
+  InvNumCorrect Int?
+
+  @@ignore
+}
+
+model tblInvoiceDetails {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(15)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@id([InvNum, InvDetKey], map: "PK_tblInvoiceDetails")
+  @@index([InvDetKey], map: "InvDetNonClustIndex")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_16572 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_17263 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_18611 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_24012 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_26157 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_4744 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_5602 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_571 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_5719 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_6448 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoiceDetails_9723 {
+  InvNum     Int
+  InvDetKey  Int
+  InvType    String    @db.Char(1)
+  AgID       Int?
+  OrdNr      Int?
+  NrItems    Int?
+  Amount     Float?    @db.Money
+  RptTitle   String?   @db.VarChar(150)
+  RptISBN    String?   @db.VarChar(50)
+  RptAuthor  String?   @db.VarChar(150)
+  RoyDate    DateTime? @db.DateTime
+  RoyRight   String?   @db.Char(1)
+  RoyCopies  Int?
+  RoyPrice   Float?    @db.Money
+  RoyRate    Float?    @db.Money
+  RoyXRate   Float?    @db.Money
+  RoyThisRoy Float?    @db.Money
+  RoyAdvLeft Float?    @db.Money
+  RoyRoyDue  Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblInvoicePDF {
+  InvNum  Int?
+  PDFName String? @db.NChar(256)
+
+  @@ignore
+}
+
+model tblMailingLists {
+  ClassCode        String           @db.VarChar(10)
+  SubClassCode     String           @db.Char(5)
+  CustID           Int
+  dictTitMainClass dictTitMainClass @relation(fields: [ClassCode], references: [ClassCode], onUpdate: NoAction, map: "FK_tblMailingLists_dictTitMainClass")
+  dictTitSubClass  dictTitSubClass  @relation(fields: [SubClassCode], references: [SubClassCode], onUpdate: NoAction, map: "FK_tblMailingLists_dictTitSubClass")
+  tblCustomers     tblCustomers     @relation(fields: [CustID], references: [CustID], onUpdate: NoAction, map: "FK_tblMailingLists_tblCustomers")
+
+  @@id([ClassCode, SubClassCode, CustID], map: "PK_tblMailingLists")
+}
+
+model tblMailingTemplates {
+  TempID      Int    @id(map: "PK_tblMailTemplates") @default(autoincrement())
+  TempName    String @db.VarChar(50)
+  TempPath    String @db.VarChar(255)
+  TempSubject String @db.VarChar(255)
+}
+
+model tblMaterial {
+  MatID       Int       @id(map: "PK_tblMaterial") @default(autoincrement())
+  AgrID       Int
+  MatTypeID   Int
+  Amount      Float     @db.Money
+  Currency    String?   @db.Char(3)
+  Remarks     String?   @db.VarChar(255)
+  RequestDate DateTime? @db.DateTime
+  ReceiveDate DateTime? @db.DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblMergedLog {
+  MergeID         Int      @default(autoincrement())
+  MergeDate       DateTime @db.Date
+  PrimaryClientID Int
+  MergedClientID  Int
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblMergedLogDetails {
+  MergeID       Int
+  TableName     String @db.Char(25)
+  FieldName     String @db.Char(25)
+  TableRecordID Int
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblMessages {
+  MsgID Int
+  Msg   String @db.VarChar(2000)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblMissRoyExcl {
+  AgrRightID        Int
+  ExcludeReasonID   Int?
+  ExcludeReasonCode String?   @db.VarChar(3)
+  ExcludeReasonDesc String?   @db.VarChar(200)
+  EnterDate         DateTime? @default(now(), map: "DV_EnterDate") @db.Date
+  RoyDate           DateTime? @db.Date
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblNotifications {
+  NotificationID Int      @default(autoincrement())
+  CustAbb        String   @db.VarChar(10)
+  NotifyDate     DateTime @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblNotificationsDetails {
+  NotificationID Int
+  TransactionID  Int
+  NotifyDate     DateTime @db.DateTime
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblParams {
+  Name  String? @db.VarChar(255)
+  Value String? @db.VarChar(255)
+
+  @@ignore
+}
+
+model tblPdoxInvMat {
+  Invoice_Nr Int     @id(map: "PK_tblPdoxInvMat") @map("Invoice Nr")
+  Title      String? @db.NVarChar(150)
+  ISBN       String? @db.NVarChar(16)
+}
+
+model tblPerson {
+  PersonID      Int       @id(map: "PK_tblPerson") @db.SmallInt
+  LastName      String    @db.VarChar(50)
+  FirstName     String    @db.VarChar(50)
+  MiddleName    String?   @db.VarChar(50)
+  BirthDate     DateTime? @db.Date
+  PESEL         String?   @db.Char(11)
+  Status        String?   @db.Char(1)
+  Address1      String?   @db.VarChar(50)
+  Address2      String?   @db.VarChar(50)
+  Zip           String?   @db.VarChar(20)
+  City          String?   @db.VarChar(50)
+  Country       String?   @db.VarChar(50)
+  MobileGRAAL   String?   @db.VarChar(50)
+  MobilePrivate String?   @db.VarChar(50)
+  ExtGRAAL      String?   @db.Char(2)
+  emailGraal    String?   @db.Char(50)
+  emailPriv     String?   @db.Char(50)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblPersonBonus {
+  PersonID      Int?      @db.SmallInt
+  DateBegin     DateTime? @db.Date
+  ContractType  Int?      @db.SmallInt
+  PayUnit       String?   @db.Char(1)
+  PayAmt        Float?    @db.Money
+  Bonus         Boolean?
+  AsstDeductAmt Float?    @db.Money
+  BonusPerc     Float?    @db.Money
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblPersonClient {
+  PersonID  Int       @db.SmallInt
+  ClientID  Int
+  DateBegin DateTime? @db.Date
+  DateEnd   DateTime? @db.Date
+
+  @@ignore
+}
+
+model tblPersonContractType {
+  CTypeID    Int     @id(map: "PK__tblPerso__E83DD31530AEFB81") @db.SmallInt
+  CTypeDescr String? @db.NVarChar(10)
+}
+
+model tblPersonLogin {
+  PersonID  Int       @db.SmallInt
+  Login     String    @db.VarChar(30)
+  DateBegin DateTime? @db.Date
+  DateEnd   DateTime? @db.Date
+
+  @@id([PersonID, Login], map: "PK_tblPersonLogin")
+}
+
+model tblPlaces {
+  PlaceID       Int             @id(map: "PK_tblPlaces") @default(autoincrement())
+  PlaceDesc     String          @unique(map: "IX_tblPlaces") @db.VarChar(50)
+  tblUserAccess tblUserAccess[]
+}
+
+model tblPubISBN {
+  PubID         Decimal       @db.Decimal(18, 0)
+  PubISBN1      String        @db.Char(5)
+  PubISBN2      String        @db.Char(7)
+  tblPublishers tblPublishers @relation(fields: [PubID], references: [PubID], onUpdate: NoAction, map: "FK_TBLPUBIS_RELATIONS_TBLPUBLI")
+
+  @@id([PubID, PubISBN1, PubISBN2], map: "PK_tblPubISBN")
+  @@index([PubID], map: "Relationship_55_FK")
+}
+
+model tblPublishers {
+  PubID       Decimal      @id(map: "PK_TBLPUBLISHERS") @db.Decimal(18, 0)
+  PubName     String?      @db.VarChar(250)
+  PubAbb      String?      @unique(map: "Index_2") @db.Char(20)
+  ParentPubID Decimal?     @db.Decimal(18, 0)
+  tblPubISBN  tblPubISBN[]
+}
+
+model tblPubLocal {
+  PubLocalID    Int            @id(map: "PK_TBLPUBLOCAL") @default(autoincrement())
+  AgrID         Int?
+  LocalTitle    String?        @db.Char(150)
+  PubDate       DateTime?      @db.DateTime
+  LocalISBN     String?        @db.VarChar(13)
+  Printrun      Int?
+  LocalEdition  Int?           @db.SmallInt
+  tblAgreements tblAgreements? @relation(fields: [AgrID], references: [AgrID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLPUBLO_RLSH_47_TBLAGREE")
+
+  @@index([AgrID], map: "Rlsh_47_FK")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblRepresentation {
+  CustID    Int
+  CountryID Int
+
+  @@ignore
+}
+
+model tblRoyalty {
+  RoyID         Int           @id(map: "PK_tblRoyalty") @default(autoincrement())
+  AgrID         Int
+  AgrRightID    Int
+  RoyNr         Int
+  EnterDate     DateTime?     @db.DateTime
+  RoyDate       DateTime?     @db.DateTime
+  Copies        Int?
+  Price         Float?        @db.Money
+  RoyRate       Float?        @db.Money
+  XRate         Float?        @db.Money
+  ThisRoy       Float?        @db.Money
+  AdvLeft       Float?        @db.Money
+  RoyDue        Float?        @db.Money
+  Pay           Float?        @db.Money
+  AdvID         Int?
+  tblAgreements tblAgreements @relation(fields: [AgrID], references: [AgrID], onUpdate: NoAction, map: "FK_TBLROYAL_RLSH_1_TBLAGREE")
+
+  @@unique([AgrID, AgrRightID, RoyNr], map: "IX_tblRoyalty")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblRoyInventory {
+  AgrID         Int
+  AgrRightID    Int
+  InventoryDate DateTime  @db.DateTime
+  OType         String?   @db.Char(1)
+  Copies        Int?
+  PubDate       DateTime? @db.DateTime
+  ISBN          String?   @db.Char(16)
+  LocalPrice    Float?    @db.Money
+  AgrPubID      String?   @db.VarChar(20)
+
+  @@ignore
+}
+
+model tblRoyRates {
+  Step          Int            @db.TinyInt
+  AgrRightID    Int
+  AgrID         Int?
+  CpsMax        Int?
+  Rate          Float?         @db.Money
+  tblAgreements tblAgreements? @relation(fields: [AgrID], references: [AgrID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLROYRA_RLSH_15_TBLAGREE")
+  tblAgrRights  tblAgrRights   @relation(fields: [AgrRightID], references: [AgrRightID], onUpdate: NoAction, map: "FK_TBLROYRA_RLSH_5_TBLAGRRI")
+
+  @@id([Step, AgrRightID], map: "PK_TBLROYRATES")
+  @@index([AgrID], map: "RLSH_15_FK")
+  @@index([AgrRightID], map: "RLSH_5_FK")
+}
+
+model tblSeries {
+  SeriesID        Int           @id(map: "PK_TBLSERIES") @default(autoincrement()) @db.SmallInt
+  CustID          Int?
+  SeriesFullName  String?       @db.Char(150)
+  SeriesShortName String?       @db.Char(50)
+  tblCustomers    tblCustomers? @relation(fields: [CustID], references: [CustID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSERIE_RLSH_27_TBLCUSTO")
+
+  @@index([CustID], map: "Rlsh_27_FK")
+}
+
+model tblSubmEvents {
+  SubmEventID    Decimal         @id(map: "PK_TBLSUBMEVENTS") @db.Decimal(18, 0)
+  SubmID         Int?
+  EventCode      Int?
+  EventDate      DateTime        @db.DateTime
+  NoOfCopies     Int?
+  EndDate        DateTime?       @db.DateTime
+  tblSubmissions tblSubmissions? @relation(fields: [SubmID], references: [SubmID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSUBME_RLSH_49_TBLSUBMI")
+  dictEvents     dictEvents?     @relation(fields: [EventCode], references: [EventCode], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSUBME_RLSH_50_DICTEVEN")
+
+  @@index([SubmID], map: "Rlsh_49_FK")
+  @@index([EventCode], map: "Rlsh_50_FK")
+}
+
+model tblSubmissions {
+  SubmID           Int               @id(map: "PK_TBLSUBMISSIONS") @default(autoincrement())
+  CopyTypeID       Int?              @db.TinyInt
+  SubmSentTypeID   Int?              @db.TinyInt
+  TitleID          Int?
+  CustID           Int?
+  Exclusive        Int?
+  SubmDate         DateTime          @db.DateTime
+  SentDate         DateTime?         @db.DateTime
+  EndDate          DateTime?         @db.DateTime
+  ReturnDate       DateTime?         @db.DateTime
+  NoOfCopies       Int?
+  TrackingNo       String?           @db.Char(30)
+  UserMod          String            @default("suser_sname()", map: "DF__tblSubmis__UserM__46E78A0C") @db.Char(30)
+  DateMod          DateTime          @default(now(), map: "DF__tblSubmis__DateM__47DBAE45") @db.DateTime
+  Status           String?           @db.Char(1)
+  SubmNr           Int?
+  Remarks          String?           @db.VarChar(1000)
+  ContactID        Int?
+  tblSubmEvents    tblSubmEvents[]
+  tblTitles        tblTitles?        @relation(fields: [TitleID], references: [TitleID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSUBMI_RLSH_13_TBLTITLE")
+  tblCustomers     tblCustomers?     @relation(fields: [CustID], references: [CustID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSUBMI_RLSH_31_TBLCUSTO")
+  dictSubmSentType dictSubmSentType? @relation(fields: [SubmSentTypeID], references: [SubmSentTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSUBMI_RLSH_32_DICTSUBM")
+  dictCopyType     dictCopyType?     @relation(fields: [CopyTypeID], references: [CopyTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLSUBMI_RLSH_33_DICTCOPY")
+
+  @@index([TitleID], map: "RLSH_13_FK")
+  @@index([CustID], map: "Rlsh_31_FK")
+  @@index([SubmSentTypeID], map: "Rlsh_32_FK")
+  @@index([CopyTypeID], map: "Rlsh_33_FK")
+}
+
+model tblTaxResidenceCertificate {
+  CertID      Int       @id(map: "PK__tblTaxRe__E5BD38E5590DF54F") @default(autoincrement())
+  ClientID    Int
+  ValidDate   DateTime  @db.Date
+  RequestDate DateTime? @db.Date
+  ReceiveDate DateTime? @db.Date
+  UpdateDate  DateTime  @db.Date
+  HasCert     String    @db.Char(1)
+  CountryID   Int?
+  CertFile    Bytes?    @db.Image
+  Remarks     String?   @db.NChar(300)
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblTaxResidenceSend {
+  CertID   Int?
+  ClientID Int?
+  DateSend DateTime? @db.Date
+  SendOrig Boolean?
+  SendCopy Boolean?
+
+  @@ignore
+}
+
+model tblTitAuthors {
+  AuthorID   Int
+  TitleID    Int
+  Main       Int?       @db.TinyInt
+  Lp         Int
+  tblAuthors tblAuthors @relation(fields: [AuthorID], references: [AuthorID], onUpdate: NoAction, map: "FK_TBLTITAU_RLSH_11_TBLAUTHO")
+  tblTitles  tblTitles  @relation(fields: [TitleID], references: [TitleID], onUpdate: NoAction, map: "FK_TBLTITAU_RLSH_12_TBLTITLE")
+
+  @@id([AuthorID, TitleID], map: "PK_tblTitAuthors")
+  @@index([AuthorID], map: "RLSH_11_FK")
+  @@index([TitleID], map: "RLSH_12_FK")
+}
+
+model tblTitAux {
+  TitleID       Int       @id(map: "PK_tblTitAux")
+  CopyrightLine String?   @db.VarChar(200)
+  tblTitles     tblTitles @relation(fields: [TitleID], references: [TitleID], onUpdate: NoAction, map: "FK_tblTitAux_tblTitles")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblTitCopies {
+  CopyTypeID   Int?          @db.TinyInt
+  TitleID      Int?
+  NoOfCopies   Int?
+  ReceiptDate  DateTime?     @db.DateTime
+  dictCopyType dictCopyType? @relation(fields: [CopyTypeID], references: [CopyTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITCO_RELATIONS_DICTCOPY")
+  tblTitles    tblTitles?    @relation(fields: [TitleID], references: [TitleID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITCO_RELATIONS_TBLTITLE")
+
+  @@index([TitleID], map: "Relationship_56_FK")
+  @@index([CopyTypeID], map: "Relationship_59_FK")
+  @@ignore
+}
+
+model tblTitEvents {
+  TitEventID   Decimal       @id(map: "PK_TBLTITEVENTS") @db.Decimal(18, 0)
+  CopyTypeID   Int?          @db.TinyInt
+  EventCode    Int?
+  TitleID      Int?
+  EventDate    DateTime?     @db.DateTime
+  NoOfCopies   Int?
+  EndDate      DateTime?     @db.DateTime
+  tblTitles    tblTitles?    @relation(fields: [TitleID], references: [TitleID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITEV_RLSH_16_TBLTITLE")
+  dictEvents   dictEvents?   @relation(fields: [EventCode], references: [EventCode], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITEV_RLSH_17_DICTEVEN")
+  dictCopyType dictCopyType? @relation(fields: [CopyTypeID], references: [CopyTypeID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITEV_RLSH_46_DICTCOPY")
+
+  @@index([TitleID], map: "Rlsh_16_FK")
+  @@index([EventCode], map: "Rlsh_17_FK")
+  @@index([CopyTypeID], map: "Rlsh_46_FK")
+}
+
+model tblTitles {
+  TitleID            Int                  @id(map: "PK_TBLTITLES") @default(autoincrement())
+  CustID             Int?
+  PropID             Int?
+  Proprietor         String?              @db.Char(1)
+  LangAbb            String?              @db.Char(3)
+  ClassCode          String?              @db.VarChar(10)
+  CoverFormatID      Int?
+  Title              String               @db.VarChar(150)
+  ISBN1              String?              @db.Char(5)
+  ISBN2              String?              @db.Char(7)
+  ISBN3              String?              @db.Char(6)
+  ISBN4              String?              @db.Char(1)
+  SeriesIID          Int?
+  Edition            Int?
+  DateOfReceipt      DateTime?            @db.DateTime
+  NoOfPages          Int?
+  CopyrightYear      String?              @db.Char(4)
+  CopyrightOwner     String?              @db.Char(1)
+  CopyrightOwnerDesc String?              @db.VarChar(150)
+  KeyWords           String?              @db.VarChar(250)
+  TitleVolume        Int?
+  NoOfTitleVolumes   Int?
+  Hit                Boolean?
+  Junk               Boolean?
+  CD                 Boolean?
+  Collection         Boolean?
+  Remarks            String?              @db.VarChar(1000)
+  UserMod            String               @default("suser_sname()", map: "DF__tblTitles__UserM__5070F446") @db.Char(30)
+  DateMod            DateTime             @default(now(), map: "DF__tblTitles__DateM__5165187F") @db.DateTime
+  ISBN               String?              @db.VarChar(20)
+  PubID              Int?
+  ProprietorDesc     String?              @db.VarChar(200)
+  ISBN0              String?              @db.VarChar(3)
+  tblAgreements      tblAgreements[]
+  tblEvents          tblEvents[]          @ignore
+  tblSubmissions     tblSubmissions[]
+  tblTitAuthors      tblTitAuthors[]
+  tblTitAux          tblTitAux?
+  tblTitCopies       tblTitCopies[]       @ignore
+  tblTitEvents       tblTitEvents[]
+  dictLanguages      dictLanguages?       @relation(fields: [LangAbb], references: [LangAbb], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITLE_RELATIONS_DICTLANG")
+  tblCustomers       tblCustomers?        @relation(fields: [CustID], references: [CustID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITLE_RELATIONS_TBLCUSTO")
+  dictTitMainClass   dictTitMainClass?    @relation(fields: [ClassCode], references: [ClassCode], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITLE_RLSH_18_DICTTITM")
+  dictCoverFormat    dictCoverFormat?     @relation(fields: [CoverFormatID], references: [CoverFormatID], onDelete: NoAction, onUpdate: NoAction, map: "FK_tblTitles_dictCoverFormat")
+  tblTitSubClass     tblTitSubClass[]
+  tblTitTargetGroups tblTitTargetGroups[] @ignore
+
+  @@index([LangAbb], map: "Relationship_53_FK")
+  @@index([CustID], map: "Relationship_54_FK")
+  @@index([ClassCode], map: "Rlsh_18_FK")
+}
+
+model tblTitSubClass {
+  SubClassCode    String          @db.Char(5)
+  TitleID         Int
+  tblTitles       tblTitles       @relation(fields: [TitleID], references: [TitleID], onUpdate: NoAction, map: "FK_TBLTITSU_RLSH_20_TBLTITLE")
+  dictTitSubClass dictTitSubClass @relation(fields: [SubClassCode], references: [SubClassCode], onUpdate: NoAction, map: "FK_TBLTITSU_RLSH_21_DICTTITS")
+
+  @@id([SubClassCode, TitleID], map: "PK_tblTitSubClass")
+  @@index([TitleID], map: "Rlsh_20_FK")
+  @@index([SubClassCode], map: "Rlsh_21_FK")
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblTitTargetGroups {
+  TitleID          Int?
+  TargetGroupID    Decimal?          @db.Decimal(18, 0)
+  tblTitles        tblTitles?        @relation(fields: [TitleID], references: [TitleID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITTA_RLSH_22_TBLTITLE")
+  dictTargetGroups dictTargetGroups? @relation(fields: [TargetGroupID], references: [TargetGroupID], onDelete: NoAction, onUpdate: NoAction, map: "FK_TBLTITTA_RLSH_23_DICTTARG")
+
+  @@index([TitleID], map: "Rlsh_22_FK")
+  @@index([TargetGroupID], map: "Rlsh_23_FK")
+  @@ignore
+}
+
+model tblUserAccess {
+  Login     String    @db.VarChar(30)
+  PlaceID   Int
+  tblPlaces tblPlaces @relation(fields: [PlaceID], references: [PlaceID], onUpdate: NoAction, map: "FK_tblUserAccess_tblPlaces")
+  tblUsers  tblUsers  @relation(fields: [Login], references: [Login], onUpdate: NoAction, map: "FK_tblUserAccess_tblUsers")
+
+  @@id([Login, PlaceID], map: "PK_tblUserAccess")
+}
+
+model tblUserParams {
+  Login    String   @db.VarChar(30)
+  Name     String   @db.VarChar(30)
+  Value    String   @db.VarChar(300)
+  tblUsers tblUsers @relation(fields: [Login], references: [Login], onUpdate: NoAction, map: "FK_tblUserParams_tblUsers")
+
+  @@id([Login, Name], map: "PK_tblUserParams")
+  @@index([Login], map: "IX_tblUserParams")
+}
+
+model tblUsers {
+  Login             String              @id(map: "PK_tblUsers") @db.VarChar(30)
+  FirstName         String              @db.VarChar(50)
+  MiddleName        String?             @db.VarChar(50)
+  LastName          String              @db.VarChar(50)
+  CompanyPosition   String?             @db.VarChar(50)
+  Birthday          DateTime?           @db.DateTime
+  Status            String              @db.Char(1)
+  Initials          String?             @db.VarChar(10)
+  Phone             String?             @db.VarChar(20)
+  MobilePhone       String?             @db.VarChar(20)
+  Email             String?             @db.VarChar(50)
+  Sex               String?             @db.Char(1)
+  Street            String?             @db.VarChar(50)
+  ZipCode           String?             @db.VarChar(10)
+  City              String?             @db.VarChar(30)
+  Country           String?             @db.VarChar(20)
+  Remarks           String?             @db.VarChar(500)
+  UserMod           String?             @default("suser_sname()", map: "DF_tblUsers_UserMod") @db.Char(30)
+  DateMod           DateTime?           @default(now(), map: "DF_tblUsers_DateMod") @db.DateTime
+  Nameday           DateTime?           @db.DateTime
+  PersonID          Int?                @db.SmallInt
+  tblCustUsers      tblCustUsers[]
+  tblDtgUserColumns tblDtgUserColumns[] @ignore
+  tblUserAccess     tblUserAccess[]
+  tblUserParams     tblUserParams[]
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblVersionInfo {
+  Version     String @db.Char(10)
+  DateMod     String @db.Char(10)
+  Description String @db.VarChar(4000)
+  Id          Int    @default(autoincrement())
+
+  @@ignore
+}
+
+model tmpKursyXML {
+  Id             Int       @id(map: "PK__tmpKursy__3214EC071D9C270D") @default(autoincrement())
+  XMLData        String?   @db.Xml
+  LoadedDateTime DateTime? @db.Date
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model xlsKursy2012 {
+  Data               DateTime? @db.DateTime
+  THB                Float?    @map("1 THB")
+  USD                Float?    @map("1 USD")
+  AUD                Float?    @map("1 AUD")
+  HKD                Float?    @map("1 HKD")
+  CAD                Float?    @map("1 CAD")
+  NZD                Float?    @map("1 NZD")
+  SGD                Float?    @map("1 SGD")
+  EUR                Float?    @map("1 EUR")
+  HUF                Float?    @map("100 HUF")
+  CHF                Float?    @map("1 CHF")
+  GBP                Float?    @map("1 GBP")
+  UAH                Float?    @map("1 UAH")
+  JPY                Float?    @map("100 JPY")
+  CZK                Float?    @map("1 CZK")
+  DKK                Float?    @map("1 DKK")
+  ISK                Float?    @map("100 ISK")
+  NOK                Float?    @map("1 NOK")
+  SEK                Float?    @map("1 SEK")
+  HRK                Float?    @map("1 HRK")
+  RON                Float?    @map("1 RON")
+  BGN                Float?    @map("1 BGN")
+  TRY                Float?    @map("1 TRY")
+  LTL                Float?    @map("1 LTL")
+  LVL                Float?    @map("1 LVL")
+  ILS                Float?    @map("1 ILS")
+  CLP                Float?    @map("100 CLP")
+  PHP                Float?    @map("1 PHP")
+  MXN                Float?    @map("1 MXN")
+  ZAR                Float?    @map("1 ZAR")
+  BRL                Float?    @map("1 BRL")
+  MYR                Float?    @map("1 MYR")
+  RUB                Float?    @map("1 RUB")
+  IDR                Float?    @map("10000 IDR")
+  INR                Float?    @map("100 INR")
+  KRW                Float?    @map("100 KRW")
+  CNY                Float?    @map("1 CNY")
+  XDR                Float?    @map("1 XDR")
+  Nr_tabeli          Float?    @map("Nr tabeli")
+  Pe_ny_numer_tabeli String?   @map("Pełny numer tabeli") @db.NVarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model xlsKursy2013 {
+  data               DateTime? @db.DateTime
+  THB                Float?    @map("1 THB")
+  USD                Float?    @map("1 USD")
+  AUD                Float?    @map("1 AUD")
+  HKD                Float?    @map("1 HKD")
+  CAD                Float?    @map("1 CAD")
+  NZD                Float?    @map("1 NZD")
+  SGD                Float?    @map("1 SGD")
+  EUR                Float?    @map("1 EUR")
+  HUF                Float?    @map("100 HUF")
+  CHF                Float?    @map("1 CHF")
+  GBP                Float?    @map("1 GBP")
+  UAH                Float?    @map("1 UAH")
+  JPY                Float?    @map("100 JPY")
+  CZK                Float?    @map("1 CZK")
+  DKK                Float?    @map("1 DKK")
+  ISK                Float?    @map("100 ISK")
+  NOK                Float?    @map("1 NOK")
+  SEK                Float?    @map("1 SEK")
+  HRK                Float?    @map("1 HRK")
+  RON                Float?    @map("1 RON")
+  BGN                Float?    @map("1 BGN")
+  TRY                Float?    @map("1 TRY")
+  LTL                Float?    @map("1 LTL")
+  LVL                Float?    @map("1 LVL")
+  ILS                Float?    @map("1 ILS")
+  CLP                Float?    @map("100 CLP")
+  PHP                Float?    @map("1 PHP")
+  MXN                Float?    @map("1 MXN")
+  ZAR                Float?    @map("1 ZAR")
+  BRL                Float?    @map("1 BRL")
+  MYR                Float?    @map("1 MYR")
+  RUB                Float?    @map("1 RUB")
+  IDR                Float?    @map("10000 IDR")
+  INR                Float?    @map("100 INR")
+  KRW                Float?    @map("100 KRW")
+  CNY                Float?    @map("1 CNY")
+  XDR                Float?    @map("1 XDR")
+  nr_tabeli          Float?    @map("nr tabeli")
+  pelny_numer_tabeli String?   @map("pelny numer tabeli") @db.NVarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model xlsKursy2014 {
+  data               DateTime? @db.DateTime
+  THB                Float?    @map("1 THB")
+  USD                Float?    @map("1 USD")
+  AUD                Float?    @map("1 AUD")
+  HKD                Float?    @map("1 HKD")
+  CAD                Float?    @map("1 CAD")
+  NZD                Float?    @map("1 NZD")
+  SGD                Float?    @map("1 SGD")
+  EUR                Float?    @map("1 EUR")
+  HUF                Float?    @map("100 HUF")
+  CHF                Float?    @map("1 CHF")
+  GBP                Float?    @map("1 GBP")
+  UAH                Float?    @map("1 UAH")
+  JPY                Float?    @map("100 JPY")
+  CZK                Float?    @map("1 CZK")
+  DKK                Float?    @map("1 DKK")
+  ISK                Float?    @map("100 ISK")
+  NOK                Float?    @map("1 NOK")
+  SEK                Float?    @map("1 SEK")
+  HRK                Float?    @map("1 HRK")
+  RON                Float?    @map("1 RON")
+  BGN                Float?    @map("1 BGN")
+  TRY                Float?    @map("1 TRY")
+  LTL                Float?    @map("1 LTL")
+  ILS                Float?    @map("1 ILS")
+  CLP                Float?    @map("100 CLP")
+  PHP                Float?    @map("1 PHP")
+  MXN                Float?    @map("1 MXN")
+  ZAR                Float?    @map("1 ZAR")
+  BRL                Float?    @map("1 BRL")
+  MYR                Float?    @map("1 MYR")
+  RUB                Float?    @map("1 RUB")
+  IDR                Float?    @map("10000 IDR")
+  INR                Float?    @map("100 INR")
+  KRW                Float?    @map("100 KRW")
+  CNY                Float?    @map("1 CNY")
+  XDR                Float?    @map("1 XDR")
+  nr_tabeli          Float?    @map("nr tabeli")
+  pelny_numer_tabeli String?   @map("pelny numer tabeli") @db.NVarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model xlsKursy2015 {
+  data               DateTime? @db.DateTime
+  THB                Float?    @map("1 THB")
+  USD                Float?    @map("1 USD")
+  AUD                Float?    @map("1 AUD")
+  HKD                Float?    @map("1 HKD")
+  CAD                Float?    @map("1 CAD")
+  NZD                Float?    @map("1 NZD")
+  SGD                Float?    @map("1 SGD")
+  EUR                Float?    @map("1 EUR")
+  HUF                Float?    @map("100 HUF")
+  CHF                Float?    @map("1 CHF")
+  GBP                Float?    @map("1 GBP")
+  UAH                Float?    @map("1 UAH")
+  JPY                Float?    @map("100 JPY")
+  CZK                Float?    @map("1 CZK")
+  DKK                Float?    @map("1 DKK")
+  ISK                Float?    @map("100 ISK")
+  NOK                Float?    @map("1 NOK")
+  SEK                Float?    @map("1 SEK")
+  HRK                Float?    @map("1 HRK")
+  RON                Float?    @map("1 RON")
+  BGN                Float?    @map("1 BGN")
+  TRY                Float?    @map("1 TRY")
+  ILS                Float?    @map("1 ILS")
+  CLP                Float?    @map("100 CLP")
+  PHP                Float?    @map("1 PHP")
+  MXN                Float?    @map("1 MXN")
+  ZAR                Float?    @map("1 ZAR")
+  BRL                Float?    @map("1 BRL")
+  MYR                Float?    @map("1 MYR")
+  RUB                Float?    @map("1 RUB")
+  IDR                Float?    @map("10000 IDR")
+  INR                Float?    @map("100 INR")
+  KRW                Float?    @map("100 KRW")
+  CNY                Float?    @map("1 CNY")
+  XDR                Float?    @map("1 XDR")
+  nr_tabeli          Float?    @map("nr tabeli")
+  pe_ny_numer_tabeli String?   @map("pełny numer tabeli") @db.NVarChar(255)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model xlsKursy2016 {
+  data               DateTime? @db.DateTime
+  THB                Float?    @map("1 THB")
+  USD                Float?    @map("1 USD")
+  AUD                Float?    @map("1 AUD")
+  HKD                Float?    @map("1 HKD")
+  CAD                Float?    @map("1 CAD")
+  NZD                Float?    @map("1 NZD")
+  SGD                Float?    @map("1 SGD")
+  EUR                Float?    @map("1 EUR")
+  HUF                Float?    @map("100 HUF")
+  CHF                Float?    @map("1 CHF")
+  GBP                Float?    @map("1 GBP")
+  UAH                Float?    @map("1 UAH")
+  JPY                Float?    @map("100 JPY")
+  CZK                Float?    @map("1 CZK")
+  DKK                Float?    @map("1 DKK")
+  ISK                Float?    @map("100 ISK")
+  NOK                Float?    @map("1 NOK")
+  SEK                Float?    @map("1 SEK")
+  HRK                Float?    @map("1 HRK")
+  RON                Float?    @map("1 RON")
+  BGN                Float?    @map("1 BGN")
+  TRY                Float?    @map("1 TRY")
+  ILS                Float?    @map("1 ILS")
+  CLP                Float?    @map("100 CLP")
+  PHP                Float?    @map("1 PHP")
+  MXN                Float?    @map("1 MXN")
+  ZAR                Float?    @map("1 ZAR")
+  BRL                Float?    @map("1 BRL")
+  MYR                Float?    @map("1 MYR")
+  RUB                Float?    @map("1 RUB")
+  IDR                Float?    @map("10000 IDR")
+  INR                Float?    @map("100 INR")
+  KRW                Float?    @map("100 KRW")
+  CNY                Float?    @map("1 CNY")
+  XDR                Float?    @map("1 XDR")
+  nr_tabeli          Float?    @map("nr tabeli")
+  pelny_numer_tabeli String?   @map("pelny numer tabeli") @db.NVarChar(255)
+
+  @@ignore
+}

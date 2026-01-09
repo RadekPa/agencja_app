@@ -2,17 +2,15 @@ import * as z from 'zod';
 // prettier-ignore
 export const AuthorResultSchema = z.object({
     id: z.number().int(),
-    phoneNumber: z.string().nullable(),
-    firstName: z.string(),
+    fullName: z.string().nullable(),
+    firstName: z.string().nullable(),
     middleName: z.string().nullable(),
-    lastName: z.string(),
-    informal: z.number().int(),
-    fax: z.string().nullable(),
-    email: z.string().nullable(),
+    lastName: z.string().nullable(),
+    suffix: z.string().nullable(),
+    penName: z.string().nullable(),
     userMod: z.string(),
     dateMod: z.date(),
-    contactPosition: z.string().nullable(),
-    accountant: z.number().int().nullable()
+    remarks: z.string().nullable()
 }).strict();
 
 export type AuthorResultType = z.infer<typeof AuthorResultSchema>;

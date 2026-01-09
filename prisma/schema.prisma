@@ -41,24 +41,24 @@ model RolePermissions {
 }
 
 model Customer {
-  id           Int        @id @default(autoincrement()) @map("CustID")
-  name         String?    @map("Name") @db.VarChar(250)
-  email        String?    @map("DefaultEmail") @db.VarChar(50)
-  phone        String?    @map("DefaultPhone") @db.VarChar(20)
-  address      String?    @map("Address1") @db.VarChar(150)
-  city         String?    @map("City") @db.VarChar(50)
-  postalCode   String?    @map("Zip") @db.VarChar(50)
-  country      Int?       @map("CountryID")
-  nip          String?    @map("TaxID") @db.VarChar(50)
-  regon        String?    @map("VATID") @db.VarChar(50)
-  notes        String?    @map("Remarks") @db.VarChar(250)
-  createdAt    DateTime?  @default(now(), map: "DF__tblCustom__DateM__2D27B809") @map("DateMod") @db.DateTime
+  id           Int          @id @default(autoincrement()) @map("CustID")
+  name         String?      @map("Name") @db.VarChar(250)
+  email        String?      @map("DefaultEmail") @db.VarChar(50)
+  phone        String?      @map("DefaultPhone") @db.VarChar(20)
+  address      String?      @map("Address1") @db.VarChar(150)
+  city         String?      @map("City") @db.VarChar(50)
+  postalCode   String?      @map("Zip") @db.VarChar(50)
+  country      Int?         @map("CountryID")
+  nip          String?      @map("TaxID") @db.VarChar(50)
+  regon        String?      @map("VATID") @db.VarChar(50)
+  notes        String?      @map("Remarks") @db.VarChar(250)
+  createdAt    DateTime?    @default(now(), map: "DF__tblCustom__DateM__2D27B809") @map("DateMod") @db.DateTime
   invoices     Invoice[]
 
   @@map("tblCustomers")
 }
 
-model Author {
+model Contact {
   id              Int      @id @default(autoincrement()) @map("ContactID")
   phoneNumber     String?  @db.VarChar(20) @map("PhoneNumber")
   firstName       String   @db.VarChar(30) @map("FirstName")
@@ -73,6 +73,21 @@ model Author {
   accountant      Int?     @map("Accountant")
 
   @@map("tblContacts")
+}
+
+model Author {
+  id         Int      @id @default(autoincrement()) @map("AuthorID")
+  fullName   String?  @db.VarChar(150) @map("FullName")
+  firstName  String?  @db.VarChar(150) @map("FirstName")
+  middleName String?  @db.VarChar(100) @map("MiddleName")
+  lastName   String?  @db.VarChar(150) @map("LastName")
+  suffix     String?  @db.VarChar(50) @map("Suffix")
+  penName    String?  @db.VarChar(150) @map("PenName")
+  userMod    String   @default("suser_sname()") @db.Char(30) @map("UserMod")
+  dateMod    DateTime @default(now()) @db.DateTime @map("DateMod")
+  remarks    String?  @db.VarChar(1000) @map("Remarks")
+
+  @@map("tblAuthors")
 }
 
 model Invoice {

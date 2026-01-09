@@ -5,17 +5,15 @@ import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './Sort
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
-  phoneNumber: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  firstName: SortOrderSchema.optional(),
+  fullName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  firstName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   middleName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  lastName: SortOrderSchema.optional(),
-  informal: SortOrderSchema.optional(),
-  fax: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  email: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  lastName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  suffix: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  penName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   userMod: SortOrderSchema.optional(),
   dateMod: SortOrderSchema.optional(),
-  contactPosition: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
-  accountant: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional()
+  remarks: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional()
 }).strict();
 export const AuthorOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.AuthorOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.AuthorOrderByWithRelationInput>;
 export const AuthorOrderByWithRelationInputObjectZodSchema = makeSchema();

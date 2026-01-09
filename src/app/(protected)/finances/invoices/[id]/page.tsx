@@ -1,139 +1,229 @@
 "use client"
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useEffect, useMemo, useState } from 'react'
+import Link from 'next/link'
 import { Card } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+
+type Client = {
+  name?: string | null
+  email?: string | null
+  phone?: string | null
+  address?: string | null
+  city?: string | null
+  postalCode?: string | null
+  nip?: string | null
+  regon?: string | null
+}
+
+type Invoice = {
+  id: number
+  invNr?: number | null
+  fvType?: number | null
+  origFVNr?: number | null
+  client?: Client | null
+  title?: string | null
+  fvDescription?: string | null
+  date?: string | null
+  dateIssued?: string | null
+  payDate?: string | null
+  invAmt?: number | null
+  graalPerc?: number | null
+  xRate?: number | null
+  vatCode?: string | null
+  vatPerc?: number | null
+  vatAmt?: number | null
+  vatAmtCurr?: number | null
+  netAmt?: number | null
+  netAmtCurr?: number | null
+  grossAmt?: number | null
+  fvCurrency?: string | null
+  status?: string | null
+  invType?: string | null
+  originalInvoice?: {
+    invAmt?: number | null
+    graalPerc?: number | null
+    xRate?: number | null
+    vatCode?: string | null
+    vatAmtCurr?: number | null
+    grossAmt?: number | null
+    fvCurrency?: string | null
+  } | null
+}
+
+const formatDate = (value?: string | null) => {
+  if (!value) return '-'
+  const parsed = new Date(value)
+  if (Number.isNaN(parsed.getTime())) return '-'
+  return new Intl.DateTimeFormat('pl-PL').format(parsed)
+}
+
+const formatMoney = (value?: number | null, currency = 'PLN') => {
+  if (value === undefined || value === null) return '-'
+  return `${value.toFixed(2)} ${currency}`
+}
 
 export default function InvoiceShow({ params }: { params: { id: string } }) {
   const id = params.id
-  const [invoice, setInvoice] = useState<any | null>(null)
+  const [invoice, setInvoice] = useState<Invoice | null>(null)
   const [loading, setLoading] = useState(false)
-  const router = useRouter()
+  const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
     const load = async () => {
       setLoading(true)
-      const res = await fetch(`/api/invoices/${id}`)
-      if (!res.ok) { setInvoice(null); setLoading(false); return }
-      const json = await res.json()
-      setInvoice(json.invoice)
-      setLoading(false)
+      setError(null)
+      try {
+        const res = await fetch(`/api/invoices/${id}`)
+        if (!res.ok) {
+          setInvoice(null)
+          setError('Nie znaleziono faktury')
+          return
+        }
+        const json = await res.json()
+        setInvoice(json.invoice)
+      } catch (err: any) {
+        setError(err?.message ?? 'Wystąpił błąd podczas ładowania faktury')
+        setInvoice(null)
+      } finally {
+        setLoading(false)
+      }
     }
     load()
   }, [id])
 
-  if (loading) return <p>Ładowanie...</p>
-  if (!invoice) return <Card><p>Nie znaleziono faktury</p></Card>
+  const invTypeLabel = useMemo(() => {
+    const invType = invoice?.invType || 'FV'
+    return {
+      'FV': 'Faktura VAT',
+      'RR': 'Rachunek',
+      'KOR': 'Korekta',
+      'ZAL': 'Zaliczka',
+      'REC': 'Wznowienie VAT'
+    }[invType] || invType
+  }, [invoice?.invType])
 
-  const invType = invoice.invType || 'FV'
-  const invTypeLabel = {
-    'FV': 'Faktura VAT',
-    'RR': 'Rachunek',
-    'KOR': 'Korekta',
-    'ZAL': 'Zaliczka',
-    'REC': 'Wznowienie VAT'
-  }[invType] || invType
+  if (loading) return <p>Ładowanie...</p>
+  if (error) return <Card><p className="p-4 text-sm text-muted-foreground">{error}</p></Card>
+  if (!invoice) return <Card><p className="p-4 text-sm text-muted-foreground">Nie znaleziono faktury</p></Card>
+
+  const numberDisplay = invoice.id
+  const invoiceReference = invoice.invNr ?? invoice.id
+  const currency = invoice.fvCurrency || 'PLN'
+  const originalCurrency = invoice.originalInvoice?.fvCurrency || currency
+  const isCorrection = invoice.fvType === 2
 
   return (
     <div className="space-y-6">
-      <Card className="p-6">
-        <div className="flex justify-between items-start">
-          <div>
-            <h2 className="text-lg font-semibold text-card-foreground">
-              {invTypeLabel} #{invoice.id}
-            </h2>
-            <p className="text-sm text-muted-foreground">{invoice.title}</p>
+      <div>
+        <Button asChild variant="outline" size="sm">
+          <Link href="/finances/invoices">← Powrót do listy</Link>
+        </Button>
+      </div>
+      <Card className="p-8 space-y-8">
+        <div className="grid grid-cols-3 gap-4 items-start">
+          <div aria-hidden />
+          <div className="text-center">
+            <div className="text-sm uppercase tracking-wide text-muted-foreground">{invTypeLabel}</div>
+            <div className="text-2xl font-semibold">Faktura VAT</div>
           </div>
           <div className="text-right">
-            <div className="text-sm font-medium">
-              Status:
-              <span className={`ml-2 px-3 py-1 rounded text-white ${invoice.status === 'ISSUED' ? 'bg-green-600' : 'bg-yellow-600'}`}>
-                {invoice.status === 'ISSUED' ? 'Wystawiona' : 'Wersja robocza'}
-              </span>
-            </div>
+            <div className="text-xs uppercase text-muted-foreground">Nr faktury</div>
+            <div className="text-xl font-semibold">{numberDisplay}</div>
           </div>
         </div>
 
-        <div className="mt-6 border-t border-border pt-6">
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <h3 className="font-semibold mb-3">Klient</h3>
-              <div className="space-y-1">
-                <div className="font-medium">{invoice.client?.name}</div>
-                {invoice.client?.email && <div className="text-sm text-muted-foreground">{invoice.client.email}</div>}
-                {invoice.client?.phone && <div className="text-sm text-muted-foreground">{invoice.client.phone}</div>}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="font-semibold mb-3">Daty</h3>
-              <div className="space-y-2 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Data wystawienia:</span>
-                  <div className="font-medium">{invoice.date ? new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.date)) : '-'}</div>
-                </div>
-                {invoice.dateIssued && (
-                  <div>
-                    <span className="text-muted-foreground">Data wydania:</span>
-                    <div className="font-medium">{new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.dateIssued))}</div>
-                  </div>
-                )}
-                {invoice.payDate && (
-                  <div>
-                    <span className="text-muted-foreground">Termin zapłaty:</span>
-                    <div className="font-medium">{new Intl.DateTimeFormat('pl-PL').format(new Date(invoice.payDate))}</div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-6 bg-muted/50 p-6 rounded-lg">
-          <h3 className="font-semibold mb-4">Podsumowanie finansowe</h3>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <div className="text-sm text-muted-foreground">Kwota netto</div>
-              <div className="text-2xl font-bold">{invoice.netAmt.toFixed(2)} PLN</div>
-            </div>
-            <div>
-              <div className="text-sm text-muted-foreground">Stawka VAT</div>
-              <div className="text-2xl font-bold">{invoice.vatPerc?.toFixed(2) || '0.00'}%</div>
-            </div>
-            <div>
-              <div className="text-sm text-muted-foreground">VAT</div>
-              <div className="text-2xl font-bold">{invoice.vatAmt.toFixed(2)} PLN</div>
-            </div>
-            <div>
-              <div className="text-sm text-muted-foreground">Kwota brutto</div>
-              <div className="text-2xl font-bold text-primary">{invoice.grossAmt.toFixed(2)} PLN</div>
-            </div>
-          </div>
-        </div>
-
-        {invoice.fvDescription && (
-          <div className="mt-6 border-t border-border pt-6">
-            <h3 className="font-semibold mb-2">Opis</h3>
-            <p className="text-sm text-muted-foreground">{invoice.fvDescription}</p>
-          </div>
-        )}
-
-        <div className="mt-6 border-t border-border pt-6 grid grid-cols-3 gap-4 text-sm">
-          {invoice.payType && (
-            <div>
-              <span className="text-muted-foreground">Rodzaj płatności:</span>
-              <div className="font-medium">{invoice.payType}</div>
-            </div>
-          )}
-          {invoice.vatCode && (
-            <div>
-              <span className="text-muted-foreground">Kod VAT:</span>
-              <div className="font-medium">{invoice.vatCode}</div>
-            </div>
-          )}
+        <div className="flex flex-col items-end gap-2 text-right">
           <div>
-            <span className="text-muted-foreground">Typ faktury:</span>
-            <div className="font-medium">{invTypeLabel}</div>
+            <div className="text-xs uppercase text-muted-foreground">Data wystawienia</div>
+            <div className="font-medium">{formatDate(invoice.date)}</div>
           </div>
+          <div>
+            <div className="text-xs uppercase text-muted-foreground">Data sprzedaży</div>
+            <div className="font-medium">{formatDate(invoice.dateIssued)}</div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="rounded-lg border border-border bg-muted/40 p-4 md:order-2">
+            <div className="text-xs uppercase text-muted-foreground">Sprzedawca</div>
+            <div className="mt-2 space-y-1 text-sm">
+              <div className="font-semibold">Graal sp. z o.o.</div>
+              <div>ul. Polnej Róy 26</div>
+              <div>05-825 Opypy</div>
+              <div>NIP/VAT ID: PL6771003643</div>
+            </div>
+          </div>
+
+          <div className="rounded-lg border border-border bg-muted/40 p-4 md:order-1">
+            <div className="text-xs uppercase text-muted-foreground">Nabywca</div>
+            <div className="mt-2 space-y-1 text-sm">
+              <div className="font-semibold">{invoice.client?.name || '-'}</div>
+              <div>{invoice.client?.address || '-'}</div>
+              {(invoice.client?.postalCode || invoice.client?.city) && (
+                <div>{[invoice.client?.postalCode, invoice.client?.city].filter(Boolean).join(' ')}</div>
+              )}
+              <div>NIP/VAT ID: {invoice.client?.nip || invoice.client?.regon || '-'}</div>
+            </div>
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          <div className="rounded-lg border border-dashed border-border p-4">
+            <div className="text-xs uppercase text-muted-foreground">Invoice</div>
+            <div className="text-lg font-semibold">{invoiceReference}</div>
+          </div>
+          <div className="rounded-lg border border-dashed border-border p-4">
+            <div className="text-xs uppercase text-muted-foreground">Tytuł faktury</div>
+            <div className="text-lg font-semibold">{invoice.fvDescription || invoice.title || '-'}</div>
+          </div>
+        </div>
+
+        <div className="overflow-x-auto rounded-lg border">
+          <table className="min-w-full divide-y divide-border text-sm">
+            <thead className="bg-muted/60">
+              <tr>
+                <th className="px-4 py-3 text-left font-medium">Wartość sprzedaży</th>
+                <th className="px-4 py-3 text-left font-medium">Prowizja</th>
+                <th className="px-4 py-3 text-left font-medium">Kurs waluty</th>
+                <th className="px-4 py-3 text-left font-medium">Stawka VAT</th>
+                <th className="px-4 py-3 text-left font-medium">VAT %</th>
+                <th className="px-4 py-3 text-left font-medium">Zapłacono</th>
+              </tr>
+            </thead>
+            <tbody>
+              {isCorrection && invoice.originalInvoice && (
+                <>
+                  <tr className="bg-muted/60">
+                    <td className="px-4 py-2 font-semibold" colSpan={6}>Stare kwoty</td>
+                  </tr>
+                  <tr className="divide-x divide-border bg-muted/30">
+                    <td className="px-4 py-3 font-medium">{formatMoney(invoice.originalInvoice.invAmt, originalCurrency)}</td>
+                    <td className="px-4 py-3">{invoice.originalInvoice.graalPerc !== null && invoice.originalInvoice.graalPerc !== undefined ? `${invoice.originalInvoice.graalPerc.toFixed(2)}%` : '-'}</td>
+                    <td className="px-4 py-3">{invoice.originalInvoice.xRate ? invoice.originalInvoice.xRate.toFixed(4) : '-'}</td>
+                    <td className="px-4 py-3">{invoice.originalInvoice.vatCode || '-'}</td>
+                    <td className="px-4 py-3">{invoice.originalInvoice.vatAmtCurr !== null && invoice.originalInvoice.vatAmtCurr !== undefined ? invoice.originalInvoice.vatAmtCurr.toFixed(2) : '-'}</td>
+                    <td className="px-4 py-3 font-semibold">{formatMoney(invoice.originalInvoice.grossAmt, originalCurrency)}</td>
+                  </tr>
+                  <tr className="bg-muted/60">
+                    <td className="px-4 py-2 font-semibold" colSpan={6}>Nowe kwoty</td>
+                  </tr>
+                </>
+              )}
+              <tr className="divide-x divide-border">
+                <td className="px-4 py-3 font-medium">{formatMoney(invoice.invAmt, currency)}</td>
+                <td className="px-4 py-3">{invoice.graalPerc !== null && invoice.graalPerc !== undefined ? `${invoice.graalPerc.toFixed(2)}%` : '-'}</td>
+                <td className="px-4 py-3">{invoice.xRate ? invoice.xRate.toFixed(4) : '-'}</td>
+                <td className="px-4 py-3">{invoice.vatCode || '-'}</td>
+                <td className="px-4 py-3">{invoice.vatAmtCurr !== null && invoice.vatAmtCurr !== undefined ? invoice.vatAmtCurr.toFixed(2) : '-'}</td>
+                <td className="px-4 py-3 font-semibold">{formatMoney(invoice.grossAmt, currency)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div className="flex flex-col items-end gap-1 text-right">
+          <div className="text-xs uppercase text-muted-foreground">Zapłacono w</div>
+          <div className="text-lg font-semibold">{currency} {invoice.grossAmt?.toFixed(2) || '0.00'}</div>
         </div>
       </Card>
     </div>

@@ -15,6 +15,7 @@ interface Invoice {
   clientId: string
   clientName: string
   title: string
+  fvDescription?: string
   date: string
   currency?: string
   netAmt: number
@@ -561,7 +562,7 @@ export default function InvoicesPage() {
                       </div>
                     </Th>
                     <Th>Klient</Th>
-                    <Th>Tytuł</Th>
+                    <Th>Tytuł faktury</Th>
                     <Th className="cursor-pointer hover:bg-muted" onClick={() => toggleSort('date')}>
                       <div className="flex items-center gap-2">
                         Data wystawienia {sortBy === 'date' && <ArrowUpDown className="h-3 w-3" />}
@@ -583,7 +584,7 @@ export default function InvoicesPage() {
                       <tr key={i.id}>
                         <Td><Link href={`/finances/invoices/${i.id}`} className="text-primary hover:underline">{i.id}</Link></Td>
                         <Td className="text-sm">{i.clientName}</Td>
-                        <Td><Link href={`/finances/invoices/${i.id}`} className="text-primary hover:underline">{i.title}</Link></Td>
+                        <Td><Link href={`/finances/invoices/${i.id}`} className="text-primary hover:underline">{i.fvDescription || i.title}</Link></Td>
                         <Td className="text-sm">{new Intl.DateTimeFormat('pl-PL').format(new Date(i.date))}</Td>
                         <Td className="text-sm">{i.currency || '-'}</Td>
                         <Td className="text-right font-medium">{(i.netAmtCurr ?? i.netAmt ?? 0).toFixed(2)}</Td>

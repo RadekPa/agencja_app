@@ -11,28 +11,25 @@ export async function GET(req: Request) {
   const sortOrder = searchParams.get('sortOrder') || 'asc'
 
   // Build where clause for search
-  const where: Prisma.AuthorWhereInput = search ? {
+  const where: Prisma.ContactWhereInput = search ? {
     OR: [
       { firstName: { contains: search, mode: 'insensitive' } },
-      { middleName: { contains: search, mode: 'insensitive' } },
       { lastName: { contains: search, mode: 'insensitive' } },
-      { phoneNumber: { contains: search, mode: 'insensitive' } },
       { email: { contains: search, mode: 'insensitive' } },
-      { contactPosition: { contains: search, mode: 'insensitive' } },
-      { fax: { contains: search, mode: 'insensitive' } },
+      { phoneNumber: { contains: search, mode: 'insensitive' } },
     ]
   } : {}
 
   // Build orderBy - validate sortBy field
-  const validSortFields = ['id', 'firstName', 'lastName', 'createdAt', 'phoneNumber', 'email']
+  const validSortFields = ['id', 'firstName', 'lastName', 'email', 'phoneNumber', 'dateMod']
   const orderByField = validSortFields.includes(sortBy) ? sortBy : 'id'
-  const orderBy = { [orderByField]: sortOrder === 'desc' ? 'desc' : 'asc' } as Prisma.AuthorOrderByWithRelationInput
+  const orderBy = { [orderByField]: sortOrder === 'desc' ? 'desc' : 'asc' } as Prisma.ContactOrderByWithRelationInput
 
   // Get total count for pagination
-  const total = await prisma.author.count({ where })
+  const total = await prisma.contact.count({ where })
 
   // Get paginated results
-  const authors = await prisma.author.findMany({
+  const contacts = await prisma.contact.findMany({
     where,
     orderBy,
     skip: (page - 1) * pageSize,
@@ -40,7 +37,7 @@ export async function GET(req: Request) {
   } as any)
 
   return NextResponse.json({
-    data: authors,
+    data: contacts,
     meta: {
       page,
       pageSize,
@@ -52,7 +49,7 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const body = await req.json()
-  const author = await prisma.author.create({ 
+  const contact = await prisma.contact.create({ 
     data: { 
       phoneNumber: body.phoneNumber || null,
       firstName: body.firstName,
@@ -65,5 +62,5 @@ export async function POST(req: Request) {
       accountant: body.accountant || null,
     } 
   })
-  return NextResponse.json(author, { status: 201 })
+  return NextResponse.json(contact, { status: 201 })
 }

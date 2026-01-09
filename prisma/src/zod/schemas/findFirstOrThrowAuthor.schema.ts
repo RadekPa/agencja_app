@@ -10,32 +10,28 @@ import { AuthorScalarFieldEnumSchema } from './enums/AuthorScalarFieldEnum.schem
 
 export const AuthorFindFirstOrThrowSelectSchema: z.ZodType<Prisma.AuthorSelect> = z.object({
     id: z.boolean().optional(),
-    phoneNumber: z.boolean().optional(),
+    fullName: z.boolean().optional(),
     firstName: z.boolean().optional(),
     middleName: z.boolean().optional(),
     lastName: z.boolean().optional(),
-    informal: z.boolean().optional(),
-    fax: z.boolean().optional(),
-    email: z.boolean().optional(),
+    suffix: z.boolean().optional(),
+    penName: z.boolean().optional(),
     userMod: z.boolean().optional(),
     dateMod: z.boolean().optional(),
-    contactPosition: z.boolean().optional(),
-    accountant: z.boolean().optional()
+    remarks: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.AuthorSelect>;
 
 export const AuthorFindFirstOrThrowSelectZodSchema = z.object({
     id: z.boolean().optional(),
-    phoneNumber: z.boolean().optional(),
+    fullName: z.boolean().optional(),
     firstName: z.boolean().optional(),
     middleName: z.boolean().optional(),
     lastName: z.boolean().optional(),
-    informal: z.boolean().optional(),
-    fax: z.boolean().optional(),
-    email: z.boolean().optional(),
+    suffix: z.boolean().optional(),
+    penName: z.boolean().optional(),
     userMod: z.boolean().optional(),
     dateMod: z.boolean().optional(),
-    contactPosition: z.boolean().optional(),
-    accountant: z.boolean().optional()
+    remarks: z.boolean().optional()
   }).strict();
 
 export const AuthorFindFirstOrThrowSchema: z.ZodType<Prisma.AuthorFindFirstOrThrowArgs> = z.object({ select: AuthorFindFirstOrThrowSelectSchema.optional(),  orderBy: z.union([AuthorOrderByWithRelationInputObjectSchema, AuthorOrderByWithRelationInputObjectSchema.array()]).optional(), where: AuthorWhereInputObjectSchema.optional(), cursor: AuthorWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([AuthorScalarFieldEnumSchema, AuthorScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.AuthorFindFirstOrThrowArgs>;
