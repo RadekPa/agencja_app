@@ -17,6 +17,9 @@ export async function GET(req: Request) {
       { email: { contains: search } },
       { phone: { contains: search } },
       { nip: { contains: search } },
+      // Wyszukiwanie po skrócie klienta (CustAbb)
+      // Zmapowane w Prisma jako pole `custAbb` w modelu Customer
+      { custAbb: { contains: search } },
     ]
   } : {}
 

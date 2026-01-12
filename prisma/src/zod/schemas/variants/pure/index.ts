@@ -10,3 +10,4 @@ export { ContactModelSchema } from './Contact.pure';
 export { AuthorModelSchema } from './Author.pure';
 export { InvoiceModelSchema } from './Invoice.pure';
 export { BalanceAdjustmentModelSchema } from './BalanceAdjustment.pure';
+export { SimpleInvoiceModelSchema } from './SimpleInvoice.pure';

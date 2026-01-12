@@ -10,3 +10,4 @@ export { ContactInputSchema } from './Contact.input';
 export { AuthorInputSchema } from './Author.input';
 export { InvoiceInputSchema } from './Invoice.input';
 export { BalanceAdjustmentInputSchema } from './BalanceAdjustment.input';
+export { SimpleInvoiceInputSchema } from './SimpleInvoice.input';

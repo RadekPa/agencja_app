@@ -11,6 +11,7 @@ import { useTranslations } from 'next-intl'
 
 type Client = { 
   id: number; 
+  custAbb?: string | null;
   name?: string | null; 
   email?: string | null; 
   phone?: string | null; 
@@ -227,7 +228,7 @@ export default function ClientsPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="label">{t('common.search')}</label>
-            <Input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Nazwa/Email/Telefon/NIP" />
+            <Input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Nazwa/Email/Telefon/NIP/Skrót" />
           </div>
           <div>
             <label className="label">{t('common.sortBy')}</label>
@@ -266,6 +267,7 @@ export default function ClientsPage() {
               <thead>
                 <tr>
                   <Th onClick={()=>toggleSort('id')} active={sortBy==='id'} order={sortOrder}>ID</Th>
+                  <Th>Skrót</Th>
                   <Th onClick={()=>toggleSort('name')} active={sortBy==='name'} order={sortOrder}>{t('common.name')}</Th>
                   <Th onClick={()=>toggleSort('email')} active={sortBy==='email'} order={sortOrder}>{t('common.email')}</Th>
                   <Th onClick={()=>toggleSort('phone')} active={sortBy==='phone'} order={sortOrder}>{t('common.phone')}</Th>
@@ -279,6 +281,7 @@ export default function ClientsPage() {
                 {(Array.isArray(clients) ? clients : []).map(c => (
                   <tr key={c.id}>
                     <Td>{c.id}</Td>
+                    <Td>{c.custAbb ?? '-'}</Td>
                     <Td>
                       <Link className="text-primary-600 hover:underline" href={`/customers/${c.id}`}>{c.name}</Link>
                     </Td>

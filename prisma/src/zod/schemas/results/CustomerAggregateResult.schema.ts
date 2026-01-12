@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const CustomerAggregateResultSchema = z.object({  _count: z.object({
     id: z.number(),
+    custAbb: z.number(),
     name: z.number(),
     email: z.number(),
     phone: z.number(),
@@ -12,7 +13,8 @@ export const CustomerAggregateResultSchema = z.object({  _count: z.object({
     regon: z.number(),
     notes: z.number(),
     createdAt: z.number(),
-    invoices: z.number()
+    invoices: z.number(),
+    simpleInvoices: z.number()
   }).optional(),
   _sum: z.object({
     id: z.number().nullable(),
@@ -24,6 +26,7 @@ export const CustomerAggregateResultSchema = z.object({  _count: z.object({
   }).nullable().optional(),
   _min: z.object({
     id: z.number().int().nullable(),
+    custAbb: z.string().nullable(),
     name: z.string().nullable(),
     email: z.string().nullable(),
     phone: z.string().nullable(),
@@ -38,6 +41,7 @@ export const CustomerAggregateResultSchema = z.object({  _count: z.object({
   }).nullable().optional(),
   _max: z.object({
     id: z.number().int().nullable(),
+    custAbb: z.string().nullable(),
     name: z.string().nullable(),
     email: z.string().nullable(),
     phone: z.string().nullable(),

@@ -1,6 +1,7 @@
 import * as z from 'zod';
 export const CustomerFindFirstResultSchema = z.nullable(z.object({
   id: z.number().int(),
+  custAbb: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
   phone: z.string().optional(),
@@ -12,5 +13,6 @@ export const CustomerFindFirstResultSchema = z.nullable(z.object({
   regon: z.string().optional(),
   notes: z.string().optional(),
   createdAt: z.date().optional(),
-  invoices: z.array(z.unknown())
+  invoices: z.array(z.unknown()),
+  simpleInvoices: z.array(z.unknown())
 }));

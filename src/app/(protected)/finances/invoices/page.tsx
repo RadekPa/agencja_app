@@ -5,9 +5,9 @@ import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Select } from '@/components/ui/select'
-import { Table, Th, Td } from '@/components/ui/table'
-import { Pagination } from '@/components/ui/pagination'
-import { Modal } from '@/components/ui/modal'
+import { Table, Th, Td } from '@/components/ui/Table'
+import { Pagination } from '@/components/ui/Pagination'
+import { Modal } from '@/components/ui/Modal'
 import { Search, Plus, ArrowUpDown } from 'lucide-react'
 
 interface Invoice {

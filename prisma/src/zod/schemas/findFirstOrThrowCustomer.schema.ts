@@ -11,6 +11,7 @@ import { CustomerScalarFieldEnumSchema } from './enums/CustomerScalarFieldEnum.s
 
 export const CustomerFindFirstOrThrowSelectSchema: z.ZodType<Prisma.CustomerSelect> = z.object({
     id: z.boolean().optional(),
+    custAbb: z.boolean().optional(),
     name: z.boolean().optional(),
     email: z.boolean().optional(),
     phone: z.boolean().optional(),
@@ -23,11 +24,13 @@ export const CustomerFindFirstOrThrowSelectSchema: z.ZodType<Prisma.CustomerSele
     notes: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     invoices: z.boolean().optional(),
+    simpleInvoices: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.CustomerSelect>;
 
 export const CustomerFindFirstOrThrowSelectZodSchema = z.object({
     id: z.boolean().optional(),
+    custAbb: z.boolean().optional(),
     name: z.boolean().optional(),
     email: z.boolean().optional(),
     phone: z.boolean().optional(),
@@ -40,6 +43,7 @@ export const CustomerFindFirstOrThrowSelectZodSchema = z.object({
     notes: z.boolean().optional(),
     createdAt: z.boolean().optional(),
     invoices: z.boolean().optional(),
+    simpleInvoices: z.boolean().optional(),
     _count: z.boolean().optional()
   }).strict();
 

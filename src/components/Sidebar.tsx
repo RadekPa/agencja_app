@@ -214,7 +214,7 @@ export function Sidebar({ collapsed = false }: Props) {
               </button>
               <div className={cn(
                 "overflow-hidden transition-all duration-200 space-y-1",
-                open.finance ? "max-h-40 mt-1" : "max-h-0"
+                open.finance ? "max-h-60 mt-1" : "max-h-0"
               )}>
                 {canAccess('invoices') && (
                   <Link 
@@ -228,6 +228,20 @@ export function Sidebar({ collapsed = false }: Props) {
                   >
                     <Receipt className="h-3.5 w-3.5" />
                     <span>Faktury VAT</span>
+                  </Link>
+                )}
+                {canAccess('invoices') && (
+                  <Link 
+                    href="/simple-invoices" 
+                    className={cn(
+                      "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
+                      pathname.startsWith('/simple-invoices')
+                        ? "bg-primary/10 text-primary font-medium" 
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <Receipt className="h-3.5 w-3.5" />
+                    <span>Faktury (tblInvoice)</span>
                   </Link>
                 )}
                 {canAccess('cashflow') && (

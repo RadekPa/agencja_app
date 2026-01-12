@@ -2,6 +2,7 @@ import * as z from 'zod';
 // prettier-ignore
 export const CustomerInputSchema = z.object({
     id: z.number().int(),
+    custAbb: z.string().optional().nullable(),
     name: z.string().optional().nullable(),
     email: z.string().optional().nullable(),
     phone: z.string().optional().nullable(),
@@ -13,7 +14,8 @@ export const CustomerInputSchema = z.object({
     regon: z.string().optional().nullable(),
     notes: z.string().optional().nullable(),
     createdAt: z.date().optional().nullable(),
-    invoices: z.array(z.unknown())
+    invoices: z.array(z.unknown()),
+    simpleInvoices: z.array(z.unknown())
 }).strict();
 
 export type CustomerInputType = z.infer<typeof CustomerInputSchema>;

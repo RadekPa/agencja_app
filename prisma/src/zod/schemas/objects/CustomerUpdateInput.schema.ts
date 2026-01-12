@@ -3,9 +3,11 @@ import type { Prisma } from '@prisma/client';
 import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
 import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUpdateOperationsInputObjectSchema } from './NullableIntFieldUpdateOperationsInput.schema';
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema as NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema';
-import { InvoiceUpdateManyWithoutClientNestedInputObjectSchema as InvoiceUpdateManyWithoutClientNestedInputObjectSchema } from './InvoiceUpdateManyWithoutClientNestedInput.schema'
+import { InvoiceUpdateManyWithoutClientNestedInputObjectSchema as InvoiceUpdateManyWithoutClientNestedInputObjectSchema } from './InvoiceUpdateManyWithoutClientNestedInput.schema';
+import { SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema as SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema } from './SimpleInvoiceUpdateManyWithoutClientNestedInput.schema'
 
 const makeSchema = () => z.object({
+  custAbb: z.union([z.string().max(10), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   name: z.union([z.string().max(250), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   email: z.union([z.string().max(50), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   phone: z.union([z.string().max(20), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
@@ -17,7 +19,8 @@ const makeSchema = () => z.object({
   regon: z.union([z.string().max(50), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   notes: z.union([z.string().max(250), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => NullableDateTimeFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
-  invoices: z.lazy(() => InvoiceUpdateManyWithoutClientNestedInputObjectSchema).optional()
+  invoices: z.lazy(() => InvoiceUpdateManyWithoutClientNestedInputObjectSchema).optional(),
+  simpleInvoices: z.lazy(() => SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema).optional()
 }).strict();
 export const CustomerUpdateInputObjectSchema: z.ZodType<Prisma.CustomerUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.CustomerUpdateInput>;
 export const CustomerUpdateInputObjectZodSchema = makeSchema();

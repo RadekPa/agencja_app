@@ -89,3 +89,16 @@ export { BalanceAdjustmentDeleteManyResultSchema } from './BalanceAdjustmentDele
 export { BalanceAdjustmentAggregateResultSchema } from './BalanceAdjustmentAggregateResult.schema';
 export { BalanceAdjustmentGroupByResultSchema } from './BalanceAdjustmentGroupByResult.schema';
 export { BalanceAdjustmentCountResultSchema } from './BalanceAdjustmentCountResult.schema';
+export { SimpleInvoiceFindUniqueResultSchema } from './SimpleInvoiceFindUniqueResult.schema';
+export { SimpleInvoiceFindFirstResultSchema } from './SimpleInvoiceFindFirstResult.schema';
+export { SimpleInvoiceFindManyResultSchema } from './SimpleInvoiceFindManyResult.schema';
+export { SimpleInvoiceCreateResultSchema } from './SimpleInvoiceCreateResult.schema';
+export { SimpleInvoiceCreateManyResultSchema } from './SimpleInvoiceCreateManyResult.schema';
+export { SimpleInvoiceUpdateResultSchema } from './SimpleInvoiceUpdateResult.schema';
+export { SimpleInvoiceUpdateManyResultSchema } from './SimpleInvoiceUpdateManyResult.schema';
+export { SimpleInvoiceUpsertResultSchema } from './SimpleInvoiceUpsertResult.schema';
+export { SimpleInvoiceDeleteResultSchema } from './SimpleInvoiceDeleteResult.schema';
+export { SimpleInvoiceDeleteManyResultSchema } from './SimpleInvoiceDeleteManyResult.schema';
+export { SimpleInvoiceAggregateResultSchema } from './SimpleInvoiceAggregateResult.schema';
+export { SimpleInvoiceGroupByResultSchema } from './SimpleInvoiceGroupByResult.schema';
+export { SimpleInvoiceCountResultSchema } from './SimpleInvoiceCountResult.schema';

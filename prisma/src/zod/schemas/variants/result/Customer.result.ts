@@ -2,6 +2,7 @@ import * as z from 'zod';
 // prettier-ignore
 export const CustomerResultSchema = z.object({
     id: z.number().int(),
+    custAbb: z.string().nullable(),
     name: z.string().nullable(),
     email: z.string().nullable(),
     phone: z.string().nullable(),
@@ -13,7 +14,8 @@ export const CustomerResultSchema = z.object({
     regon: z.string().nullable(),
     notes: z.string().nullable(),
     createdAt: z.date().nullable(),
-    invoices: z.array(z.unknown())
+    invoices: z.array(z.unknown()),
+    simpleInvoices: z.array(z.unknown())
 }).strict();
 
 export type CustomerResultType = z.infer<typeof CustomerResultSchema>;

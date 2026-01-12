@@ -2,6 +2,7 @@ import * as z from 'zod';
 export const CustomerFindManyResultSchema = z.object({
   data: z.array(z.object({
   id: z.number().int(),
+  custAbb: z.string().optional(),
   name: z.string().optional(),
   email: z.string().optional(),
   phone: z.string().optional(),
@@ -13,7 +14,8 @@ export const CustomerFindManyResultSchema = z.object({
   regon: z.string().optional(),
   notes: z.string().optional(),
   createdAt: z.date().optional(),
-  invoices: z.array(z.unknown())
+  invoices: z.array(z.unknown()),
+  simpleInvoices: z.array(z.unknown())
 })),
   pagination: z.object({
   page: z.number().int().min(1),

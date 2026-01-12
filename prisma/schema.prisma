@@ -42,6 +42,7 @@ model RolePermissions {
 
 model Customer {
   id           Int          @id @default(autoincrement()) @map("CustID")
+  custAbb      String?      @map("CustAbb") @db.VarChar(10)
   name         String?      @map("Name") @db.VarChar(250)
   email        String?      @map("DefaultEmail") @db.VarChar(50)
   phone        String?      @map("DefaultPhone") @db.VarChar(20)
@@ -54,6 +55,7 @@ model Customer {
   notes        String?      @map("Remarks") @db.VarChar(250)
   createdAt    DateTime?    @default(now(), map: "DF__tblCustom__DateM__2D27B809") @map("DateMod") @db.DateTime
   invoices     Invoice[]
+  simpleInvoices SimpleInvoice[]
 
   @@map("tblCustomers")
 }
@@ -135,4 +137,33 @@ model BalanceAdjustment {
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model SimpleInvoice {
+  id          Int       @id @map("InvNum")
+  invType     String    @map("InvType") @db.Char(1)
+  invDate     DateTime? @map("InvDate") @db.DateTime
+  billToId    Int       @map("BillToId")
+  clientId    Int?      @map("ClientId")
+  client      Customer? @relation(fields: [clientId], references: [id], onDelete: NoAction, map: "FK_SimpleInvoice_Customer")
+  shipToId    Int?      @map("ShipToId")
+  currId      String?   @map("CurrId") @db.Char(3)
+  totalInvNET Float?    @map("TotalInvNET") @db.Money
+  vatPerc     Int?      @map("VATPerc")
+  termDD      Int?      @map("TermDD")
+  remarks     String?   @map("Remarks") @db.VarChar(255)
+  status      String?   @map("Status") @db.Char(1)
+  sumInWords  String?   @default(" ") @map("SumInWords") @db.VarChar(500)
+  balance     Float?    @map("Balance") @db.Money
+  cliRef      String?   @map("CliRef") @db.VarChar(50)
+  descr       String?   @map("Descr") @db.VarChar(200)
+  dateDue     DateTime? @map("DateDue") @db.DateTime
+  userName    String?   @map("UserName") @db.VarChar(50)
+  agentID     Int?      @map("AgentID")
+  taxCode     String?   @map("TaxCode") @db.Char(1)
+  taxValue    Float?    @map("TaxValue") @db.Money
+  taxInfo     String?   @map("TaxInfo") @db.NChar(1)
+  propID      Int?      @map("PropID")
+
+  @@map("tblInvoice")
 }

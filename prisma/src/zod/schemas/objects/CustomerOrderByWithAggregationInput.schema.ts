@@ -10,6 +10,7 @@ import { CustomerSumOrderByAggregateInputObjectSchema as CustomerSumOrderByAggre
 
 const makeSchema = () => z.object({
   id: SortOrderSchema.optional(),
+  custAbb: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   name: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   email: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   phone: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),

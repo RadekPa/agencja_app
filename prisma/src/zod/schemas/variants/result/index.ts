@@ -10,3 +10,4 @@ export { ContactResultSchema } from './Contact.result';
 export { AuthorResultSchema } from './Author.result';
 export { InvoiceResultSchema } from './Invoice.result';
 export { BalanceAdjustmentResultSchema } from './BalanceAdjustment.result';
+export { SimpleInvoiceResultSchema } from './SimpleInvoice.result';
