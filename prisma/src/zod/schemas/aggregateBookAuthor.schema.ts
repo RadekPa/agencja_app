@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { BookAuthorOrderByWithRelationInputObjectSchema as BookAuthorOrderByWithRelationInputObjectSchema } from './objects/BookAuthorOrderByWithRelationInput.schema';
+import { BookAuthorWhereInputObjectSchema as BookAuthorWhereInputObjectSchema } from './objects/BookAuthorWhereInput.schema';
+import { BookAuthorWhereUniqueInputObjectSchema as BookAuthorWhereUniqueInputObjectSchema } from './objects/BookAuthorWhereUniqueInput.schema';
+import { BookAuthorCountAggregateInputObjectSchema as BookAuthorCountAggregateInputObjectSchema } from './objects/BookAuthorCountAggregateInput.schema';
+import { BookAuthorMinAggregateInputObjectSchema as BookAuthorMinAggregateInputObjectSchema } from './objects/BookAuthorMinAggregateInput.schema';
+import { BookAuthorMaxAggregateInputObjectSchema as BookAuthorMaxAggregateInputObjectSchema } from './objects/BookAuthorMaxAggregateInput.schema';
+import { BookAuthorAvgAggregateInputObjectSchema as BookAuthorAvgAggregateInputObjectSchema } from './objects/BookAuthorAvgAggregateInput.schema';
+import { BookAuthorSumAggregateInputObjectSchema as BookAuthorSumAggregateInputObjectSchema } from './objects/BookAuthorSumAggregateInput.schema';
+
+export const BookAuthorAggregateSchema: z.ZodType<Prisma.BookAuthorAggregateArgs> = z.object({ orderBy: z.union([BookAuthorOrderByWithRelationInputObjectSchema, BookAuthorOrderByWithRelationInputObjectSchema.array()]).optional(), where: BookAuthorWhereInputObjectSchema.optional(), cursor: BookAuthorWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), BookAuthorCountAggregateInputObjectSchema ]).optional(), _min: BookAuthorMinAggregateInputObjectSchema.optional(), _max: BookAuthorMaxAggregateInputObjectSchema.optional(), _avg: BookAuthorAvgAggregateInputObjectSchema.optional(), _sum: BookAuthorSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.BookAuthorAggregateArgs>;
+
+export const BookAuthorAggregateZodSchema = z.object({ orderBy: z.union([BookAuthorOrderByWithRelationInputObjectSchema, BookAuthorOrderByWithRelationInputObjectSchema.array()]).optional(), where: BookAuthorWhereInputObjectSchema.optional(), cursor: BookAuthorWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), BookAuthorCountAggregateInputObjectSchema ]).optional(), _min: BookAuthorMinAggregateInputObjectSchema.optional(), _max: BookAuthorMaxAggregateInputObjectSchema.optional(), _avg: BookAuthorAvgAggregateInputObjectSchema.optional(), _sum: BookAuthorSumAggregateInputObjectSchema.optional() }).strict();

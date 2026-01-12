@@ -1,0 +1,9 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+import { CustomerArgsObjectSchema as CustomerArgsObjectSchema } from './CustomerArgs.schema'
+
+const makeSchema = () => z.object({
+  client: z.union([z.boolean(), z.lazy(() => CustomerArgsObjectSchema)]).optional()
+}).strict();
+export const BookAuthorIncludeObjectSchema: z.ZodType<Prisma.BookAuthorInclude> = makeSchema() as unknown as z.ZodType<Prisma.BookAuthorInclude>;
+export const BookAuthorIncludeObjectZodSchema = makeSchema();
