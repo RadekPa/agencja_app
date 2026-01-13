@@ -1,7 +1,8 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { InvoiceCreateNestedManyWithoutClientInputObjectSchema as InvoiceCreateNestedManyWithoutClientInputObjectSchema } from './InvoiceCreateNestedManyWithoutClientInput.schema';
-import { SimpleInvoiceCreateNestedManyWithoutClientInputObjectSchema as SimpleInvoiceCreateNestedManyWithoutClientInputObjectSchema } from './SimpleInvoiceCreateNestedManyWithoutClientInput.schema'
+import { SimpleInvoiceCreateNestedManyWithoutClientInputObjectSchema as SimpleInvoiceCreateNestedManyWithoutClientInputObjectSchema } from './SimpleInvoiceCreateNestedManyWithoutClientInput.schema';
+import { SimpleInvoiceCreateNestedManyWithoutBillToInputObjectSchema as SimpleInvoiceCreateNestedManyWithoutBillToInputObjectSchema } from './SimpleInvoiceCreateNestedManyWithoutBillToInput.schema'
 
 const makeSchema = () => z.object({
   custAbb: z.string().max(10).optional().nullable(),
@@ -17,7 +18,8 @@ const makeSchema = () => z.object({
   notes: z.string().max(250).optional().nullable(),
   createdAt: z.coerce.date().optional().nullable(),
   invoices: z.lazy(() => InvoiceCreateNestedManyWithoutClientInputObjectSchema).optional(),
-  simpleInvoices: z.lazy(() => SimpleInvoiceCreateNestedManyWithoutClientInputObjectSchema).optional()
+  simpleInvoicesAsClient: z.lazy(() => SimpleInvoiceCreateNestedManyWithoutClientInputObjectSchema).optional(),
+  simpleInvoicesAsBillTo: z.lazy(() => SimpleInvoiceCreateNestedManyWithoutBillToInputObjectSchema).optional()
 }).strict();
 export const CustomerCreateInputObjectSchema: z.ZodType<Prisma.CustomerCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.CustomerCreateInput>;
 export const CustomerCreateInputObjectZodSchema = makeSchema();

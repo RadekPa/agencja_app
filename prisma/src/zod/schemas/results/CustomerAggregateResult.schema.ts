@@ -14,7 +14,8 @@ export const CustomerAggregateResultSchema = z.object({  _count: z.object({
     notes: z.number(),
     createdAt: z.number(),
     invoices: z.number(),
-    simpleInvoices: z.number()
+    simpleInvoicesAsClient: z.number(),
+    simpleInvoicesAsBillTo: z.number()
   }).optional(),
   _sum: z.object({
     id: z.number().nullable(),

@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Table, Th, Td } from '@/components/ui/Table'
 import { Pagination } from '@/components/ui/Pagination'
@@ -9,13 +10,14 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
 
-const initialFilters = { title: '', currency: '', dateFrom: '', dateTo: '', clientId: '', status: '' }
+const initialFilters = { title: '', currency: '', dateFrom: '', dateTo: '', clientId: '', billToId: '', status: '' }
 
 type SimpleInvoice = {
   id: number
   invType: string
   invDate: string | null
   billToId: number
+  billToName: string | null
   clientId: number | null
   clientName: string | null
   currId: string | null
@@ -31,16 +33,31 @@ type SimpleInvoice = {
 type Client = { id: number; name: string }
 
 export default function SimpleInvoicesPage() {
+  const t = useTranslations('simpleInvoices')
+  const tCommon = useTranslations('common')
   const [invoices, setInvoices] = useState<SimpleInvoice[]>([])
   const [meta, setMeta] = useState({ page: 1, pageSize: 50, total: 0, pages: 1 })
   const [loading, setLoading] = useState(false)
   const [clients, setClients] = useState<Client[]>([])
+  const [billToClients, setBillToClients] = useState<Client[]>([])
   const [showForm, setShowForm] = useState(false)
+  const [pageSize, setPageSize] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return Number(localStorage.getItem('simple_invoices_pageSize')) || 50
+    }
+    return 50
+  })
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize)
+    setMeta(prev => ({ ...prev, pageSize: newPageSize }))
+  }
 
   const [filters, setFilters] = useState<typeof initialFilters>(initialFilters)
   const [statuses, setStatuses] = useState<string[]>([])
   const [currencies, setCurrencies] = useState<string[]>([])
   const [clientSearch, setClientSearch] = useState('')
+  const [billToSearch, setBillToSearch] = useState('')
   const [currencySearch, setCurrencySearch] = useState('')
 
   const [form, setForm] = useState({
@@ -60,9 +77,10 @@ export default function SimpleInvoicesPage() {
   const load = async (page = 1, overrideFilters?: typeof initialFilters) => {
     const activeFilters = overrideFilters ?? filters
     setLoading(true)
-    const params = new URLSearchParams({ page: String(page), pageSize: String(meta.pageSize) })
+    const params = new URLSearchParams({ page: String(page), pageSize: String(pageSize) })
     if (activeFilters.status) params.append('status', activeFilters.status)
     if (activeFilters.clientId) params.append('clientId', activeFilters.clientId)
+    if (activeFilters.billToId) params.append('billToId', activeFilters.billToId)
     if (activeFilters.dateFrom) params.append('dateFrom', activeFilters.dateFrom)
     if (activeFilters.dateTo) params.append('dateTo', activeFilters.dateTo)
     if (activeFilters.title) params.append('descr', activeFilters.title)
@@ -76,13 +94,24 @@ export default function SimpleInvoicesPage() {
     }
     const json = await res.json()
     setInvoices(json?.data ?? [])
-    setMeta(json?.meta ?? { page, pageSize: meta.pageSize, total: 0, pages: 1 })
+    setMeta(json?.meta ?? { page, pageSize: pageSize, total: 0, pages: 1 })
     setLoading(false)
   }
 
   useEffect(() => {
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('simple_invoices_pageSize', String(pageSize))
+    }
+  }, [pageSize])
+
+  useEffect(() => {
+    load(1)
+  }, [pageSize])
+
+  useEffect(() => {
     load(1, initialFilters)
     fetchClients()
+    fetchBillToClients()
     fetchFilters()
   }, [])
 
@@ -90,6 +119,11 @@ export default function SimpleInvoicesPage() {
     const t = setTimeout(() => fetchClients(clientSearch), 300)
     return () => clearTimeout(t)
   }, [clientSearch])
+
+  useEffect(() => {
+    const t = setTimeout(() => fetchBillToClients(billToSearch), 300)
+    return () => clearTimeout(t)
+  }, [billToSearch])
 
   useEffect(() => {
     const t = setTimeout(() => fetchFilters(currencySearch), 300)
@@ -111,6 +145,16 @@ export default function SimpleInvoicesPage() {
     if (!res.ok) return
     const json = await res.json()
     setClients(Array.isArray(json) ? json : (json?.data ?? []))
+  }
+
+  const fetchBillToClients = async (searchTerm = '') => {
+    const params = new URLSearchParams({ pageSize: '10' })
+    if (searchTerm) params.set('search', searchTerm)
+
+    const res = await fetch(`/api/customers?${params.toString()}`)
+    if (!res.ok) return
+    const json = await res.json()
+    setBillToClients(Array.isArray(json) ? json : (json?.data ?? []))
   }
 
   const fetchFilters = async (currencySearch?: string) => {
@@ -197,6 +241,22 @@ export default function SimpleInvoicesPage() {
     }
   }
 
+  const handleBillToInput = (value: string) => {
+    setBillToSearch(value)
+    
+    if (!value) {
+      setFilters(prev => ({ ...prev, billToId: '' }))
+      return
+    }
+    
+    const selected = billToClients.find(c => c.name.toLowerCase() === value.toLowerCase())
+    if (selected) {
+      setFilters(prev => ({ ...prev, billToId: String(selected.id) }))
+    } else {
+      setFilters(prev => ({ ...prev, billToId: '' }))
+    }
+  }
+
   const handleCurrencyInput = (value: string) => {
     setCurrencySearch(value)
     
@@ -217,6 +277,7 @@ export default function SimpleInvoicesPage() {
     const cleared = { ...initialFilters }
     setFilters(cleared)
     setClientSearch('')
+    setBillToSearch('')
     setCurrencySearch('')
     load(1, cleared)
   }
@@ -225,21 +286,40 @@ export default function SimpleInvoicesPage() {
     <div className="space-y-6">
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Faktury - lista</h1>
+          <h1 className="text-2xl font-bold">{t('listTitle')}</h1>
           <Button variant="primary" onClick={() => setShowForm(true)}>
-            Nowa faktura
+            {t('createInvoice')}
           </Button>
         </div>
 
         <div className="space-y-4">
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-6">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Klient</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('publisher')}</label>
+              <div className="relative">
+                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  list="billto-datalist"
+                  placeholder={t('searchAndSelect')}
+                  value={billToSearch}
+                  onChange={e => handleBillToInput(e.target.value)}
+                  className="pl-9"
+                />
+                <datalist id="billto-datalist">
+                  {(Array.isArray(billToClients) ? billToClients : []).map(c => (
+                    <option key={c.id} value={c.name || ''} />
+                  ))}
+                </datalist>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-muted-foreground">{t('billTo')}</label>
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   list="clients-datalist"
-                  placeholder="Szukaj i wybierz"
+                  placeholder={t('searchAndSelect')}
                   value={clientSearch}
                   onChange={e => handleClientInput(e.target.value)}
                   className="pl-9"
@@ -253,21 +333,21 @@ export default function SimpleInvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Tytuł</label>
+              <label className="block text-sm font-medium text-muted-foreground">{tCommon('title')}</label>
               <Input
-                placeholder="Wpisz tytuł"
+                placeholder={tCommon('title')}
                 value={filters.title}
                 onChange={e => setFilters({ ...filters, title: e.target.value })}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Waluta</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('currency')}</label>
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   list="currencies-datalist"
-                  placeholder="Szukaj i wybierz"
+                  placeholder={t('searchAndSelect')}
                   value={currencySearch}
                   onChange={e => handleCurrencyInput(e.target.value)}
                   className="pl-9"
@@ -281,7 +361,7 @@ export default function SimpleInvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Data od</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('dateFrom')}</label>
               <input
                 type="date"
                 value={filters.dateFrom}
@@ -291,7 +371,7 @@ export default function SimpleInvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Data do</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('dateTo')}</label>
               <input
                 type="date"
                 value={filters.dateTo}
@@ -301,26 +381,26 @@ export default function SimpleInvoicesPage() {
             </div>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-5 items-end">
-            <div className="md:col-start-4">
-              <Button type="button" variant="primary" className="w-full h-9" onClick={applyFilters}>Szukaj</Button>
+          <div className="grid gap-4 md:grid-cols-6 items-end">
+            <div className="md:col-start-5">
+              <Button type="button" variant="primary" className="w-full h-9" onClick={applyFilters}>{tCommon('search')}</Button>
             </div>
             <div>
-              <Button type="button" onClick={resetFilters} variant="outline" className="w-full h-9">Wyczyść</Button>
+              <Button type="button" onClick={resetFilters} variant="outline" className="w-full h-9">{tCommon('cancel')}</Button>
             </div>
           </div>
         </div>
 
-        <Modal isOpen={showForm} onClose={() => setShowForm(false)} title="Dodaj nową fakturę">
+        <Modal isOpen={showForm} onClose={() => setShowForm(false)} title={t('createInvoice')}>
           <form onSubmit={handleCreate} className="space-y-4">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Klient</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('billTo')}</label>
               <select
                 value={form.clientId}
                 onChange={e => setForm({ ...form, clientId: e.target.value })}
                 className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
               >
-                <option value="">Wybierz klienta</option>
+                <option value="">{t('selectClient')}</option>
                 {(Array.isArray(clients) ? clients : []).map(c => (
                   <option key={c.id} value={c.id}>
                     {c.name}
@@ -330,10 +410,10 @@ export default function SimpleInvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Bill To ID</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('billToIdLabel')}</label>
               <input
                 type="number"
-                placeholder="ID adresu rozliczeniowego"
+                placeholder={t('billToIdPlaceholder')}
                 value={form.billToId}
                 onChange={e => setForm({ ...form, billToId: e.target.value })}
                 required
@@ -342,9 +422,9 @@ export default function SimpleInvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Opis</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('description')}</label>
               <input
-                placeholder="Opis faktury"
+                placeholder={t('descriptionPlaceholder')}
                 value={form.descr}
                 onChange={e => setForm({ ...form, descr: e.target.value })}
                 className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
@@ -353,7 +433,7 @@ export default function SimpleInvoicesPage() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">Data wystawienia</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('invoiceDate')}</label>
                 <input
                   type="date"
                   value={form.invDate}
@@ -362,7 +442,7 @@ export default function SimpleInvoicesPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">Termin zapłaty</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('paymentDue')}</label>
                 <input
                   type="date"
                   value={form.dateDue}
@@ -374,7 +454,7 @@ export default function SimpleInvoicesPage() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">Netto</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('net')}</label>
                 <input
                   placeholder="0.00"
                   type="number"
@@ -385,7 +465,7 @@ export default function SimpleInvoicesPage() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">VAT %</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('vatPercent')}</label>
                 <input
                   placeholder="0"
                   type="number"
@@ -398,31 +478,31 @@ export default function SimpleInvoicesPage() {
 
             <div className="grid grid-cols-3 gap-3">
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">Status</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('status')}</label>
                 <select
                   value={form.status}
                   onChange={e => setForm({ ...form, status: e.target.value })}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
                 >
-                  <option value="A">Aktywna</option>
-                  <option value="C">Anulowana</option>
-                  <option value="P">Zapłacona</option>
+                  <option value="A">{t('active')}</option>
+                  <option value="C">{t('cancelled')}</option>
+                  <option value="P">{t('paid')}</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">Typ</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('type')}</label>
                 <select
                   value={form.invType}
                   onChange={e => setForm({ ...form, invType: e.target.value })}
                   className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
                 >
-                  <option value="I">Invoice</option>
-                  <option value="C">Credit Note</option>
-                  <option value="P">Proforma</option>
+                  <option value="I">{t('invoiceTypeInvoice')}</option>
+                  <option value="C">{t('invoiceTypeCreditNote')}</option>
+                  <option value="P">{t('invoiceTypeProforma')}</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-muted-foreground">Waluta</label>
+                <label className="block text-sm font-medium text-muted-foreground">{t('currency')}</label>
                 <select
                   value={form.currId}
                   onChange={e => setForm({ ...form, currId: e.target.value })}
@@ -437,30 +517,31 @@ export default function SimpleInvoicesPage() {
 
             <div className="flex gap-2 pt-4 border-t border-border">
               <Button variant="primary" type="submit" className="flex-1">
-                Utwórz fakturę
+                {t('createInvoice')}
               </Button>
               <Button type="button" onClick={() => setShowForm(false)} className="flex-1">
-                Anuluj
+                {tCommon('cancel')}
               </Button>
             </div>
           </form>
         </Modal>
 
         {loading ? (
-          <p className="text-center text-muted-foreground py-8">Ładowanie...</p>
+          <p className="text-center text-muted-foreground py-8">{tCommon('loading')}</p>
         ) : (
           <div className="mt-6">
             <Table>
               <thead>
                 <tr>
                   <Th>ID</Th>
-                  <Th>Klient</Th>
-                  <Th>Typ</Th>
-                  <Th>Opis</Th>
-                  <Th>Data wystawienia</Th>
-                  <Th>Termin</Th>
-                  <Th className="text-right">Netto</Th>
-                  <Th>Status</Th>
+                  <Th>{t('publisher')}</Th>
+                  <Th>{t('billTo')}</Th>
+                  <Th>{t('type')}</Th>
+                  <Th>{t('description')}</Th>
+                  <Th>{t('invoiceDate')}</Th>
+                  <Th>{t('paymentDue')}</Th>
+                  <Th className="text-right">{t('net')}</Th>
+                  <Th>{t('status')}</Th>
                 </tr>
               </thead>
               <tbody>
@@ -469,6 +550,7 @@ export default function SimpleInvoicesPage() {
                     <Td>
                       <Link href={`/simple-invoices/${i.id}`}>{i.id}</Link>
                     </Td>
+                    <Td>{i.billToName || '-'}</Td>
                     <Td>{i.clientName || '-'}</Td>
                     <Td>{i.invType}</Td>
                     <Td>
@@ -479,17 +561,35 @@ export default function SimpleInvoicesPage() {
                     <Td className="text-right">{i.totalInvNET?.toFixed(2) ?? '0.00'}</Td>
                     <Td>
                       <select value={i.status} onChange={e => updateStatus(i.id, e.target.value)} className="px-2 py-1 border rounded">
-                        <option value="A">Aktywna</option>
-                        <option value="C">Anulowana</option>
-                        <option value="P">Zapłacona</option>
+                        <option value="A">{t('active')}</option>
+                        <option value="C">{t('cancelled')}</option>
+                        <option value="P">{t('paid')}</option>
                       </select>
                     </Td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <div className="mt-6">
-              <Pagination page={meta.page} pages={meta.pages} onPage={p => load(p)} />
+            <div className="mt-6 flex items-center justify-between">
+              <div className="text-sm text-muted-foreground">
+                {t('total')}: <span className="font-semibold">{meta.total}</span> {t('records')}
+              </div>
+              <div className="flex items-center gap-4">
+                <Pagination page={meta.page} pages={meta.pages} onPage={p => load(p)} />
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">{tCommon('perPage')}:</label>
+                  <select
+                    value={pageSize}
+                    onChange={e => handlePageSizeChange(Number(e.target.value))}
+                    className="px-3 py-2 border border-input rounded-md bg-background text-foreground h-9 text-sm"
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                  </select>
+                </div>
+              </div>
             </div>
           </div>
         )}

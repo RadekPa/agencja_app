@@ -6,7 +6,8 @@ import { CustomerCountOutputTypeArgsObjectSchema as CustomerCountOutputTypeArgsO
 
 const makeSchema = () => z.object({
   invoices: z.union([z.boolean(), z.lazy(() => InvoiceFindManySchema)]).optional(),
-  simpleInvoices: z.union([z.boolean(), z.lazy(() => SimpleInvoiceFindManySchema)]).optional(),
+  simpleInvoicesAsClient: z.union([z.boolean(), z.lazy(() => SimpleInvoiceFindManySchema)]).optional(),
+  simpleInvoicesAsBillTo: z.union([z.boolean(), z.lazy(() => SimpleInvoiceFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => CustomerCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const CustomerIncludeObjectSchema: z.ZodType<Prisma.CustomerInclude> = makeSchema() as unknown as z.ZodType<Prisma.CustomerInclude>;

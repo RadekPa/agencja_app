@@ -15,7 +15,8 @@ export const CustomerFindManyResultSchema = z.object({
   notes: z.string().optional(),
   createdAt: z.date().optional(),
   invoices: z.array(z.unknown()),
-  simpleInvoices: z.array(z.unknown())
+  simpleInvoicesAsClient: z.array(z.unknown()),
+  simpleInvoicesAsBillTo: z.array(z.unknown())
 })),
   pagination: z.object({
   page: z.number().int().min(1),

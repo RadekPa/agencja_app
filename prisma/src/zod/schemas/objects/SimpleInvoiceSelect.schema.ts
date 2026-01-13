@@ -7,6 +7,7 @@ const makeSchema = () => z.object({
   invType: z.boolean().optional(),
   invDate: z.boolean().optional(),
   billToId: z.boolean().optional(),
+  billTo: z.union([z.boolean(), z.lazy(() => CustomerArgsObjectSchema)]).optional(),
   clientId: z.boolean().optional(),
   client: z.union([z.boolean(), z.lazy(() => CustomerArgsObjectSchema)]).optional(),
   shipToId: z.boolean().optional(),

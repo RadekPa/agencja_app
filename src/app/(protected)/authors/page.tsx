@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -23,6 +24,8 @@ type Author = {
 type Meta = { page: number; pageSize: number; total: number; pages: number }
 
 export default function AuthorsPage() {
+  const t = useTranslations('authors')
+  const tCommon = useTranslations('common')
   const [authors, setAuthors] = useState<Author[]>([])
   const [meta, setMeta] = useState<Meta>({ page: 1, pageSize: 10, total: 0, pages: 1 })
   const [loading, setLoading] = useState(true)
@@ -46,6 +49,10 @@ export default function AuthorsPage() {
     }
     return 10
   })
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageSize(newPageSize)
+  }
 
   const [showAddModal, setShowAddModal] = useState(false)
   const [editingAuthor, setEditingAuthor] = useState<Author | null>(null)
@@ -106,7 +113,7 @@ export default function AuthorsPage() {
 
   const addAuthor = async () => {
     if (!form.firstName || !form.lastName) {
-      setFormErrors(['Imię i nazwisko są wymagane'])
+      setFormErrors([t('firstLastNameRequired')])
       return
     }
     setFormErrors([])
@@ -131,7 +138,7 @@ export default function AuthorsPage() {
   const updateAuthor = async () => {
     if (!editingAuthor) return
     if (!form.firstName || !form.lastName) {
-      setFormErrors(['Imię i nazwisko są wymagane'])
+      setFormErrors([t('firstLastNameRequired')])
       return
     }
     setFormErrors([])
@@ -168,7 +175,7 @@ export default function AuthorsPage() {
   }
 
   const removeAuthor = async (id: number) => {
-    if (!confirm('Czy na pewno chcesz usunąć tego autora?')) return
+    if (!confirm(t('confirmDelete'))) return
     await fetch(`/api/authors/${id}`, { method: 'DELETE' })
     await load(meta.page)
   }
@@ -181,7 +188,7 @@ export default function AuthorsPage() {
     <div className="space-y-6">
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Autorzy</h1>
+          <h1 className="text-2xl font-bold">{t('listTitle')}</h1>
           <Button variant="primary" onClick={() => { 
             setShowAddModal(true); 
             setFormErrors([]); 
@@ -195,34 +202,34 @@ export default function AuthorsPage() {
               remarks: '',
             }); 
           }}>
-            Dodaj autora
+            {t('createAuthor')}
           </Button>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
-            <label className="label">Wyszukaj</label>
+            <label className="label">{tCommon('search')}</label>
             <Input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Imię/Nazwisko/Pseudonim" />
           </div>
           <div>
-            <label className="label">Sortuj według</label>
+            <label className="label">{tCommon('sortBy')}</label>
             <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={sortBy} onChange={e=>setSortBy(e.target.value as any)}>
               <option value="id">ID</option>
-              <option value="firstName">Imię</option>
-              <option value="lastName">Nazwisko</option>
-              <option value="fullName">Pełne imię i nazwisko</option>
-              <option value="penName">Pseudonim</option>
-              <option value="dateMod">Data modyfikacji</option>
+              <option value="firstName">{t('firstName')}</option>
+              <option value="lastName">{t('lastName')}</option>
+              <option value="fullName">{t('fullName')}</option>
+              <option value="penName">{t('penName')}</option>
+              <option value="dateMod">{tCommon('dateModified')}</option>
             </select>
           </div>
           <div>
-            <label className="label">Kierunek</label>
+            <label className="label">{tCommon('order')}</label>
             <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={sortOrder} onChange={e=>setSortOrder(e.target.value as any)}>
-              <option value="asc">Rosnąco</option>
-              <option value="desc">Malejąco</option>
+              <option value="asc">{tCommon('ascending')}</option>
+              <option value="desc">{tCommon('descending')}</option>
             </select>
           </div>
           <div>
-            <label className="label">Na stronie</label>
+            <label className="label">{tCommon('perPage')}</label>
             <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={String(pageSize)} onChange={e=>setPageSize(Number(e.target.value))}>
               <option value="5">5</option>
               <option value="10">10</option>
@@ -234,19 +241,19 @@ export default function AuthorsPage() {
 
       <Card className="p-6">
         {loading ? (
-          <p className="text-center text-muted-foreground py-8">Ładowanie...</p>
+          <p className="text-center text-muted-foreground py-8">{tCommon('loading')}</p>
         ) : (
           <div className="space-y-4">
             <Table>
               <thead>
                 <tr>
                   <Th onClick={()=>toggleSort('id')} active={sortBy==='id'} order={sortOrder}>ID</Th>
-                  <Th onClick={()=>toggleSort('firstName')} active={sortBy==='firstName'} order={sortOrder}>Imię</Th>
-                  <Th onClick={()=>toggleSort('lastName')} active={sortBy==='lastName'} order={sortOrder}>Nazwisko</Th>
-                  <Th onClick={()=>toggleSort('fullName')} active={sortBy==='fullName'} order={sortOrder}>Pełne imię i nazwisko</Th>
-                  <Th onClick={()=>toggleSort('penName')} active={sortBy==='penName'} order={sortOrder}>Pseudonim</Th>
-                  <Th>Uwagi</Th>
-                  <Th onClick={()=>toggleSort('dateMod')} active={sortBy==='dateMod'} order={sortOrder}>Data modyfikacji</Th>
+                  <Th onClick={()=>toggleSort('firstName')} active={sortBy==='firstName'} order={sortOrder}>{t('firstName')}</Th>
+                  <Th onClick={()=>toggleSort('lastName')} active={sortBy==='lastName'} order={sortOrder}>{t('lastName')}</Th>
+                  <Th onClick={()=>toggleSort('fullName')} active={sortBy==='fullName'} order={sortOrder}>{t('fullName')}</Th>
+                  <Th onClick={()=>toggleSort('penName')} active={sortBy==='penName'} order={sortOrder}>{t('penName')}</Th>
+                  <Th>{t('remarks')}</Th>
+                  <Th onClick={()=>toggleSort('dateMod')} active={sortBy==='dateMod'} order={sortOrder}>{tCommon('dateModified')}</Th>
                   <th className="px-4 py-2"></th>
                 </tr>
               </thead>
@@ -266,15 +273,35 @@ export default function AuthorsPage() {
                     <Td>{a.dateMod ? new Intl.DateTimeFormat('pl-PL', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' }).format(new Date(a.dateMod)) : '-'}</Td>
                     <Td>
                       <div className="flex gap-2">
-                        <Button onClick={()=>openEditAuthor(a)}>Edytuj</Button>
-                        <Button onClick={()=>removeAuthor(a.id)}>Usuń</Button>
+                        <Button onClick={()=>openEditAuthor(a)}>{tCommon('edit')}</Button>
+                        <Button onClick={()=>removeAuthor(a.id)}>{tCommon('delete')}</Button>
                       </div>
                     </Td>
                   </tr>
                 ))}
               </tbody>
             </Table>
-            <Pagination page={meta.page} pages={meta.pages} onPage={(p)=>load(p)} />
+            <div className="mt-6 flex items-center justify-between">
+              <div className="text-sm text-muted-foreground">
+                {t('total')}: <span className="font-semibold">{meta.total}</span> {t('records')}
+              </div>
+              <div className="flex items-center gap-4">
+                <Pagination page={meta.page} pages={meta.pages} onPage={(p)=>load(p)} />
+                <div className="flex items-center gap-2">
+                  <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">{tCommon('perPage')}:</label>
+                  <select
+                    value={pageSize}
+                    onChange={e => handlePageSizeChange(Number(e.target.value))}
+                    className="px-3 py-2 border border-input rounded-md bg-background text-foreground h-9 text-sm"
+                  >
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                  </select>
+                </div>
+              </div>
+            </div>
           </div>
         )}
       </Card>
@@ -283,35 +310,35 @@ export default function AuthorsPage() {
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 overflow-y-auto">
           <div className="bg-white dark:bg-gray-800 p-6 rounded shadow w-full max-w-2xl my-8 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-semibold mb-4">Dodaj autora</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('createAuthor')}</h3>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="label">Imię</label>
+                <label className="label">{t('firstName')}</label>
                 <Input value={form.firstName} onChange={e=>setForm(prev=>({ ...prev, firstName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Drugie imię</label>
+                <label className="label">{t('middleName')}</label>
                 <Input value={form.middleName} onChange={e=>setForm(prev=>({ ...prev, middleName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Nazwisko</label>
+                <label className="label">{t('lastName')}</label>
                 <Input value={form.lastName} onChange={e=>setForm(prev=>({ ...prev, lastName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Sufiks</label>
+                <label className="label">{tCommon('suffix')}</label>
                 <Input value={form.suffix} onChange={e=>setForm(prev=>({ ...prev, suffix: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Pełne imię i nazwisko</label>
+                <label className="label">{t('fullName')}</label>
                 <Input value={form.fullName} onChange={e=>setForm(prev=>({ ...prev, fullName: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Pseudonim</label>
+                <label className="label">{t('penName')}</label>
                 <Input value={form.penName} onChange={e=>setForm(prev=>({ ...prev, penName: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Uwagi</label>
+                <label className="label">{t('remarks')}</label>
                 <Input value={form.remarks} onChange={e=>setForm(prev=>({ ...prev, remarks: e.target.value }))} />
               </div>
             </div>
@@ -321,8 +348,8 @@ export default function AuthorsPage() {
               </ul>
             )}
             <div className="mt-4 flex justify-end gap-2">
-              <Button onClick={() => { setShowAddModal(false); setFormErrors([]); }}>Anuluj</Button>
-              <Button variant="primary" onClick={addAuthor}>Dodaj</Button>
+              <Button onClick={() => { setShowAddModal(false); setFormErrors([]); }}>{tCommon('cancel')}</Button>
+              <Button variant="primary" onClick={addAuthor}>{t('createAuthor')}</Button>
             </div>
           </div>
         </div>
@@ -332,34 +359,34 @@ export default function AuthorsPage() {
       {editingAuthor && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 overflow-y-auto">
           <div className="bg-white dark:bg-gray-800 p-6 rounded shadow w-full max-w-2xl my-8 max-h-[90vh] overflow-y-auto">
-            <h3 className="text-lg font-semibold mb-4">Edytuj autora</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('editAuthor')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="label">Imię</label>
+                <label className="label">{t('firstName')}</label>
                 <Input value={form.firstName} onChange={e=>setForm(prev=>({ ...prev, firstName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Drugie imię</label>
+                <label className="label">{t('middleName')}</label>
                 <Input value={form.middleName} onChange={e=>setForm(prev=>({ ...prev, middleName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Nazwisko</label>
+                <label className="label">{t('lastName')}</label>
                 <Input value={form.lastName} onChange={e=>setForm(prev=>({ ...prev, lastName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Sufiks</label>
+                <label className="label">{tCommon('suffix')}</label>
                 <Input value={form.suffix} onChange={e=>setForm(prev=>({ ...prev, suffix: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Pełne imię i nazwisko</label>
+                <label className="label">{t('fullName')}</label>
                 <Input value={form.fullName} onChange={e=>setForm(prev=>({ ...prev, fullName: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Pseudonim</label>
+                <label className="label">{t('penName')}</label>
                 <Input value={form.penName} onChange={e=>setForm(prev=>({ ...prev, penName: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Uwagi</label>
+                <label className="label">{t('remarks')}</label>
                 <Input value={form.remarks} onChange={e=>setForm(prev=>({ ...prev, remarks: e.target.value }))} />
               </div>
             </div>
@@ -369,8 +396,8 @@ export default function AuthorsPage() {
               </ul>
             )}
             <div className="mt-4 flex justify-end gap-2">
-              <Button onClick={() => { setEditingAuthor(null); setFormErrors([]); }}>Anuluj</Button>
-              <Button variant="primary" onClick={updateAuthor}>Zapisz</Button>
+              <Button onClick={() => { setEditingAuthor(null); setFormErrors([]); }}>{tCommon('cancel')}</Button>
+              <Button variant="primary" onClick={updateAuthor}>{tCommon('save')}</Button>
             </div>
           </div>
         </div>

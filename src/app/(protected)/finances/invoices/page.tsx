@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -90,6 +91,8 @@ const setCachedItem = (key: string, value: string) => {
 }
 
 export default function InvoicesPage() {
+  const t = useTranslations('finances')
+  const tCommon = useTranslations('common')
   const [invoices, setInvoices] = useState<Invoice[]>([])
   const [clients, setClients] = useState<Customer[]>([])
   const [currencies, setCurrencies] = useState<Currency[]>([])
@@ -345,10 +348,10 @@ export default function InvoicesPage() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Faktury VAT</h1>
+        <h1 className="text-2xl font-bold">{t('invoiceList')}</h1>
         <Button onClick={() => setShowForm(true)} variant="primary" className="gap-2">
           <Plus className="h-4 w-4" />
-          Nowa faktura
+          {t('newInvoice')}
         </Button>
       </div>
 
@@ -358,12 +361,12 @@ export default function InvoicesPage() {
           {/* Filters - first row: Klient, Tytuł, Waluta, Data od, Data do */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Klient</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('client')}</label>
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   list="clients-datalist"
-                  placeholder="Szukaj i wybierz"
+                  placeholder={tCommon('search')}
                   value={clientSearch}
                   onChange={e => handleClientInput(e.target.value)}
                   className="pl-9"
@@ -377,21 +380,21 @@ export default function InvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Tytuł</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('invoiceTitle')}</label>
               <Input
-                placeholder="Wpisz tytuł"
+                placeholder={t('invoiceTitlePlaceholder')}
                 value={filters.title}
                 onChange={e => setFilters({ ...filters, title: e.target.value })}
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Waluta</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('currency')}</label>
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   list="currencies-datalist"
-                  placeholder="Szukaj i wybierz"
+                  placeholder={tCommon('search')}
                   value={currencySearch}
                   onChange={e => handleCurrencyInput(e.target.value)}
                   className="pl-9"
@@ -405,7 +408,7 @@ export default function InvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Data od</label>
+              <label className="block text-sm font-medium text-muted-foreground">{tCommon('dateFrom')}</label>
               <input
                 type="date"
                 value={filters.dateFrom}
@@ -415,7 +418,7 @@ export default function InvoicesPage() {
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Data do</label>
+              <label className="block text-sm font-medium text-muted-foreground">{tCommon('dateTo')}</label>
               <input
                 type="date"
                 value={filters.dateTo}
@@ -428,35 +431,35 @@ export default function InvoicesPage() {
           {/* Second row: Buttons */}
           <div className="grid gap-4 md:grid-cols-5 items-end">
             <div className="md:col-start-4">
-              <Button type="button" variant="primary" className="w-full h-9" onClick={() => applyFilters(1)}>Szukaj</Button>
+              <Button type="button" variant="primary" className="w-full h-9" onClick={() => applyFilters(1)}>{tCommon('search')}</Button>
             </div>
             <div>
-              <Button type="button" onClick={resetFilters} variant="outline" className="w-full h-9">Wyczyść</Button>
+              <Button type="button" onClick={resetFilters} variant="outline" className="w-full h-9">{tCommon('cancel')}</Button>
             </div>
           </div>
         </div>
       </Card>
 
       {/* Modal */}
-      <Modal isOpen={showForm} onClose={() => setShowForm(false)} title="Dodaj nową fakturę">
+      <Modal isOpen={showForm} onClose={() => setShowForm(false)} title={t('addNewInvoice')}>
         <form onSubmit={handleCreate} className="space-y-4">
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-muted-foreground">Klient</label>
+            <label className="block text-sm font-medium text-muted-foreground">{t('client')}</label>
             <select
               value={form.clientId}
               onChange={e => setForm({ ...form, clientId: e.target.value })}
               required
               className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
             >
-              <option value="">Wybierz klienta</option>
+              <option value="">{tCommon('selectClient')}</option>
               {(Array.isArray(clients) ? clients : []).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
             </select>
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-muted-foreground">Tytuł</label>
+            <label className="block text-sm font-medium text-muted-foreground">{t('invoiceTitle')}</label>
             <input
-              placeholder="Tytuł faktury"
+              placeholder={t('invoiceTitlePlaceholder')}
               value={form.title}
               onChange={e => setForm({ ...form, title: e.target.value })}
               className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
@@ -465,7 +468,7 @@ export default function InvoicesPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Data wystawienia</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('issueDate')}</label>
               <input
                 type="date"
                 value={form.date}
@@ -474,7 +477,7 @@ export default function InvoicesPage() {
               />
             </div>
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Data zapłaty</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('paymentDate')}</label>
               <input
                 type="date"
                 value={form.payDate}
@@ -486,7 +489,7 @@ export default function InvoicesPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Netto</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('net')}</label>
               <input
                 placeholder="0.00"
                 type="number"
@@ -497,7 +500,7 @@ export default function InvoicesPage() {
               />
             </div>
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">VAT %</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('vatPercent')}</label>
               <input
                 placeholder="0.00"
                 type="number"
@@ -511,35 +514,35 @@ export default function InvoicesPage() {
 
           <div className="grid grid-cols-2 gap-3">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Status</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('status')}</label>
               <select
                 value={form.status}
                 onChange={e => setForm({ ...form, status: e.target.value })}
                 className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
               >
-                <option value="ISSUED">Wystawiona</option>
-                <option value="DRAFT">Wersja robocza</option>
+                <option value="ISSUED">{t('issued')}</option>
+                <option value="DRAFT">{t('draft')}</option>
               </select>
             </div>
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-muted-foreground">Typ faktury</label>
+              <label className="block text-sm font-medium text-muted-foreground">{t('invoiceType')}</label>
               <select
                 value={form.invType}
                 onChange={e => setForm({ ...form, invType: e.target.value })}
                 className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:ring-2 focus:ring-ring"
               >
-                <option value="FV">Faktura VAT</option>
-                <option value="RR">Rachunek</option>
-                <option value="KOR">Korekta</option>
-                <option value="ZAL">Zaliczka</option>
-                <option value="REC">Wznowienie VAT</option>
+                <option value="FV">{t('invoiceVAT')}</option>
+                <option value="RR">{t('receipt')}</option>
+                <option value="KOR">{t('correction')}</option>
+                <option value="ZAL">{t('advance')}</option>
+                <option value="REC">{t('reissue')}</option>
               </select>
             </div>
           </div>
 
           <div className="flex gap-2 pt-4 border-t border-border">
-            <Button variant="primary" type="submit" className="flex-1">Utwórz fakturę</Button>
-            <Button type="button" onClick={() => setShowForm(false)} className="flex-1">Anuluj</Button>
+            <Button variant="primary" type="submit" className="flex-1">{t('createInvoice')}</Button>
+            <Button type="button" onClick={() => setShowForm(false)} className="flex-1">{tCommon('cancel')}</Button>
           </div>
         </form>
       </Modal>
@@ -547,9 +550,9 @@ export default function InvoicesPage() {
       {/* Table Card */}
       <Card className="p-6">
         {loading ? (
-          <p className="text-center text-muted-foreground py-8">Ładowanie...</p>
+          <p className="text-center text-muted-foreground py-8">{tCommon('loading')}</p>
         ) : invoices.length === 0 ? (
-          <p className="text-center text-muted-foreground py-8">Brak faktur</p>
+          <p className="text-center text-muted-foreground py-8">{t('noInvoices')}</p>
         ) : (
           <>
             <div className="overflow-x-auto">
@@ -558,22 +561,22 @@ export default function InvoicesPage() {
                   <tr>
                     <Th className="cursor-pointer hover:bg-muted" onClick={() => toggleSort('id')}>
                       <div className="flex items-center gap-2">
-                        Nr FV {sortBy === 'id' && <ArrowUpDown className="h-3 w-3" />}
+                        {t('invoiceNumber')} {sortBy === 'id' && <ArrowUpDown className="h-3 w-3" />}
                       </div>
                     </Th>
-                    <Th>Klient</Th>
-                    <Th>Tytuł faktury</Th>
+                    <Th>{t('client')}</Th>
+                    <Th>{t('invoiceTitle')}</Th>
                     <Th className="cursor-pointer hover:bg-muted" onClick={() => toggleSort('date')}>
                       <div className="flex items-center gap-2">
-                        Data wystawienia {sortBy === 'date' && <ArrowUpDown className="h-3 w-3" />}
+                        {t('issueDate')} {sortBy === 'date' && <ArrowUpDown className="h-3 w-3" />}
                       </div>
                     </Th>
-                    <Th>Waluta</Th>
-                    <Th className="text-right">Kwota netto</Th>
-                    <Th className="text-right">VAT</Th>
+                    <Th>{t('currency')}</Th>
+                    <Th className="text-right">{t('netAmount')}</Th>
+                    <Th className="text-right">{t('vat')}</Th>
                     <Th className="cursor-pointer hover:bg-muted text-right" onClick={() => toggleSort('grossAmt')}>
                       <div className="flex items-center justify-end gap-2">
-                        Kwota brutto {sortBy === 'grossAmt' && <ArrowUpDown className="h-3 w-3" />}
+                        {t('grossAmount')} {sortBy === 'grossAmt' && <ArrowUpDown className="h-3 w-3" />}
                       </div>
                     </Th>
                   </tr>
@@ -599,12 +602,12 @@ export default function InvoicesPage() {
             {meta.pages > 1 && (
               <div className="mt-6 flex items-center justify-between">
                 <div className="text-sm text-muted-foreground">
-                  Razem: <span className="font-semibold">{meta.total}</span> rekordów
+                  {t('total')}: <span className="font-semibold">{meta.total}</span> {t('records')}
                 </div>
                 <div className="flex items-center gap-4">
                   <Pagination page={meta.page} pages={meta.pages} onPage={load} />
                   <div className="flex items-center gap-2">
-                    <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">Na stronie:</label>
+                    <label className="text-sm font-medium text-muted-foreground whitespace-nowrap">{tCommon('perPage')}:</label>
                     <select
                       value={pageSize}
                       onChange={e => handlePageSizeChange(Number(e.target.value))}

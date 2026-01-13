@@ -5,6 +5,7 @@ export const SimpleInvoiceInputSchema = z.object({
     invType: z.string(),
     invDate: z.date().optional().nullable(),
     billToId: z.number().int(),
+    billTo: z.unknown(),
     clientId: z.number().int().optional().nullable(),
     client: z.unknown().optional().nullable(),
     shipToId: z.number().int().optional().nullable(),

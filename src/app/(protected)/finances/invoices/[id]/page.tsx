@@ -1,6 +1,7 @@
 "use client"
 import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 
@@ -64,6 +65,8 @@ const formatMoney = (value?: number | null, currency = 'PLN') => {
 
 export default function InvoiceShow({ params }: { params: { id: string } }) {
   const id = params.id
+  const t = useTranslations('finances')
+  const tCommon = useTranslations('common')
   const [invoice, setInvoice] = useState<Invoice | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -76,13 +79,13 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
         const res = await fetch(`/api/invoices/${id}`)
         if (!res.ok) {
           setInvoice(null)
-          setError('Nie znaleziono faktury')
+          setError(t('invoiceNotFound'))
           return
         }
         const json = await res.json()
         setInvoice(json.invoice)
       } catch (err: any) {
-        setError(err?.message ?? 'Wystąpił błąd podczas ładowania faktury')
+        setError(err?.message ?? t('loadingError'))
         setInvoice(null)
       } finally {
         setLoading(false)
@@ -94,17 +97,17 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
   const invTypeLabel = useMemo(() => {
     const invType = invoice?.invType || 'FV'
     return {
-      'FV': 'Faktura VAT',
-      'RR': 'Rachunek',
-      'KOR': 'Korekta',
-      'ZAL': 'Zaliczka',
-      'REC': 'Wznowienie VAT'
+      'FV': t('invoiceVAT'),
+      'RR': t('receipt'),
+      'KOR': t('correction'),
+      'ZAL': t('advance'),
+      'REC': t('reissue')
     }[invType] || invType
-  }, [invoice?.invType])
+  }, [invoice?.invType, t])
 
-  if (loading) return <p>Ładowanie...</p>
+  if (loading) return <p>{tCommon('loading')}</p>
   if (error) return <Card><p className="p-4 text-sm text-muted-foreground">{error}</p></Card>
-  if (!invoice) return <Card><p className="p-4 text-sm text-muted-foreground">Nie znaleziono faktury</p></Card>
+  if (!invoice) return <Card><p className="p-4 text-sm text-muted-foreground">{t('invoiceNotFound')}</p></Card>
 
   const numberDisplay = invoice.id
   const invoiceReference = invoice.invNr ?? invoice.id
@@ -116,7 +119,7 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
     <div className="space-y-6">
       <div>
         <Button asChild variant="outline" size="sm">
-          <Link href="/finances/invoices">← Powrót do listy</Link>
+          <Link href="/finances/invoices">← {t('backToList')}</Link>
         </Button>
       </div>
       <Card className="p-8 space-y-8">
@@ -124,28 +127,28 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
           <div aria-hidden />
           <div className="text-center">
             <div className="text-sm uppercase tracking-wide text-muted-foreground">{invTypeLabel}</div>
-            <div className="text-2xl font-semibold">Faktura VAT</div>
+            <div className="text-2xl font-semibold">{t('invoiceVAT')}</div>
           </div>
           <div className="text-right">
-            <div className="text-xs uppercase text-muted-foreground">Nr faktury</div>
+            <div className="text-xs uppercase text-muted-foreground">{t('invoiceNumber')}</div>
             <div className="text-xl font-semibold">{numberDisplay}</div>
           </div>
         </div>
 
         <div className="flex flex-col items-end gap-2 text-right">
           <div>
-            <div className="text-xs uppercase text-muted-foreground">Data wystawienia</div>
+            <div className="text-xs uppercase text-muted-foreground">{t('issueDate')}</div>
             <div className="font-medium">{formatDate(invoice.date)}</div>
           </div>
           <div>
-            <div className="text-xs uppercase text-muted-foreground">Data sprzedaży</div>
+            <div className="text-xs uppercase text-muted-foreground">{t('saleDate')}</div>
             <div className="font-medium">{formatDate(invoice.dateIssued)}</div>
           </div>
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">
           <div className="rounded-lg border border-border bg-muted/40 p-4 md:order-2">
-            <div className="text-xs uppercase text-muted-foreground">Sprzedawca</div>
+            <div className="text-xs uppercase text-muted-foreground">{t('seller')}</div>
             <div className="mt-2 space-y-1 text-sm">
               <div className="font-semibold">Graal sp. z o.o.</div>
               <div>ul. Polnej Róy 26</div>
@@ -155,7 +158,7 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
           </div>
 
           <div className="rounded-lg border border-border bg-muted/40 p-4 md:order-1">
-            <div className="text-xs uppercase text-muted-foreground">Nabywca</div>
+            <div className="text-xs uppercase text-muted-foreground">{t('buyer')}</div>
             <div className="mt-2 space-y-1 text-sm">
               <div className="font-semibold">{invoice.client?.name || '-'}</div>
               <div>{invoice.client?.address || '-'}</div>
@@ -173,7 +176,7 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
             <div className="text-lg font-semibold">{invoiceReference}</div>
           </div>
           <div className="rounded-lg border border-dashed border-border p-4">
-            <div className="text-xs uppercase text-muted-foreground">Tytuł faktury</div>
+            <div className="text-xs uppercase text-muted-foreground">{t('invoiceTitle')}</div>
             <div className="text-lg font-semibold">{invoice.fvDescription || invoice.title || '-'}</div>
           </div>
         </div>
@@ -182,19 +185,19 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
           <table className="min-w-full divide-y divide-border text-sm">
             <thead className="bg-muted/60">
               <tr>
-                <th className="px-4 py-3 text-left font-medium">Wartość sprzedaży</th>
-                <th className="px-4 py-3 text-left font-medium">Prowizja</th>
-                <th className="px-4 py-3 text-left font-medium">Kurs waluty</th>
-                <th className="px-4 py-3 text-left font-medium">Stawka VAT</th>
-                <th className="px-4 py-3 text-left font-medium">VAT %</th>
-                <th className="px-4 py-3 text-left font-medium">Zapłacono</th>
+                <th className="px-4 py-3 text-left font-medium">{t('salesValue')}</th>
+                <th className="px-4 py-3 text-left font-medium">{t('commission')}</th>
+                <th className="px-4 py-3 text-left font-medium">{t('exchangeRate')}</th>
+                <th className="px-4 py-3 text-left font-medium">{t('vatRate')}</th>
+                <th className="px-4 py-3 text-left font-medium">{t('vatPercent')}</th>
+                <th className="px-4 py-3 text-left font-medium">{t('paid')}</th>
               </tr>
             </thead>
             <tbody>
               {isCorrection && invoice.originalInvoice && (
                 <>
                   <tr className="bg-muted/60">
-                    <td className="px-4 py-2 font-semibold" colSpan={6}>Stare kwoty</td>
+                    <td className="px-4 py-2 font-semibold" colSpan={6}>{t('oldAmounts')}</td>
                   </tr>
                   <tr className="divide-x divide-border bg-muted/30">
                     <td className="px-4 py-3 font-medium">{formatMoney(invoice.originalInvoice.invAmt, originalCurrency)}</td>
@@ -205,7 +208,7 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
                     <td className="px-4 py-3 font-semibold">{formatMoney(invoice.originalInvoice.grossAmt, originalCurrency)}</td>
                   </tr>
                   <tr className="bg-muted/60">
-                    <td className="px-4 py-2 font-semibold" colSpan={6}>Nowe kwoty</td>
+                    <td className="px-4 py-2 font-semibold" colSpan={6}>{t('newAmounts')}</td>
                   </tr>
                 </>
               )}
@@ -222,7 +225,7 @@ export default function InvoiceShow({ params }: { params: { id: string } }) {
         </div>
 
         <div className="flex flex-col items-end gap-1 text-right">
-          <div className="text-xs uppercase text-muted-foreground">Zapłacono w</div>
+          <div className="text-xs uppercase text-muted-foreground">{t('paidIn')}</div>
           <div className="text-lg font-semibold">{currency} {invoice.grossAmt?.toFixed(2) || '0.00'}</div>
         </div>
       </Card>

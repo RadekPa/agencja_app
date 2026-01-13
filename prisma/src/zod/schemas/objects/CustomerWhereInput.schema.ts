@@ -25,7 +25,8 @@ const customerwhereinputSchema = z.object({
   notes: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string().max(250)]).optional().nullable(),
   createdAt: z.union([z.lazy(() => DateTimeNullableFilterObjectSchema), z.coerce.date()]).optional().nullable(),
   invoices: z.lazy(() => InvoiceListRelationFilterObjectSchema).optional(),
-  simpleInvoices: z.lazy(() => SimpleInvoiceListRelationFilterObjectSchema).optional()
+  simpleInvoicesAsClient: z.lazy(() => SimpleInvoiceListRelationFilterObjectSchema).optional(),
+  simpleInvoicesAsBillTo: z.lazy(() => SimpleInvoiceListRelationFilterObjectSchema).optional()
 }).strict();
 export const CustomerWhereInputObjectSchema: z.ZodType<Prisma.CustomerWhereInput> = customerwhereinputSchema as unknown as z.ZodType<Prisma.CustomerWhereInput>;
 export const CustomerWhereInputObjectZodSchema = customerwhereinputSchema;

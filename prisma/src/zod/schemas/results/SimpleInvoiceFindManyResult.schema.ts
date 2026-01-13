@@ -5,6 +5,7 @@ export const SimpleInvoiceFindManyResultSchema = z.object({
   invType: z.string(),
   invDate: z.date().optional(),
   billToId: z.number().int(),
+  billTo: z.unknown(),
   clientId: z.number().int().optional(),
   client: z.unknown().optional(),
   shipToId: z.number().int().optional(),

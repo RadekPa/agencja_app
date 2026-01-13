@@ -15,7 +15,8 @@ export const CustomerInputSchema = z.object({
     notes: z.string().optional().nullable(),
     createdAt: z.date().optional().nullable(),
     invoices: z.array(z.unknown()),
-    simpleInvoices: z.array(z.unknown())
+    simpleInvoicesAsClient: z.array(z.unknown()),
+    simpleInvoicesAsBillTo: z.array(z.unknown())
 }).strict();
 
 export type CustomerInputType = z.infer<typeof CustomerInputSchema>;

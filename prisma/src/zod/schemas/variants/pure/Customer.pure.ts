@@ -15,7 +15,8 @@ export const CustomerModelSchema = z.object({
     notes: z.string().nullable(),
     createdAt: z.date().nullable(),
     invoices: z.array(z.unknown()),
-    simpleInvoices: z.array(z.unknown())
+    simpleInvoicesAsClient: z.array(z.unknown()),
+    simpleInvoicesAsBillTo: z.array(z.unknown())
 }).strict();
 
 export type CustomerPureType = z.infer<typeof CustomerModelSchema>;

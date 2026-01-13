@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -10,6 +11,8 @@ import { UserCreateSchema, UserUpdateSchema } from '../../../validation/user'
 type User = { id: number; name?: string | null; email: string; role: 'ADMIN' | 'ADVANCED' | 'USER'; dateMod?: string; permissions?: any }
 
 export default function UsersPage() {
+  const t = useTranslations('users')
+  const tCommon = useTranslations('common')
   const [users, setUsers] = useState<User[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState('')
@@ -43,7 +46,7 @@ export default function UsersPage() {
     const res = await fetch('/api/users', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(parsed.data) })
     if (!res.ok) {
       const err = await res.json().catch(()=>({ error: 'error' }))
-      setFormErrors([err.error || 'Błąd'])
+      setFormErrors([err.error || t('error')])
       return
     }
     setForm({ name: '', email: '', password: '', role: 'USER' })
@@ -52,10 +55,10 @@ export default function UsersPage() {
   }
 
   const removeUser = async (id: number) => {
-    if (!confirm('Czy na pewno chcesz usunąć użytkownika?')) return
+    if (!confirm(t('confirmDelete'))) return
     const res = await fetch(`/api/users/${id}`, { method: 'DELETE' })
     if (!res.ok) {
-      alert('Brak uprawnień lub błąd serwera')
+      alert(t('noPermission'))
       return
     }
     await load(page)
@@ -63,7 +66,7 @@ export default function UsersPage() {
 
   const updateRole = async (id: number, role: 'ADMIN'|'ADVANCED'|'USER') => {
     const res = await fetch(`/api/users/${id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ role }) })
-    if (!res.ok) { alert('Brak uprawnień'); return }
+    if (!res.ok) { alert(t('noPermission')); return }
     await load(page)
   }
 
@@ -75,7 +78,7 @@ export default function UsersPage() {
     const bodyToSend = { ...payload }
     if ((payload as any).permissions) bodyToSend.permissions = (payload as any).permissions
     const res = await fetch(`/api/users/${payload.id}`, { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(bodyToSend) })
-    if (!res.ok) { alert('Błąd lub brak uprawnień'); return }
+    if (!res.ok) { alert(t('updateError')); return }
     closeEdit()
     await load(page)
   }
@@ -84,21 +87,21 @@ export default function UsersPage() {
     <div className="space-y-6">
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
-          <h1 className="text-2xl font-bold">Użytkownicy</h1>
-          <Button variant="primary" onClick={() => { setShowAddModal(true); setFormErrors([]); }}>Dodaj użytkownika</Button>
+          <h1 className="text-2xl font-bold">{t('title')}</h1>
+          <Button variant="primary" onClick={() => { setShowAddModal(true); setFormErrors([]); }}>{t('createUser')}</Button>
         </div>
       </Card>
 
       <Card className="p-6">
-        {loading ? <p className="text-center text-muted-foreground py-8">Ładowanie...</p> : (
+        {loading ? <p className="text-center text-muted-foreground py-8">{tCommon('loading')}</p> : (
           <div className="space-y-4">
             <Table>
               <thead>
                 <tr>
                   <Th>ID</Th>
-                  <Th>Email</Th>
-                  <Th>Nazwa</Th>
-                  <Th>Rola</Th>
+                  <Th>{t('email')}</Th>
+                  <Th>{t('name')}</Th>
+                  <Th>{t('role')}</Th>
                   <th></th>
                 </tr>
               </thead>
@@ -117,8 +120,8 @@ export default function UsersPage() {
                     </Td>
                     <Td>
                       <div className="flex items-center gap-2">
-                        <Button onClick={()=>openEdit(u)}>Edytuj</Button>
-                        <Button onClick={()=>removeUser(u.id)}>Usuń</Button>
+                        <Button onClick={()=>openEdit(u)}>{tCommon('edit')}</Button>
+                        <Button onClick={()=>removeUser(u.id)}>{tCommon('delete')}</Button>
                       </div>
                     </Td>
                   </tr>
@@ -128,7 +131,7 @@ export default function UsersPage() {
             <div className="flex items-center justify-between">
               <Pagination page={meta.page} pages={meta.pages} onPage={(p)=>{ setPage(p); load(p) }} />
               <div>
-                <label className="label mr-2">Ilość</label>
+                <label className="label mr-2">{tCommon('perPage')}</label>
                 <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={String(pageSize)} onChange={e=>{ setPageSize(Number(e.target.value)); setPage(1); load(1) }}>
                   <option value="5">5</option>
                   <option value="10">10</option>
@@ -144,22 +147,22 @@ export default function UsersPage() {
       {showAddModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-card text-card-foreground p-6 rounded shadow w-full max-w-lg border border-border">
-            <h3 className="text-lg font-semibold mb-4">Dodaj użytkownika</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('createUser')}</h3>
             <div className="grid grid-cols-1 gap-3">
               <div>
-                <label className="label">Nazwa</label>
+                <label className="label">{t('name')}</label>
                 <Input value={form.name} onChange={e=>setForm(prev=>({ ...prev, name: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Email</label>
+                <label className="label">{t('email')}</label>
                 <Input value={form.email} onChange={e=>setForm(prev=>({ ...prev, email: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Hasło</label>
+                <label className="label">{t('password')}</label>
                 <Input type="password" value={form.password} onChange={e=>setForm(prev=>({ ...prev, password: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Rola</label>
+                <label className="label">{t('role')}</label>
                 <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={form.role} onChange={e=>setForm(prev=>({ ...prev, role: e.target.value }))}>
                   <option value="USER">USER</option>
                   <option value="ADVANCED">ADVANCED</option>
@@ -173,8 +176,8 @@ export default function UsersPage() {
               </ul>
             )}
             <div className="mt-4 flex justify-end gap-2">
-              <Button onClick={() => { setShowAddModal(false); setFormErrors([]); }}>Anuluj</Button>
-              <Button variant="primary" onClick={addUser}>Dodaj</Button>
+              <Button onClick={() => { setShowAddModal(false); setFormErrors([]); }}>{tCommon('cancel')}</Button>
+              <Button variant="primary" onClick={addUser}>{tCommon('add')}</Button>
             </div>
           </div>
         </div>
@@ -184,13 +187,13 @@ export default function UsersPage() {
       {editingUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-card text-card-foreground p-6 rounded shadow w-full max-w-lg border border-border">
-            <h3 className="text-lg font-semibold mb-4">Edytuj użytkownika</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('editUser')}</h3>
             <div className="grid grid-cols-1 gap-3">
-              <label className="label">Email</label>
+              <label className="label">{t('email')}</label>
               <Input value={editingUser.email} onChange={e=>setEditingUser(prev=>prev?{ ...prev, email: e.target.value }:prev)} />
-              <label className="label">Nazwa</label>
+              <label className="label">{t('name')}</label>
               <Input value={editingUser.name ?? ''} onChange={e=>setEditingUser(prev=>prev?{ ...prev, name: e.target.value }:prev)} />
-              <label className="label">Rola</label>
+              <label className="label">{t('role')}</label>
               <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={editingUser.role} onChange={e=>setEditingUser(prev=>prev?{ ...prev, role: e.target.value as any }:prev)}>
                 <option value="USER">USER</option>
                 <option value="ADVANCED">ADVANCED</option>
@@ -199,17 +202,17 @@ export default function UsersPage() {
 
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="label">Uprawnienia per moduł</label>
-                  <div className="text-sm text-muted-foreground">Zarządzanie uprawnieniami przeniesione do dedykowanej strony.</div>
+                  <label className="label">{t('permissions')}</label>
+                  <div className="text-sm text-muted-foreground">{t('permissionsNote')}</div>
                 </div>
                 <div>
-                  <a className="underline text-sm text-primary" href={`/permissions?userId=${editingUser.id}`}>Edytuj uprawnienia</a>
+                  <a className="underline text-sm text-primary" href={`/permissions?userId=${editingUser.id}`}>{t('editPermissions')}</a>
                 </div>
               </div>
             </div>
             <div className="mt-4 flex justify-end gap-2">
-              <Button onClick={closeEdit}>Anuluj</Button>
-              <Button variant="primary" onClick={()=>saveEdit(editingUser)}>Zapisz</Button>
+              <Button onClick={closeEdit}>{tCommon('cancel')}</Button>
+              <Button variant="primary" onClick={()=>saveEdit(editingUser)}>{tCommon('save')}</Button>
             </div>
           </div>
         </div>

@@ -136,7 +136,7 @@ export default function ContactsPage() {
       setShowAddModal(false)
       await load(1)
     } catch (error) {
-      setFormErrors(['Błąd połączenia z serwerem'])
+      setFormErrors([tCommon('connectionError')])
     }
   }
 
@@ -163,7 +163,7 @@ export default function ContactsPage() {
       setForm({ phoneNumber: '', firstName: '', middleName: '', lastName: '', informal: 0, fax: '', email: '', contactPosition: '', accountant: null })
       await load(meta.page)
     } catch (error) {
-      setFormErrors(['Błąd połączenia z serwerem'])
+      setFormErrors([tCommon('connectionError')])
     }
   }
 
@@ -216,16 +216,16 @@ export default function ContactsPage() {
               <option value="id">ID</option>
               <option value="firstName">{t('firstName')}</option>
               <option value="lastName">{t('lastName')}</option>
-              <option value="phoneNumber">Telefon</option>
-              <option value="email">Email</option>
+              <option value="phoneNumber">{t('phone')}</option>
+              <option value="email">{t('email')}</option>
               <option value="createdAt">{tCommon('createdAt')}</option>
             </select>
           </div>
           <div>
-            <label className="label">Kierunek</label>
+            <label className="label">{tCommon('order')}</label>
             <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={sortOrder} onChange={e=>setSortOrder(e.target.value as any)}>
-              <option value="asc">Rosnąco</option>
-              <option value="desc">Malejąco</option>
+              <option value="asc">{tCommon('ascending')}</option>
+              <option value="desc">{tCommon('descending')}</option>
             </select>
           </div>
           <div>
@@ -251,10 +251,10 @@ export default function ContactsPage() {
                   <Th onClick={()=>toggleSort('firstName')} active={sortBy==='firstName'} order={sortOrder}>{t('firstName')}</Th>
                   <Th>{t('middleName')}</Th>
                   <Th onClick={()=>toggleSort('lastName')} active={sortBy==='lastName'} order={sortOrder}>{t('lastName')}</Th>
-                  <Th onClick={()=>toggleSort('phoneNumber')} active={sortBy==='phoneNumber'} order={sortOrder}>Telefon</Th>
-                  <Th onClick={()=>toggleSort('email')} active={sortBy==='email'} order={sortOrder}>Email</Th>
-                  <Th>Stanowisko</Th>
-                  <Th>Klient</Th>
+                  <Th onClick={()=>toggleSort('phoneNumber')} active={sortBy==='phoneNumber'} order={sortOrder}>{t('phone')}</Th>
+                  <Th onClick={()=>toggleSort('email')} active={sortBy==='email'} order={sortOrder}>{t('email')}</Th>
+                  <Th>{t('position')}</Th>
+                  <Th>{t('client')}</Th>
                   <th className="px-4 py-2"></th>
                 </tr>
               </thead>
@@ -313,19 +313,19 @@ export default function ContactsPage() {
                 <Input value={form.lastName} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, lastName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Telefon</label>
+                <label className="label">{t('phone')}</label>
                 <Input value={form.phoneNumber} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, phoneNumber: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Email</label>
+                <label className="label">{t('email')}</label>
                 <Input type="email" value={form.email} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, email: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Fax</label>
+                <label className="label">{t('fax')}</label>
                 <Input value={form.fax} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, fax: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Stanowisko</label>
+                <label className="label">{t('position')}</label>
                 <Input value={form.contactPosition} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, contactPosition: e.target.value }))} />
               </div>
             </div>
@@ -361,19 +361,19 @@ export default function ContactsPage() {
                 <Input value={form.lastName} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, lastName: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Telefon</label>
+                <label className="label">{t('phone')}</label>
                 <Input value={form.phoneNumber} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, phoneNumber: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Email</label>
+                <label className="label">{t('email')}</label>
                 <Input type="email" value={form.email} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, email: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Fax</label>
+                <label className="label">{t('fax')}</label>
                 <Input value={form.fax} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, fax: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Stanowisko</label>
+                <label className="label">{t('position')}</label>
                 <Input value={form.contactPosition} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>setForm(prev=>({ ...prev, contactPosition: e.target.value }))} />
               </div>
             </div>

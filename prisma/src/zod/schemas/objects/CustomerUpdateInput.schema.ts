@@ -4,7 +4,8 @@ import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringF
 import { NullableIntFieldUpdateOperationsInputObjectSchema as NullableIntFieldUpdateOperationsInputObjectSchema } from './NullableIntFieldUpdateOperationsInput.schema';
 import { NullableDateTimeFieldUpdateOperationsInputObjectSchema as NullableDateTimeFieldUpdateOperationsInputObjectSchema } from './NullableDateTimeFieldUpdateOperationsInput.schema';
 import { InvoiceUpdateManyWithoutClientNestedInputObjectSchema as InvoiceUpdateManyWithoutClientNestedInputObjectSchema } from './InvoiceUpdateManyWithoutClientNestedInput.schema';
-import { SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema as SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema } from './SimpleInvoiceUpdateManyWithoutClientNestedInput.schema'
+import { SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema as SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema } from './SimpleInvoiceUpdateManyWithoutClientNestedInput.schema';
+import { SimpleInvoiceUpdateManyWithoutBillToNestedInputObjectSchema as SimpleInvoiceUpdateManyWithoutBillToNestedInputObjectSchema } from './SimpleInvoiceUpdateManyWithoutBillToNestedInput.schema'
 
 const makeSchema = () => z.object({
   custAbb: z.union([z.string().max(10), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
@@ -20,7 +21,8 @@ const makeSchema = () => z.object({
   notes: z.union([z.string().max(250), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   createdAt: z.union([z.coerce.date(), z.lazy(() => NullableDateTimeFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   invoices: z.lazy(() => InvoiceUpdateManyWithoutClientNestedInputObjectSchema).optional(),
-  simpleInvoices: z.lazy(() => SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema).optional()
+  simpleInvoicesAsClient: z.lazy(() => SimpleInvoiceUpdateManyWithoutClientNestedInputObjectSchema).optional(),
+  simpleInvoicesAsBillTo: z.lazy(() => SimpleInvoiceUpdateManyWithoutBillToNestedInputObjectSchema).optional()
 }).strict();
 export const CustomerUpdateInputObjectSchema: z.ZodType<Prisma.CustomerUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.CustomerUpdateInput>;
 export const CustomerUpdateInputObjectZodSchema = makeSchema();

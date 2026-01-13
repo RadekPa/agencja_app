@@ -19,7 +19,8 @@ const makeSchema = () => z.object({
   notes: z.boolean().optional(),
   createdAt: z.boolean().optional(),
   invoices: z.union([z.boolean(), z.lazy(() => InvoiceFindManySchema)]).optional(),
-  simpleInvoices: z.union([z.boolean(), z.lazy(() => SimpleInvoiceFindManySchema)]).optional(),
+  simpleInvoicesAsClient: z.union([z.boolean(), z.lazy(() => SimpleInvoiceFindManySchema)]).optional(),
+  simpleInvoicesAsBillTo: z.union([z.boolean(), z.lazy(() => SimpleInvoiceFindManySchema)]).optional(),
   _count: z.union([z.boolean(), z.lazy(() => CustomerCountOutputTypeArgsObjectSchema)]).optional()
 }).strict();
 export const CustomerSelectObjectSchema: z.ZodType<Prisma.CustomerSelect> = makeSchema() as unknown as z.ZodType<Prisma.CustomerSelect>;

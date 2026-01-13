@@ -28,6 +28,7 @@ const makeSchema = () => z.object({
   taxValue: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   taxInfo: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   propID: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  billTo: z.lazy(() => CustomerOrderByWithRelationInputObjectSchema).optional(),
   client: z.lazy(() => CustomerOrderByWithRelationInputObjectSchema).optional()
 }).strict();
 export const SimpleInvoiceOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.SimpleInvoiceOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.SimpleInvoiceOrderByWithRelationInput>;

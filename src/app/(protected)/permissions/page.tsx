@@ -1,5 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { 
@@ -12,7 +13,10 @@ import {
   UserCircle,
   UsersIcon,
   Languages as LanguagesIcon,
-  Building2
+  Building2,
+  BookOpen,
+  File,
+  DollarSign
 } from 'lucide-react'
 
 type Permission = {
@@ -27,14 +31,19 @@ const MODULES = [
   { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, category: 'main' },
   { key: 'contacts', label: 'Kontakty', icon: UserCircle, category: 'data' },
   { key: 'clients', label: 'Klienci', icon: Building2, category: 'data' },
-  { key: 'invoices', label: 'Faktury', icon: Receipt, category: 'main' },
+  { key: 'authors', label: 'Autorzy', icon: BookOpen, category: 'data' },
+  { key: 'invoices', label: 'Faktury VAT', icon: Receipt, category: 'main' },
+  { key: 'simple-invoices', label: 'Faktury proste', icon: File, category: 'main' },
   { key: 'cashflow', label: 'Cashflow', icon: TrendingUp, category: 'main' },
+  { key: 'finances', label: 'Finanse', icon: DollarSign, category: 'main' },
   { key: 'users', label: 'Użytkownicy', icon: UsersIcon, category: 'admin' },
   { key: 'permissions', label: 'Uprawnienia', icon: Shield, category: 'admin' },
   { key: 'languages', label: 'Języki', icon: LanguagesIcon, category: 'admin' },
 ]
 
 export default function PermissionsPage(){
+  const t = useTranslations('permissions')
+  const tCommon = useTranslations('common')
   const [permissions, setPermissions] = useState<Record<string, Permission>>({})
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState<string | null>(null)
@@ -107,17 +116,17 @@ export default function PermissionsPage(){
           })
           
           if (!res.ok) {
-            setMessage('Błąd podczas zapisywania')
+            setMessage(t('saveError'))
             setLoading(false)
             return
           }
         }
       }
       
-      setMessage('Zapisano')
+      setMessage(t('saved'))
       await loadPermissions()
     } catch (error) {
-      setMessage('Błąd podczas zapisywania')
+      setMessage(t('saveError'))
     }
     
     setLoading(false)
@@ -128,17 +137,17 @@ export default function PermissionsPage(){
       <Card className="p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold">Macierz uprawnień</h1>
+            <h1 className="text-2xl font-bold">{t('title')}</h1>
             <p className="text-sm text-muted-foreground mt-2">
-              Zaznacz checkboxy aby określić, które role mają dostęp do poszczególnych modułów
+              {t('description')}
             </p>
           </div>
           <div className="flex gap-2 items-center">
             <Button variant="primary" onClick={save} disabled={loading}>
-              {loading ? 'Zapis...' : 'Zapisz uprawnienia'}
+              {loading ? t('saving') : t('save')}
             </Button>
             {message && (
-              <div className={`text-sm ${message.includes('Błąd') ? 'text-red-600' : 'text-green-600'}`}>
+              <div className={`text-sm ${message === t('saveError') ? 'text-red-600' : 'text-green-600'}`}>
                 {message}
               </div>
             )}
@@ -265,7 +274,7 @@ export default function PermissionsPage(){
               {/* Admin Category Header */}
               <tr className="bg-muted/30">
                 <td colSpan={4} className="py-2 px-4 text-sm font-semibold text-muted-foreground">
-                  Administracja
+                  {t('administration')}
                 </td>
               </tr>
               
@@ -315,11 +324,11 @@ export default function PermissionsPage(){
         </div>
 
         <div className="mt-6 p-4 bg-muted/50 rounded-lg space-y-2 text-sm">
-          <p className="font-semibold mb-3">Poziomy dostępu:</p>
+          <p className="font-semibold mb-3">{t('accessLevels')}:</p>
           <div className="space-y-1.5 text-muted-foreground">
-            <p><strong className="text-foreground">USER</strong> - Podstawowy dostęp (zazwyczaj tylko odczyt)</p>
-            <p><strong className="text-foreground">ADVANCED</strong> - Rozszerzony dostęp (może edytować, ale nie zarządzać)</p>
-            <p><strong className="text-foreground">ADMIN</strong> - Pełny dostęp (może wszystko)</p>
+            <p><strong className="text-foreground">USER</strong> - {t('basicAccess')}</p>
+            <p><strong className="text-foreground">ADVANCED</strong> - {t('extendedAccess')}</p>
+            <p><strong className="text-foreground">ADMIN</strong> - {t('fullAccess')}</p>
           </div>
         </div>
       </Card>

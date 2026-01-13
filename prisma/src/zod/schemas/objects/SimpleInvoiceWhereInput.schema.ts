@@ -6,8 +6,9 @@ import { DateTimeNullableFilterObjectSchema as DateTimeNullableFilterObjectSchem
 import { IntNullableFilterObjectSchema as IntNullableFilterObjectSchema } from './IntNullableFilter.schema';
 import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } from './StringNullableFilter.schema';
 import { FloatNullableFilterObjectSchema as FloatNullableFilterObjectSchema } from './FloatNullableFilter.schema';
-import { CustomerNullableScalarRelationFilterObjectSchema as CustomerNullableScalarRelationFilterObjectSchema } from './CustomerNullableScalarRelationFilter.schema';
-import { CustomerWhereInputObjectSchema as CustomerWhereInputObjectSchema } from './CustomerWhereInput.schema'
+import { CustomerScalarRelationFilterObjectSchema as CustomerScalarRelationFilterObjectSchema } from './CustomerScalarRelationFilter.schema';
+import { CustomerWhereInputObjectSchema as CustomerWhereInputObjectSchema } from './CustomerWhereInput.schema';
+import { CustomerNullableScalarRelationFilterObjectSchema as CustomerNullableScalarRelationFilterObjectSchema } from './CustomerNullableScalarRelationFilter.schema'
 
 const simpleinvoicewhereinputSchema = z.object({
   AND: z.union([z.lazy(() => SimpleInvoiceWhereInputObjectSchema), z.lazy(() => SimpleInvoiceWhereInputObjectSchema).array()]).optional(),
@@ -36,6 +37,7 @@ const simpleinvoicewhereinputSchema = z.object({
   taxValue: z.union([z.lazy(() => FloatNullableFilterObjectSchema), z.number()]).optional().nullable(),
   taxInfo: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string().max(1)]).optional().nullable(),
   propID: z.union([z.lazy(() => IntNullableFilterObjectSchema), z.number().int()]).optional().nullable(),
+  billTo: z.union([z.lazy(() => CustomerScalarRelationFilterObjectSchema), z.lazy(() => CustomerWhereInputObjectSchema)]).optional(),
   client: z.union([z.lazy(() => CustomerNullableScalarRelationFilterObjectSchema), z.lazy(() => CustomerWhereInputObjectSchema)]).optional()
 }).strict();
 export const SimpleInvoiceWhereInputObjectSchema: z.ZodType<Prisma.SimpleInvoiceWhereInput> = simpleinvoicewhereinputSchema as unknown as z.ZodType<Prisma.SimpleInvoiceWhereInput>;

@@ -5,5 +5,5 @@ import { SimpleInvoiceWhereInputObjectSchema as SimpleInvoiceWhereInputObjectSch
 const makeSchema = () => z.object({
   where: z.lazy(() => SimpleInvoiceWhereInputObjectSchema).optional()
 }).strict();
-export const CustomerCountOutputTypeCountSimpleInvoicesArgsObjectSchema = makeSchema();
-export const CustomerCountOutputTypeCountSimpleInvoicesArgsObjectZodSchema = makeSchema();
+export const CustomerCountOutputTypeCountSimpleInvoicesAsClientArgsObjectSchema = makeSchema();
+export const CustomerCountOutputTypeCountSimpleInvoicesAsClientArgsObjectZodSchema = makeSchema();

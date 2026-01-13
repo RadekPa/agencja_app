@@ -33,7 +33,8 @@ export async function POST(req: Request) {
     const exists = await prisma.user.findUnique({ where: { email: body.email } })
     if (exists) return NextResponse.json({ error: 'email already exists' }, { status: 400 })
     const hash = await bcrypt.hash(body.password, 10)
-  const user = await prisma.user.create({ data: { name: body.name || null, email: body.email, passwordHash: hash, role: body.role || 'USER', permissions: body.permissions ?? {} } as any })
+    const permissionsJson = body.permissions ? JSON.stringify(body.permissions) : '{}'
+    const user = await prisma.user.create({ data: { name: body.name || null, email: body.email, passwordHash: hash, role: body.role || 'USER', permissions: permissionsJson } as any })
     const { passwordHash, ...safe } = user as any
     return NextResponse.json(safe, { status: 201 })
   } catch (e) {

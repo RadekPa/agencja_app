@@ -234,10 +234,10 @@ export default function ClientsPage() {
             <label className="label">{t('common.sortBy')}</label>
             <select className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring" value={sortBy} onChange={e=>setSortBy(e.target.value as any)}>
               <option value="id">ID</option>
-              <option value="name">Nazwa</option>
-              <option value="email">Email</option>
-              <option value="phone">Telefon</option>
-              <option value="createdAt">Utworzono</option>
+              <option value="name">{t('customers.name')}</option>
+              <option value="email">{t('customers.email')}</option>
+              <option value="phone">{t('customers.phone')}</option>
+              <option value="createdAt">{t('customers.created')}</option>
             </select>
           </div>
           <div>
@@ -267,7 +267,7 @@ export default function ClientsPage() {
               <thead>
                 <tr>
                   <Th onClick={()=>toggleSort('id')} active={sortBy==='id'} order={sortOrder}>ID</Th>
-                  <Th>Skrót</Th>
+                  <Th>{t('customers.abbreviation')}</Th>
                   <Th onClick={()=>toggleSort('name')} active={sortBy==='name'} order={sortOrder}>{t('common.name')}</Th>
                   <Th onClick={()=>toggleSort('email')} active={sortBy==='email'} order={sortOrder}>{t('common.email')}</Th>
                   <Th onClick={()=>toggleSort('phone')} active={sortBy==='phone'} order={sortOrder}>{t('common.phone')}</Th>
@@ -315,18 +315,18 @@ export default function ClientsPage() {
             <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 rounded">
               <div className="flex items-center justify-between mb-2">
                 <div className="text-sm font-medium text-blue-900 dark:text-blue-100">
-                  Autouzupełnianie danych z rejestru
+                  {t('customers.autoFill')}
                 </div>
                 <Button 
                   onClick={fetchCompanyData} 
                   disabled={lookupLoading || (!form.nip && !form.regon)}
                   className="text-sm"
                 >
-                  {lookupLoading ? 'Pobieranie...' : 'Pobierz dane'}
+                  {lookupLoading ? t('customers.fetching') : t('customers.fetchData')}
                 </Button>
               </div>
               <div className="text-xs text-blue-700 dark:text-blue-300">
-                Wprowadź NIP i kliknij "Pobierz dane" aby automatycznie wypełnić formularz danymi z CEIDG
+                {t('customers.autoFillHint')}
               </div>
               {lookupMessage && (
                 <div className={`text-xs mt-2 ${lookupMessage.includes('Błąd') || lookupMessage.includes('Nie') ? 'text-red-600' : 'text-green-600'}`}>
@@ -393,39 +393,39 @@ export default function ClientsPage() {
             <h3 className="text-lg font-semibold mb-4">{t('customers.editClient')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               <div>
-                <label className="label">Nazwa *</label>
+                <label className="label">{t('customers.name')} *</label>
                 <Input value={form.name} onChange={e=>setForm(prev=>({ ...prev, name: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Email</label>
+                <label className="label">{t('customers.email')}</label>
                 <Input value={form.email} onChange={e=>setForm(prev=>({ ...prev, email: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Telefon</label>
+                <label className="label">{t('customers.phone')}</label>
                 <Input value={form.phone} onChange={e=>setForm(prev=>({ ...prev, phone: e.target.value }))} />
               </div>
               <div>
-                <label className="label">NIP</label>
+                <label className="label">{t('customers.nip')}</label>
                 <Input value={form.nip} onChange={e=>setForm(prev=>({ ...prev, nip: e.target.value }))} />
               </div>
               <div>
-                <label className="label">REGON</label>
+                <label className="label">{t('customers.regon')}</label>
                 <Input value={form.regon} onChange={e=>setForm(prev=>({ ...prev, regon: e.target.value }))} />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Adres</label>
+                <label className="label">{t('customers.address')}</label>
                 <Input value={form.address} onChange={e=>setForm(prev=>({ ...prev, address: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Miasto</label>
+                <label className="label">{t('customers.city')}</label>
                 <Input value={form.city} onChange={e=>setForm(prev=>({ ...prev, city: e.target.value }))} />
               </div>
               <div>
-                <label className="label">Kod pocztowy</label>
+                <label className="label">{t('customers.postalCode')}</label>
                 <Input value={form.postalCode} onChange={e=>setForm(prev=>({ ...prev, postalCode: e.target.value }))} placeholder="00-000" />
               </div>
               <div className="md:col-span-2">
-                <label className="label">Notatki</label>
+                <label className="label">{t('customers.notes')}</label>
                 <Input value={form.notes} onChange={e=>setForm(prev=>({ ...prev, notes: e.target.value }))} />
               </div>
             </div>

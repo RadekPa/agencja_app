@@ -10,6 +10,7 @@ export async function GET(req: Request) {
 
     const status = (url.searchParams.get('status') || '').trim()
     const clientId = url.searchParams.get('clientId')
+    const billToId = url.searchParams.get('billToId')
     const dateFrom = url.searchParams.get('dateFrom')
     const dateTo = url.searchParams.get('dateTo')
     const descr = (url.searchParams.get('descr') || '').trim()
@@ -20,6 +21,7 @@ export async function GET(req: Request) {
     const where: any = {}
     if (status) where.status = status
     if (clientId) where.clientId = Number(clientId)
+    if (billToId) where.billToId = Number(billToId)
     if (dateFrom || dateTo) where.invDate = {}
     if (dateFrom) where.invDate.gte = new Date(dateFrom)
     if (dateTo) where.invDate.lte = new Date(dateTo)
@@ -38,7 +40,10 @@ export async function GET(req: Request) {
         take: pageSize,
         skip,
         orderBy,
-        include: { client: { select: { id: true, name: true } } }
+        include: { 
+          client: { select: { id: true, name: true } },
+          billTo: { select: { id: true, name: true } }
+        }
       })
     ])
 
@@ -47,6 +52,7 @@ export async function GET(req: Request) {
       invType: d.invType || '',
       invDate: d.invDate?.toISOString() || null,
       billToId: d.billToId,
+      billToName: d.billTo?.name ?? null,
       clientId: d.clientId,
       clientName: d.client?.name ?? null,
       shipToId: d.shipToId,

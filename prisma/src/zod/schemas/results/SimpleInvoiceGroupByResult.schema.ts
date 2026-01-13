@@ -28,6 +28,7 @@ export const SimpleInvoiceGroupByResultSchema = z.array(z.object({
     invType: z.number(),
     invDate: z.number(),
     billToId: z.number(),
+    billTo: z.number(),
     clientId: z.number(),
     client: z.number(),
     shipToId: z.number(),

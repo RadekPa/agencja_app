@@ -19,7 +19,13 @@ export async function PUT(req: Request, { params }: { params: { id: string } }) 
 
   const id = Number(params.id)
   const body = await req.json()
-  const data: any = { name: body.name || null, role: body.role || 'USER', permissions: body.permissions ?? undefined }
+  const data: any = { name: body.name || null, role: body.role || 'USER' }
+  
+  // Handle permissions as JSON string
+  if (body.permissions !== undefined) {
+    data.permissions = body.permissions ? JSON.stringify(body.permissions) : '{}'
+  }
+  
   if (body.password) {
     data.passwordHash = await bcrypt.hash(body.password, 10)
   }

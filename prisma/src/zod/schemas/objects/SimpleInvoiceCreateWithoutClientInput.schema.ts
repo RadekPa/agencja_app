@@ -1,12 +1,11 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
-
+import { CustomerCreateNestedOneWithoutSimpleInvoicesAsBillToInputObjectSchema as CustomerCreateNestedOneWithoutSimpleInvoicesAsBillToInputObjectSchema } from './CustomerCreateNestedOneWithoutSimpleInvoicesAsBillToInput.schema'
 
 const makeSchema = () => z.object({
   id: z.number().int(),
   invType: z.string().max(1),
   invDate: z.coerce.date().optional().nullable(),
-  billToId: z.number().int(),
   shipToId: z.number().int().optional().nullable(),
   currId: z.string().max(3).optional().nullable(),
   totalInvNET: z.number().optional().nullable(),
@@ -24,7 +23,8 @@ const makeSchema = () => z.object({
   taxCode: z.string().max(1).optional().nullable(),
   taxValue: z.number().optional().nullable(),
   taxInfo: z.string().max(1).optional().nullable(),
-  propID: z.number().int().optional().nullable()
+  propID: z.number().int().optional().nullable(),
+  billTo: z.lazy(() => CustomerCreateNestedOneWithoutSimpleInvoicesAsBillToInputObjectSchema)
 }).strict();
 export const SimpleInvoiceCreateWithoutClientInputObjectSchema: z.ZodType<Prisma.SimpleInvoiceCreateWithoutClientInput> = makeSchema() as unknown as z.ZodType<Prisma.SimpleInvoiceCreateWithoutClientInput>;
 export const SimpleInvoiceCreateWithoutClientInputObjectZodSchema = makeSchema();

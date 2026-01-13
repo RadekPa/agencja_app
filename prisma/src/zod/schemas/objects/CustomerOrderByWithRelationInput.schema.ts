@@ -20,7 +20,8 @@ const makeSchema = () => z.object({
   notes: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   createdAt: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
   invoices: z.lazy(() => InvoiceOrderByRelationAggregateInputObjectSchema).optional(),
-  simpleInvoices: z.lazy(() => SimpleInvoiceOrderByRelationAggregateInputObjectSchema).optional()
+  simpleInvoicesAsClient: z.lazy(() => SimpleInvoiceOrderByRelationAggregateInputObjectSchema).optional(),
+  simpleInvoicesAsBillTo: z.lazy(() => SimpleInvoiceOrderByRelationAggregateInputObjectSchema).optional()
 }).strict();
 export const CustomerOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.CustomerOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.CustomerOrderByWithRelationInput>;
 export const CustomerOrderByWithRelationInputObjectZodSchema = makeSchema();

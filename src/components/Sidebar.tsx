@@ -48,12 +48,16 @@ export function Sidebar({ collapsed = false }: Props) {
           dashboard: { userAccess: false, advancedAccess: false, adminAccess: true },
           contacts: { userAccess: false, advancedAccess: false, adminAccess: true },
           clients: { userAccess: false, advancedAccess: false, adminAccess: true },
+          authors: { userAccess: false, advancedAccess: false, adminAccess: true },
           invoices: { userAccess: false, advancedAccess: false, adminAccess: true },
+          'simple-invoices': { userAccess: false, advancedAccess: false, adminAccess: true },
           cashflow: { userAccess: false, advancedAccess: false, adminAccess: true },
+          finances: { userAccess: false, advancedAccess: false, adminAccess: true },
           users: { userAccess: false, advancedAccess: false, adminAccess: true },
           permissions: { userAccess: false, advancedAccess: false, adminAccess: true },
           languages: { userAccess: false, advancedAccess: false, adminAccess: true },
           administration: { userAccess: false, advancedAccess: false, adminAccess: true },
+          documents: { userAccess: false, advancedAccess: false, adminAccess: true },
         }
         
         if (Array.isArray(json.data)) {
@@ -78,6 +82,19 @@ export function Sidebar({ collapsed = false }: Props) {
     
     loadPermissions()
   }, [])
+
+  // Auto-open the relevant accordion when the current path belongs to that group
+  useEffect(() => {
+    const isData = pathname.startsWith('/customers') || pathname.startsWith('/contacts') || pathname.startsWith('/authors')
+    const isFinance = pathname.startsWith('/finances') || pathname.startsWith('/simple-invoices') || pathname.startsWith('/invoices/calendar')
+    const isAdmin = pathname.startsWith('/users') || pathname.startsWith('/permissions') || pathname.startsWith('/languages')
+    setOpen(prev => ({
+      ...prev,
+      data: isData || prev.data,
+      finance: isFinance || prev.finance,
+      admin: isAdmin || prev.admin,
+    }))
+  }, [pathname])
 
   const canAccess = (moduleKey: ModuleKey) => {
     if (!role || !permissions) return false
