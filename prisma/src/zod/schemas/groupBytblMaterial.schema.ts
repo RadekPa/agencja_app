@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblMaterialWhereInputObjectSchema as tblMaterialWhereInputObjectSchema } from './objects/tblMaterialWhereInput.schema';
+import { tblMaterialOrderByWithAggregationInputObjectSchema as tblMaterialOrderByWithAggregationInputObjectSchema } from './objects/tblMaterialOrderByWithAggregationInput.schema';
+import { tblMaterialScalarWhereWithAggregatesInputObjectSchema as tblMaterialScalarWhereWithAggregatesInputObjectSchema } from './objects/tblMaterialScalarWhereWithAggregatesInput.schema';
+import { TblMaterialScalarFieldEnumSchema } from './enums/TblMaterialScalarFieldEnum.schema';
+import { TblMaterialCountAggregateInputObjectSchema as TblMaterialCountAggregateInputObjectSchema } from './objects/TblMaterialCountAggregateInput.schema';
+import { TblMaterialMinAggregateInputObjectSchema as TblMaterialMinAggregateInputObjectSchema } from './objects/TblMaterialMinAggregateInput.schema';
+import { TblMaterialMaxAggregateInputObjectSchema as TblMaterialMaxAggregateInputObjectSchema } from './objects/TblMaterialMaxAggregateInput.schema';
+import { TblMaterialAvgAggregateInputObjectSchema as TblMaterialAvgAggregateInputObjectSchema } from './objects/TblMaterialAvgAggregateInput.schema';
+import { TblMaterialSumAggregateInputObjectSchema as TblMaterialSumAggregateInputObjectSchema } from './objects/TblMaterialSumAggregateInput.schema';
+
+export const tblMaterialGroupBySchema: z.ZodType<Prisma.tblMaterialGroupByArgs> = z.object({ where: tblMaterialWhereInputObjectSchema.optional(), orderBy: z.union([tblMaterialOrderByWithAggregationInputObjectSchema, tblMaterialOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblMaterialScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblMaterialScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblMaterialCountAggregateInputObjectSchema ]).optional(), _min: TblMaterialMinAggregateInputObjectSchema.optional(), _max: TblMaterialMaxAggregateInputObjectSchema.optional(), _avg: TblMaterialAvgAggregateInputObjectSchema.optional(), _sum: TblMaterialSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblMaterialGroupByArgs>;
+
+export const tblMaterialGroupByZodSchema = z.object({ where: tblMaterialWhereInputObjectSchema.optional(), orderBy: z.union([tblMaterialOrderByWithAggregationInputObjectSchema, tblMaterialOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblMaterialScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblMaterialScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblMaterialCountAggregateInputObjectSchema ]).optional(), _min: TblMaterialMinAggregateInputObjectSchema.optional(), _max: TblMaterialMaxAggregateInputObjectSchema.optional(), _avg: TblMaterialAvgAggregateInputObjectSchema.optional(), _sum: TblMaterialSumAggregateInputObjectSchema.optional() }).strict();

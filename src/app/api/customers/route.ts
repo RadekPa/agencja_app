@@ -11,28 +11,35 @@ export async function GET(req: Request) {
   const sortOrder = searchParams.get('sortOrder') || 'asc'
 
   // Build where clause for search (SQL Server doesn't support mode: 'insensitive')
-  const where: Prisma.ClientWhereInput = search ? {
+  // Prisma model is `tblCustomers` with PascalCase fields from the DB table
+  const where: Prisma.tblCustomersWhereInput = search ? {
     OR: [
-      { name: { contains: search } },
-      { email: { contains: search } },
-      { phone: { contains: search } },
-      { nip: { contains: search } },
-      // Wyszukiwanie po skrócie klienta (CustAbb)
-      // Zmapowane w Prisma jako pole `custAbb` w modelu Customer
-      { custAbb: { contains: search } },
+      { Name: { contains: search } },
+      { DefaultEmail: { contains: search } },
+      { DefaultPhone: { contains: search } },
+      { TaxID: { contains: search } },
+      { CustAbb: { contains: search } },
     ]
   } : {}
 
   // Build orderBy - validate sortBy field
   const validSortFields = ['id', 'name', 'email', 'phone', 'createdAt']
   const orderByField = validSortFields.includes(sortBy) ? sortBy : 'id'
-  const orderBy = { [orderByField]: sortOrder === 'desc' ? 'desc' : 'asc' } as Prisma.ClientOrderByWithRelationInput
+  const columnMap: Record<string, keyof Prisma.tblCustomersOrderByWithRelationInput> = {
+    id: 'CustID',
+    name: 'Name',
+    email: 'DefaultEmail',
+    phone: 'DefaultPhone',
+    createdAt: 'DateMod'
+  }
+  const orderBy = { [columnMap[orderByField]]: sortOrder === 'desc' ? 'desc' : 'asc' } as Prisma.tblCustomersOrderByWithRelationInput
 
   // Get total count for pagination
-  const total = await prisma.customer.count({ where })
+  const p = prisma as any
+  const total = await p.tblCustomers.count({ where })
 
   // Get paginated results
-  const clients = await prisma.customer.findMany({
+  const clients = await p.tblCustomers.findMany({
     where,
     orderBy,
     skip: (page - 1) * pageSize,
@@ -40,7 +47,20 @@ export async function GET(req: Request) {
   })
 
   return NextResponse.json({
-    data: clients,
+    data: clients.map(c => ({
+      id: c.CustID,
+      custAbb: c.CustAbb,
+      name: c.Name,
+      email: c.DefaultEmail,
+      phone: c.DefaultPhone,
+      address: c.Address1,
+      city: c.City,
+      postalCode: c.Zip,
+      nip: c.TaxID,
+      regon: c.VATID,
+      notes: c.Remarks,
+      createdAt: c.DateMod,
+    })),
     meta: {
       page,
       pageSize,
@@ -52,18 +72,21 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const body = await req.json()
-  const client = await prisma.customer.create({ 
-    data: { 
-      name: body.name || null,
-      email: body.email || null,
-      phone: body.phone || null,
-      address: body.address || null,
-      city: body.city || null,
-      postalCode: body.postalCode || null,
-      nip: body.nip || null,
-      regon: body.regon || null,
-      notes: body.notes || null,
-    } 
+  const p = prisma as any
+  const client = await p.tblCustomers.create({
+    data: {
+      Name: body.name || null,
+      DefaultEmail: body.email || null,
+      DefaultPhone: body.phone || null,
+      Address1: body.address || null,
+      City: body.city || null,
+      Zip: body.postalCode || null,
+      TaxID: body.nip || null,
+      VATID: body.regon || null,
+      Remarks: body.notes || null,
+      DateMod: new Date(),
+    }
   })
-  return NextResponse.json(client, { status: 201 })
+
+  return NextResponse.json({ id: client.CustID }, { status: 201 })
 }

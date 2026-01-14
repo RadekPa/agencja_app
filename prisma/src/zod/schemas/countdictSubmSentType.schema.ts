@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictSubmSentTypeOrderByWithRelationInputObjectSchema as dictSubmSentTypeOrderByWithRelationInputObjectSchema } from './objects/dictSubmSentTypeOrderByWithRelationInput.schema';
+import { dictSubmSentTypeWhereInputObjectSchema as dictSubmSentTypeWhereInputObjectSchema } from './objects/dictSubmSentTypeWhereInput.schema';
+import { dictSubmSentTypeWhereUniqueInputObjectSchema as dictSubmSentTypeWhereUniqueInputObjectSchema } from './objects/dictSubmSentTypeWhereUniqueInput.schema';
+import { DictSubmSentTypeCountAggregateInputObjectSchema as DictSubmSentTypeCountAggregateInputObjectSchema } from './objects/DictSubmSentTypeCountAggregateInput.schema';
+
+export const dictSubmSentTypeCountSchema: z.ZodType<Prisma.dictSubmSentTypeCountArgs> = z.object({ orderBy: z.union([dictSubmSentTypeOrderByWithRelationInputObjectSchema, dictSubmSentTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictSubmSentTypeWhereInputObjectSchema.optional(), cursor: dictSubmSentTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictSubmSentTypeCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictSubmSentTypeCountArgs>;
+
+export const dictSubmSentTypeCountZodSchema = z.object({ orderBy: z.union([dictSubmSentTypeOrderByWithRelationInputObjectSchema, dictSubmSentTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictSubmSentTypeWhereInputObjectSchema.optional(), cursor: dictSubmSentTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictSubmSentTypeCountAggregateInputObjectSchema ]).optional() }).strict();

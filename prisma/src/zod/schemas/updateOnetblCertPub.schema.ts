@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblCertPubSelectObjectSchema as tblCertPubSelectObjectSchema } from './objects/tblCertPubSelect.schema';
+import { tblCertPubUpdateInputObjectSchema as tblCertPubUpdateInputObjectSchema } from './objects/tblCertPubUpdateInput.schema';
+import { tblCertPubUncheckedUpdateInputObjectSchema as tblCertPubUncheckedUpdateInputObjectSchema } from './objects/tblCertPubUncheckedUpdateInput.schema';
+import { tblCertPubWhereUniqueInputObjectSchema as tblCertPubWhereUniqueInputObjectSchema } from './objects/tblCertPubWhereUniqueInput.schema';
+
+export const tblCertPubUpdateOneSchema: z.ZodType<Prisma.tblCertPubUpdateArgs> = z.object({ select: tblCertPubSelectObjectSchema.optional(),  data: z.union([tblCertPubUpdateInputObjectSchema, tblCertPubUncheckedUpdateInputObjectSchema]), where: tblCertPubWhereUniqueInputObjectSchema }).strict() as unknown as z.ZodType<Prisma.tblCertPubUpdateArgs>;
+
+export const tblCertPubUpdateOneZodSchema = z.object({ select: tblCertPubSelectObjectSchema.optional(),  data: z.union([tblCertPubUpdateInputObjectSchema, tblCertPubUncheckedUpdateInputObjectSchema]), where: tblCertPubWhereUniqueInputObjectSchema }).strict();

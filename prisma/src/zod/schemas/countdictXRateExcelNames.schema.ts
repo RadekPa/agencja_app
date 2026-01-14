@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictXRateExcelNamesOrderByWithRelationInputObjectSchema as dictXRateExcelNamesOrderByWithRelationInputObjectSchema } from './objects/dictXRateExcelNamesOrderByWithRelationInput.schema';
+import { dictXRateExcelNamesWhereInputObjectSchema as dictXRateExcelNamesWhereInputObjectSchema } from './objects/dictXRateExcelNamesWhereInput.schema';
+import { dictXRateExcelNamesWhereUniqueInputObjectSchema as dictXRateExcelNamesWhereUniqueInputObjectSchema } from './objects/dictXRateExcelNamesWhereUniqueInput.schema';
+import { DictXRateExcelNamesCountAggregateInputObjectSchema as DictXRateExcelNamesCountAggregateInputObjectSchema } from './objects/DictXRateExcelNamesCountAggregateInput.schema';
+
+export const dictXRateExcelNamesCountSchema: z.ZodType<Prisma.dictXRateExcelNamesCountArgs> = z.object({ orderBy: z.union([dictXRateExcelNamesOrderByWithRelationInputObjectSchema, dictXRateExcelNamesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictXRateExcelNamesWhereInputObjectSchema.optional(), cursor: dictXRateExcelNamesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictXRateExcelNamesCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictXRateExcelNamesCountArgs>;
+
+export const dictXRateExcelNamesCountZodSchema = z.object({ orderBy: z.union([dictXRateExcelNamesOrderByWithRelationInputObjectSchema, dictXRateExcelNamesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictXRateExcelNamesWhereInputObjectSchema.optional(), cursor: dictXRateExcelNamesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictXRateExcelNamesCountAggregateInputObjectSchema ]).optional() }).strict();

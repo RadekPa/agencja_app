@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblRoyaltyWhereInputObjectSchema as tblRoyaltyWhereInputObjectSchema } from './objects/tblRoyaltyWhereInput.schema';
+import { tblRoyaltyOrderByWithAggregationInputObjectSchema as tblRoyaltyOrderByWithAggregationInputObjectSchema } from './objects/tblRoyaltyOrderByWithAggregationInput.schema';
+import { tblRoyaltyScalarWhereWithAggregatesInputObjectSchema as tblRoyaltyScalarWhereWithAggregatesInputObjectSchema } from './objects/tblRoyaltyScalarWhereWithAggregatesInput.schema';
+import { TblRoyaltyScalarFieldEnumSchema } from './enums/TblRoyaltyScalarFieldEnum.schema';
+import { TblRoyaltyCountAggregateInputObjectSchema as TblRoyaltyCountAggregateInputObjectSchema } from './objects/TblRoyaltyCountAggregateInput.schema';
+import { TblRoyaltyMinAggregateInputObjectSchema as TblRoyaltyMinAggregateInputObjectSchema } from './objects/TblRoyaltyMinAggregateInput.schema';
+import { TblRoyaltyMaxAggregateInputObjectSchema as TblRoyaltyMaxAggregateInputObjectSchema } from './objects/TblRoyaltyMaxAggregateInput.schema';
+import { TblRoyaltyAvgAggregateInputObjectSchema as TblRoyaltyAvgAggregateInputObjectSchema } from './objects/TblRoyaltyAvgAggregateInput.schema';
+import { TblRoyaltySumAggregateInputObjectSchema as TblRoyaltySumAggregateInputObjectSchema } from './objects/TblRoyaltySumAggregateInput.schema';
+
+export const tblRoyaltyGroupBySchema: z.ZodType<Prisma.tblRoyaltyGroupByArgs> = z.object({ where: tblRoyaltyWhereInputObjectSchema.optional(), orderBy: z.union([tblRoyaltyOrderByWithAggregationInputObjectSchema, tblRoyaltyOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblRoyaltyScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblRoyaltyScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblRoyaltyCountAggregateInputObjectSchema ]).optional(), _min: TblRoyaltyMinAggregateInputObjectSchema.optional(), _max: TblRoyaltyMaxAggregateInputObjectSchema.optional(), _avg: TblRoyaltyAvgAggregateInputObjectSchema.optional(), _sum: TblRoyaltySumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblRoyaltyGroupByArgs>;
+
+export const tblRoyaltyGroupByZodSchema = z.object({ where: tblRoyaltyWhereInputObjectSchema.optional(), orderBy: z.union([tblRoyaltyOrderByWithAggregationInputObjectSchema, tblRoyaltyOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblRoyaltyScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblRoyaltyScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblRoyaltyCountAggregateInputObjectSchema ]).optional(), _min: TblRoyaltyMinAggregateInputObjectSchema.optional(), _max: TblRoyaltyMaxAggregateInputObjectSchema.optional(), _avg: TblRoyaltyAvgAggregateInputObjectSchema.optional(), _sum: TblRoyaltySumAggregateInputObjectSchema.optional() }).strict();

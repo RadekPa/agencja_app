@@ -1,0 +1,11 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsInputObjectSchema } from './IntFieldUpdateOperationsInput.schema'
+
+const makeSchema = () => z.object({
+  TransactionType: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  DefaultDebitAccount: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
+  DefaultCreditAccount: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional()
+}).strict();
+export const ArDefaultAccountUpdateManyMutationInputObjectSchema: z.ZodType<Prisma.ArDefaultAccountUpdateManyMutationInput> = makeSchema() as unknown as z.ZodType<Prisma.ArDefaultAccountUpdateManyMutationInput>;
+export const ArDefaultAccountUpdateManyMutationInputObjectZodSchema = makeSchema();

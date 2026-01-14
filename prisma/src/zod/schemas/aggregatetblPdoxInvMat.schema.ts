@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblPdoxInvMatOrderByWithRelationInputObjectSchema as tblPdoxInvMatOrderByWithRelationInputObjectSchema } from './objects/tblPdoxInvMatOrderByWithRelationInput.schema';
+import { tblPdoxInvMatWhereInputObjectSchema as tblPdoxInvMatWhereInputObjectSchema } from './objects/tblPdoxInvMatWhereInput.schema';
+import { tblPdoxInvMatWhereUniqueInputObjectSchema as tblPdoxInvMatWhereUniqueInputObjectSchema } from './objects/tblPdoxInvMatWhereUniqueInput.schema';
+import { TblPdoxInvMatCountAggregateInputObjectSchema as TblPdoxInvMatCountAggregateInputObjectSchema } from './objects/TblPdoxInvMatCountAggregateInput.schema';
+import { TblPdoxInvMatMinAggregateInputObjectSchema as TblPdoxInvMatMinAggregateInputObjectSchema } from './objects/TblPdoxInvMatMinAggregateInput.schema';
+import { TblPdoxInvMatMaxAggregateInputObjectSchema as TblPdoxInvMatMaxAggregateInputObjectSchema } from './objects/TblPdoxInvMatMaxAggregateInput.schema';
+import { TblPdoxInvMatAvgAggregateInputObjectSchema as TblPdoxInvMatAvgAggregateInputObjectSchema } from './objects/TblPdoxInvMatAvgAggregateInput.schema';
+import { TblPdoxInvMatSumAggregateInputObjectSchema as TblPdoxInvMatSumAggregateInputObjectSchema } from './objects/TblPdoxInvMatSumAggregateInput.schema';
+
+export const tblPdoxInvMatAggregateSchema: z.ZodType<Prisma.tblPdoxInvMatAggregateArgs> = z.object({ orderBy: z.union([tblPdoxInvMatOrderByWithRelationInputObjectSchema, tblPdoxInvMatOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPdoxInvMatWhereInputObjectSchema.optional(), cursor: tblPdoxInvMatWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPdoxInvMatCountAggregateInputObjectSchema ]).optional(), _min: TblPdoxInvMatMinAggregateInputObjectSchema.optional(), _max: TblPdoxInvMatMaxAggregateInputObjectSchema.optional(), _avg: TblPdoxInvMatAvgAggregateInputObjectSchema.optional(), _sum: TblPdoxInvMatSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblPdoxInvMatAggregateArgs>;
+
+export const tblPdoxInvMatAggregateZodSchema = z.object({ orderBy: z.union([tblPdoxInvMatOrderByWithRelationInputObjectSchema, tblPdoxInvMatOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPdoxInvMatWhereInputObjectSchema.optional(), cursor: tblPdoxInvMatWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPdoxInvMatCountAggregateInputObjectSchema ]).optional(), _min: TblPdoxInvMatMinAggregateInputObjectSchema.optional(), _max: TblPdoxInvMatMaxAggregateInputObjectSchema.optional(), _avg: TblPdoxInvMatAvgAggregateInputObjectSchema.optional(), _sum: TblPdoxInvMatSumAggregateInputObjectSchema.optional() }).strict();

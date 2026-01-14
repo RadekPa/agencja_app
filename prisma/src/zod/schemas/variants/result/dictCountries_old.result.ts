@@ -1,0 +1,14 @@
+import * as z from 'zod';
+// prettier-ignore
+export const dictCountries_oldResultSchema = z.object({
+    CountryID: z.number().int(),
+    CountryDesc: z.string(),
+    CountryPL: z.string().nullable(),
+    Tax: z.number().nullable(),
+    Code: z.string().nullable(),
+    EU: z.string().nullable(),
+    dictStates: z.array(z.unknown()),
+    tblAgreements: z.array(z.unknown())
+}).strict();
+
+export type dictCountries_oldResultType = z.infer<typeof dictCountries_oldResultSchema>;

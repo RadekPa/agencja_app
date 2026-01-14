@@ -1,0 +1,28 @@
+import * as z from 'zod';
+export const dictPriceTypeGroupByResultSchema = z.array(z.object({
+  PriceTypeID: z.number().int(),
+  PriceTypeDesc: z.string(),
+  PriceTypePL: z.string(),
+  _count: z.object({
+    PriceTypeID: z.number(),
+    PriceTypeDesc: z.number(),
+    PriceTypePL: z.number(),
+    tblAgrRights: z.number()
+  }).optional(),
+  _sum: z.object({
+    PriceTypeID: z.number().nullable()
+  }).nullable().optional(),
+  _avg: z.object({
+    PriceTypeID: z.number().nullable()
+  }).nullable().optional(),
+  _min: z.object({
+    PriceTypeID: z.number().int().nullable(),
+    PriceTypeDesc: z.string().nullable(),
+    PriceTypePL: z.string().nullable()
+  }).nullable().optional(),
+  _max: z.object({
+    PriceTypeID: z.number().int().nullable(),
+    PriceTypeDesc: z.string().nullable(),
+    PriceTypePL: z.string().nullable()
+  }).nullable().optional()
+}));

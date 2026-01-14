@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblCustBankWhereInputObjectSchema as tblCustBankWhereInputObjectSchema } from './objects/tblCustBankWhereInput.schema';
+import { tblCustBankOrderByWithAggregationInputObjectSchema as tblCustBankOrderByWithAggregationInputObjectSchema } from './objects/tblCustBankOrderByWithAggregationInput.schema';
+import { tblCustBankScalarWhereWithAggregatesInputObjectSchema as tblCustBankScalarWhereWithAggregatesInputObjectSchema } from './objects/tblCustBankScalarWhereWithAggregatesInput.schema';
+import { TblCustBankScalarFieldEnumSchema } from './enums/TblCustBankScalarFieldEnum.schema';
+import { TblCustBankCountAggregateInputObjectSchema as TblCustBankCountAggregateInputObjectSchema } from './objects/TblCustBankCountAggregateInput.schema';
+import { TblCustBankMinAggregateInputObjectSchema as TblCustBankMinAggregateInputObjectSchema } from './objects/TblCustBankMinAggregateInput.schema';
+import { TblCustBankMaxAggregateInputObjectSchema as TblCustBankMaxAggregateInputObjectSchema } from './objects/TblCustBankMaxAggregateInput.schema';
+import { TblCustBankAvgAggregateInputObjectSchema as TblCustBankAvgAggregateInputObjectSchema } from './objects/TblCustBankAvgAggregateInput.schema';
+import { TblCustBankSumAggregateInputObjectSchema as TblCustBankSumAggregateInputObjectSchema } from './objects/TblCustBankSumAggregateInput.schema';
+
+export const tblCustBankGroupBySchema: z.ZodType<Prisma.tblCustBankGroupByArgs> = z.object({ where: tblCustBankWhereInputObjectSchema.optional(), orderBy: z.union([tblCustBankOrderByWithAggregationInputObjectSchema, tblCustBankOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblCustBankScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblCustBankScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblCustBankCountAggregateInputObjectSchema ]).optional(), _min: TblCustBankMinAggregateInputObjectSchema.optional(), _max: TblCustBankMaxAggregateInputObjectSchema.optional(), _avg: TblCustBankAvgAggregateInputObjectSchema.optional(), _sum: TblCustBankSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblCustBankGroupByArgs>;
+
+export const tblCustBankGroupByZodSchema = z.object({ where: tblCustBankWhereInputObjectSchema.optional(), orderBy: z.union([tblCustBankOrderByWithAggregationInputObjectSchema, tblCustBankOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblCustBankScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblCustBankScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblCustBankCountAggregateInputObjectSchema ]).optional(), _min: TblCustBankMinAggregateInputObjectSchema.optional(), _max: TblCustBankMaxAggregateInputObjectSchema.optional(), _avg: TblCustBankAvgAggregateInputObjectSchema.optional(), _sum: TblCustBankSumAggregateInputObjectSchema.optional() }).strict();

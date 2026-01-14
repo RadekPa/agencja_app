@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblPubISBNOrderByWithRelationInputObjectSchema as tblPubISBNOrderByWithRelationInputObjectSchema } from './objects/tblPubISBNOrderByWithRelationInput.schema';
+import { tblPubISBNWhereInputObjectSchema as tblPubISBNWhereInputObjectSchema } from './objects/tblPubISBNWhereInput.schema';
+import { tblPubISBNWhereUniqueInputObjectSchema as tblPubISBNWhereUniqueInputObjectSchema } from './objects/tblPubISBNWhereUniqueInput.schema';
+import { TblPubISBNCountAggregateInputObjectSchema as TblPubISBNCountAggregateInputObjectSchema } from './objects/TblPubISBNCountAggregateInput.schema';
+import { TblPubISBNMinAggregateInputObjectSchema as TblPubISBNMinAggregateInputObjectSchema } from './objects/TblPubISBNMinAggregateInput.schema';
+import { TblPubISBNMaxAggregateInputObjectSchema as TblPubISBNMaxAggregateInputObjectSchema } from './objects/TblPubISBNMaxAggregateInput.schema';
+import { TblPubISBNAvgAggregateInputObjectSchema as TblPubISBNAvgAggregateInputObjectSchema } from './objects/TblPubISBNAvgAggregateInput.schema';
+import { TblPubISBNSumAggregateInputObjectSchema as TblPubISBNSumAggregateInputObjectSchema } from './objects/TblPubISBNSumAggregateInput.schema';
+
+export const tblPubISBNAggregateSchema: z.ZodType<Prisma.tblPubISBNAggregateArgs> = z.object({ orderBy: z.union([tblPubISBNOrderByWithRelationInputObjectSchema, tblPubISBNOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPubISBNWhereInputObjectSchema.optional(), cursor: tblPubISBNWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPubISBNCountAggregateInputObjectSchema ]).optional(), _min: TblPubISBNMinAggregateInputObjectSchema.optional(), _max: TblPubISBNMaxAggregateInputObjectSchema.optional(), _avg: TblPubISBNAvgAggregateInputObjectSchema.optional(), _sum: TblPubISBNSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblPubISBNAggregateArgs>;
+
+export const tblPubISBNAggregateZodSchema = z.object({ orderBy: z.union([tblPubISBNOrderByWithRelationInputObjectSchema, tblPubISBNOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPubISBNWhereInputObjectSchema.optional(), cursor: tblPubISBNWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPubISBNCountAggregateInputObjectSchema ]).optional(), _min: TblPubISBNMinAggregateInputObjectSchema.optional(), _max: TblPubISBNMaxAggregateInputObjectSchema.optional(), _avg: TblPubISBNAvgAggregateInputObjectSchema.optional(), _sum: TblPubISBNSumAggregateInputObjectSchema.optional() }).strict();

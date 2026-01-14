@@ -1,0 +1,27 @@
+import * as z from 'zod';
+export const tblUsersFindFirstResultSchema = z.nullable(z.object({
+  Login: z.string(),
+  FirstName: z.string(),
+  MiddleName: z.string().optional(),
+  LastName: z.string(),
+  CompanyPosition: z.string().optional(),
+  Birthday: z.date().optional(),
+  Status: z.string(),
+  Initials: z.string().optional(),
+  Phone: z.string().optional(),
+  MobilePhone: z.string().optional(),
+  Email: z.string().optional(),
+  Sex: z.string().optional(),
+  Street: z.string().optional(),
+  ZipCode: z.string().optional(),
+  City: z.string().optional(),
+  Country: z.string().optional(),
+  Remarks: z.string().optional(),
+  UserMod: z.string().optional(),
+  DateMod: z.date().optional(),
+  Nameday: z.date().optional(),
+  PersonID: z.number().int().optional(),
+  tblCustUsers: z.array(z.unknown()),
+  tblUserAccess: z.array(z.unknown()),
+  tblUserParams: z.array(z.unknown())
+}));

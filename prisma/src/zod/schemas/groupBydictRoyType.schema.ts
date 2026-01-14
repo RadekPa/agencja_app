@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictRoyTypeWhereInputObjectSchema as dictRoyTypeWhereInputObjectSchema } from './objects/dictRoyTypeWhereInput.schema';
+import { dictRoyTypeOrderByWithAggregationInputObjectSchema as dictRoyTypeOrderByWithAggregationInputObjectSchema } from './objects/dictRoyTypeOrderByWithAggregationInput.schema';
+import { dictRoyTypeScalarWhereWithAggregatesInputObjectSchema as dictRoyTypeScalarWhereWithAggregatesInputObjectSchema } from './objects/dictRoyTypeScalarWhereWithAggregatesInput.schema';
+import { DictRoyTypeScalarFieldEnumSchema } from './enums/DictRoyTypeScalarFieldEnum.schema';
+import { DictRoyTypeCountAggregateInputObjectSchema as DictRoyTypeCountAggregateInputObjectSchema } from './objects/DictRoyTypeCountAggregateInput.schema';
+import { DictRoyTypeMinAggregateInputObjectSchema as DictRoyTypeMinAggregateInputObjectSchema } from './objects/DictRoyTypeMinAggregateInput.schema';
+import { DictRoyTypeMaxAggregateInputObjectSchema as DictRoyTypeMaxAggregateInputObjectSchema } from './objects/DictRoyTypeMaxAggregateInput.schema';
+import { DictRoyTypeAvgAggregateInputObjectSchema as DictRoyTypeAvgAggregateInputObjectSchema } from './objects/DictRoyTypeAvgAggregateInput.schema';
+import { DictRoyTypeSumAggregateInputObjectSchema as DictRoyTypeSumAggregateInputObjectSchema } from './objects/DictRoyTypeSumAggregateInput.schema';
+
+export const dictRoyTypeGroupBySchema: z.ZodType<Prisma.dictRoyTypeGroupByArgs> = z.object({ where: dictRoyTypeWhereInputObjectSchema.optional(), orderBy: z.union([dictRoyTypeOrderByWithAggregationInputObjectSchema, dictRoyTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictRoyTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictRoyTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictRoyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictRoyTypeMinAggregateInputObjectSchema.optional(), _max: DictRoyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictRoyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictRoyTypeSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictRoyTypeGroupByArgs>;
+
+export const dictRoyTypeGroupByZodSchema = z.object({ where: dictRoyTypeWhereInputObjectSchema.optional(), orderBy: z.union([dictRoyTypeOrderByWithAggregationInputObjectSchema, dictRoyTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictRoyTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictRoyTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictRoyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictRoyTypeMinAggregateInputObjectSchema.optional(), _max: DictRoyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictRoyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictRoyTypeSumAggregateInputObjectSchema.optional() }).strict();

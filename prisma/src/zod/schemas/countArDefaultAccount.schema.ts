@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArDefaultAccountOrderByWithRelationInputObjectSchema as ArDefaultAccountOrderByWithRelationInputObjectSchema } from './objects/ArDefaultAccountOrderByWithRelationInput.schema';
+import { ArDefaultAccountWhereInputObjectSchema as ArDefaultAccountWhereInputObjectSchema } from './objects/ArDefaultAccountWhereInput.schema';
+import { ArDefaultAccountWhereUniqueInputObjectSchema as ArDefaultAccountWhereUniqueInputObjectSchema } from './objects/ArDefaultAccountWhereUniqueInput.schema';
+import { ArDefaultAccountCountAggregateInputObjectSchema as ArDefaultAccountCountAggregateInputObjectSchema } from './objects/ArDefaultAccountCountAggregateInput.schema';
+
+export const ArDefaultAccountCountSchema: z.ZodType<Prisma.ArDefaultAccountCountArgs> = z.object({ orderBy: z.union([ArDefaultAccountOrderByWithRelationInputObjectSchema, ArDefaultAccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArDefaultAccountWhereInputObjectSchema.optional(), cursor: ArDefaultAccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ArDefaultAccountCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.ArDefaultAccountCountArgs>;
+
+export const ArDefaultAccountCountZodSchema = z.object({ orderBy: z.union([ArDefaultAccountOrderByWithRelationInputObjectSchema, ArDefaultAccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArDefaultAccountWhereInputObjectSchema.optional(), cursor: ArDefaultAccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ArDefaultAccountCountAggregateInputObjectSchema ]).optional() }).strict();

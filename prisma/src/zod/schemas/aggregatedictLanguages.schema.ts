@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictLanguagesOrderByWithRelationInputObjectSchema as dictLanguagesOrderByWithRelationInputObjectSchema } from './objects/dictLanguagesOrderByWithRelationInput.schema';
+import { dictLanguagesWhereInputObjectSchema as dictLanguagesWhereInputObjectSchema } from './objects/dictLanguagesWhereInput.schema';
+import { dictLanguagesWhereUniqueInputObjectSchema as dictLanguagesWhereUniqueInputObjectSchema } from './objects/dictLanguagesWhereUniqueInput.schema';
+import { DictLanguagesCountAggregateInputObjectSchema as DictLanguagesCountAggregateInputObjectSchema } from './objects/DictLanguagesCountAggregateInput.schema';
+import { DictLanguagesMinAggregateInputObjectSchema as DictLanguagesMinAggregateInputObjectSchema } from './objects/DictLanguagesMinAggregateInput.schema';
+import { DictLanguagesMaxAggregateInputObjectSchema as DictLanguagesMaxAggregateInputObjectSchema } from './objects/DictLanguagesMaxAggregateInput.schema';
+
+export const dictLanguagesAggregateSchema: z.ZodType<Prisma.dictLanguagesAggregateArgs> = z.object({ orderBy: z.union([dictLanguagesOrderByWithRelationInputObjectSchema, dictLanguagesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictLanguagesWhereInputObjectSchema.optional(), cursor: dictLanguagesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictLanguagesCountAggregateInputObjectSchema ]).optional(), _min: DictLanguagesMinAggregateInputObjectSchema.optional(), _max: DictLanguagesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictLanguagesAggregateArgs>;
+
+export const dictLanguagesAggregateZodSchema = z.object({ orderBy: z.union([dictLanguagesOrderByWithRelationInputObjectSchema, dictLanguagesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictLanguagesWhereInputObjectSchema.optional(), cursor: dictLanguagesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictLanguagesCountAggregateInputObjectSchema ]).optional(), _min: DictLanguagesMinAggregateInputObjectSchema.optional(), _max: DictLanguagesMaxAggregateInputObjectSchema.optional() }).strict();

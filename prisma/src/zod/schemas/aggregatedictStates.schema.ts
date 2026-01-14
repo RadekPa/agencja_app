@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictStatesOrderByWithRelationInputObjectSchema as dictStatesOrderByWithRelationInputObjectSchema } from './objects/dictStatesOrderByWithRelationInput.schema';
+import { dictStatesWhereInputObjectSchema as dictStatesWhereInputObjectSchema } from './objects/dictStatesWhereInput.schema';
+import { dictStatesWhereUniqueInputObjectSchema as dictStatesWhereUniqueInputObjectSchema } from './objects/dictStatesWhereUniqueInput.schema';
+import { DictStatesCountAggregateInputObjectSchema as DictStatesCountAggregateInputObjectSchema } from './objects/DictStatesCountAggregateInput.schema';
+import { DictStatesMinAggregateInputObjectSchema as DictStatesMinAggregateInputObjectSchema } from './objects/DictStatesMinAggregateInput.schema';
+import { DictStatesMaxAggregateInputObjectSchema as DictStatesMaxAggregateInputObjectSchema } from './objects/DictStatesMaxAggregateInput.schema';
+import { DictStatesAvgAggregateInputObjectSchema as DictStatesAvgAggregateInputObjectSchema } from './objects/DictStatesAvgAggregateInput.schema';
+import { DictStatesSumAggregateInputObjectSchema as DictStatesSumAggregateInputObjectSchema } from './objects/DictStatesSumAggregateInput.schema';
+
+export const dictStatesAggregateSchema: z.ZodType<Prisma.dictStatesAggregateArgs> = z.object({ orderBy: z.union([dictStatesOrderByWithRelationInputObjectSchema, dictStatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictStatesWhereInputObjectSchema.optional(), cursor: dictStatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictStatesCountAggregateInputObjectSchema ]).optional(), _min: DictStatesMinAggregateInputObjectSchema.optional(), _max: DictStatesMaxAggregateInputObjectSchema.optional(), _avg: DictStatesAvgAggregateInputObjectSchema.optional(), _sum: DictStatesSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictStatesAggregateArgs>;
+
+export const dictStatesAggregateZodSchema = z.object({ orderBy: z.union([dictStatesOrderByWithRelationInputObjectSchema, dictStatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictStatesWhereInputObjectSchema.optional(), cursor: dictStatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictStatesCountAggregateInputObjectSchema ]).optional(), _min: DictStatesMinAggregateInputObjectSchema.optional(), _max: DictStatesMaxAggregateInputObjectSchema.optional(), _avg: DictStatesAvgAggregateInputObjectSchema.optional(), _sum: DictStatesSumAggregateInputObjectSchema.optional() }).strict();

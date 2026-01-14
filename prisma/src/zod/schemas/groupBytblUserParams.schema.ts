@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblUserParamsWhereInputObjectSchema as tblUserParamsWhereInputObjectSchema } from './objects/tblUserParamsWhereInput.schema';
+import { tblUserParamsOrderByWithAggregationInputObjectSchema as tblUserParamsOrderByWithAggregationInputObjectSchema } from './objects/tblUserParamsOrderByWithAggregationInput.schema';
+import { tblUserParamsScalarWhereWithAggregatesInputObjectSchema as tblUserParamsScalarWhereWithAggregatesInputObjectSchema } from './objects/tblUserParamsScalarWhereWithAggregatesInput.schema';
+import { TblUserParamsScalarFieldEnumSchema } from './enums/TblUserParamsScalarFieldEnum.schema';
+import { TblUserParamsCountAggregateInputObjectSchema as TblUserParamsCountAggregateInputObjectSchema } from './objects/TblUserParamsCountAggregateInput.schema';
+import { TblUserParamsMinAggregateInputObjectSchema as TblUserParamsMinAggregateInputObjectSchema } from './objects/TblUserParamsMinAggregateInput.schema';
+import { TblUserParamsMaxAggregateInputObjectSchema as TblUserParamsMaxAggregateInputObjectSchema } from './objects/TblUserParamsMaxAggregateInput.schema';
+
+export const tblUserParamsGroupBySchema: z.ZodType<Prisma.tblUserParamsGroupByArgs> = z.object({ where: tblUserParamsWhereInputObjectSchema.optional(), orderBy: z.union([tblUserParamsOrderByWithAggregationInputObjectSchema, tblUserParamsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblUserParamsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblUserParamsScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblUserParamsCountAggregateInputObjectSchema ]).optional(), _min: TblUserParamsMinAggregateInputObjectSchema.optional(), _max: TblUserParamsMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblUserParamsGroupByArgs>;
+
+export const tblUserParamsGroupByZodSchema = z.object({ where: tblUserParamsWhereInputObjectSchema.optional(), orderBy: z.union([tblUserParamsOrderByWithAggregationInputObjectSchema, tblUserParamsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblUserParamsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblUserParamsScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblUserParamsCountAggregateInputObjectSchema ]).optional(), _min: TblUserParamsMinAggregateInputObjectSchema.optional(), _max: TblUserParamsMaxAggregateInputObjectSchema.optional() }).strict();

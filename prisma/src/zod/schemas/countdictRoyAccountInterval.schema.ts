@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictRoyAccountIntervalOrderByWithRelationInputObjectSchema as dictRoyAccountIntervalOrderByWithRelationInputObjectSchema } from './objects/dictRoyAccountIntervalOrderByWithRelationInput.schema';
+import { dictRoyAccountIntervalWhereInputObjectSchema as dictRoyAccountIntervalWhereInputObjectSchema } from './objects/dictRoyAccountIntervalWhereInput.schema';
+import { dictRoyAccountIntervalWhereUniqueInputObjectSchema as dictRoyAccountIntervalWhereUniqueInputObjectSchema } from './objects/dictRoyAccountIntervalWhereUniqueInput.schema';
+import { DictRoyAccountIntervalCountAggregateInputObjectSchema as DictRoyAccountIntervalCountAggregateInputObjectSchema } from './objects/DictRoyAccountIntervalCountAggregateInput.schema';
+
+export const dictRoyAccountIntervalCountSchema: z.ZodType<Prisma.dictRoyAccountIntervalCountArgs> = z.object({ orderBy: z.union([dictRoyAccountIntervalOrderByWithRelationInputObjectSchema, dictRoyAccountIntervalOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRoyAccountIntervalWhereInputObjectSchema.optional(), cursor: dictRoyAccountIntervalWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictRoyAccountIntervalCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictRoyAccountIntervalCountArgs>;
+
+export const dictRoyAccountIntervalCountZodSchema = z.object({ orderBy: z.union([dictRoyAccountIntervalOrderByWithRelationInputObjectSchema, dictRoyAccountIntervalOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRoyAccountIntervalWhereInputObjectSchema.optional(), cursor: dictRoyAccountIntervalWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictRoyAccountIntervalCountAggregateInputObjectSchema ]).optional() }).strict();

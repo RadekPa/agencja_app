@@ -10,7 +10,7 @@ const rolepermissionswhereinputSchema = z.object({
   OR: z.lazy(() => RolePermissionsWhereInputObjectSchema).array().optional(),
   NOT: z.union([z.lazy(() => RolePermissionsWhereInputObjectSchema), z.lazy(() => RolePermissionsWhereInputObjectSchema).array()]).optional(),
   id: z.union([z.lazy(() => IntFilterObjectSchema), z.number().int()]).optional(),
-  module: z.union([z.lazy(() => StringFilterObjectSchema), z.string()]).optional(),
+  module: z.union([z.lazy(() => StringFilterObjectSchema), z.string().max(255)]).optional(),
   userAccess: z.union([z.lazy(() => BoolFilterObjectSchema), z.boolean()]).optional(),
   advancedAccess: z.union([z.lazy(() => BoolFilterObjectSchema), z.boolean()]).optional(),
   adminAccess: z.union([z.lazy(() => BoolFilterObjectSchema), z.boolean()]).optional(),

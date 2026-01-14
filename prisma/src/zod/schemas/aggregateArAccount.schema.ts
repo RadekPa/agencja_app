@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArAccountOrderByWithRelationInputObjectSchema as ArAccountOrderByWithRelationInputObjectSchema } from './objects/ArAccountOrderByWithRelationInput.schema';
+import { ArAccountWhereInputObjectSchema as ArAccountWhereInputObjectSchema } from './objects/ArAccountWhereInput.schema';
+import { ArAccountWhereUniqueInputObjectSchema as ArAccountWhereUniqueInputObjectSchema } from './objects/ArAccountWhereUniqueInput.schema';
+import { ArAccountCountAggregateInputObjectSchema as ArAccountCountAggregateInputObjectSchema } from './objects/ArAccountCountAggregateInput.schema';
+import { ArAccountMinAggregateInputObjectSchema as ArAccountMinAggregateInputObjectSchema } from './objects/ArAccountMinAggregateInput.schema';
+import { ArAccountMaxAggregateInputObjectSchema as ArAccountMaxAggregateInputObjectSchema } from './objects/ArAccountMaxAggregateInput.schema';
+import { ArAccountAvgAggregateInputObjectSchema as ArAccountAvgAggregateInputObjectSchema } from './objects/ArAccountAvgAggregateInput.schema';
+import { ArAccountSumAggregateInputObjectSchema as ArAccountSumAggregateInputObjectSchema } from './objects/ArAccountSumAggregateInput.schema';
+
+export const ArAccountAggregateSchema: z.ZodType<Prisma.ArAccountAggregateArgs> = z.object({ orderBy: z.union([ArAccountOrderByWithRelationInputObjectSchema, ArAccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArAccountWhereInputObjectSchema.optional(), cursor: ArAccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ArAccountCountAggregateInputObjectSchema ]).optional(), _min: ArAccountMinAggregateInputObjectSchema.optional(), _max: ArAccountMaxAggregateInputObjectSchema.optional(), _avg: ArAccountAvgAggregateInputObjectSchema.optional(), _sum: ArAccountSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ArAccountAggregateArgs>;
+
+export const ArAccountAggregateZodSchema = z.object({ orderBy: z.union([ArAccountOrderByWithRelationInputObjectSchema, ArAccountOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArAccountWhereInputObjectSchema.optional(), cursor: ArAccountWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ArAccountCountAggregateInputObjectSchema ]).optional(), _min: ArAccountMinAggregateInputObjectSchema.optional(), _max: ArAccountMaxAggregateInputObjectSchema.optional(), _avg: ArAccountAvgAggregateInputObjectSchema.optional(), _sum: ArAccountSumAggregateInputObjectSchema.optional() }).strict();

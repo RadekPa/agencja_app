@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArTransactionOrderByWithRelationInputObjectSchema as ArTransactionOrderByWithRelationInputObjectSchema } from './objects/ArTransactionOrderByWithRelationInput.schema';
+import { ArTransactionWhereInputObjectSchema as ArTransactionWhereInputObjectSchema } from './objects/ArTransactionWhereInput.schema';
+import { ArTransactionWhereUniqueInputObjectSchema as ArTransactionWhereUniqueInputObjectSchema } from './objects/ArTransactionWhereUniqueInput.schema';
+import { ArTransactionCountAggregateInputObjectSchema as ArTransactionCountAggregateInputObjectSchema } from './objects/ArTransactionCountAggregateInput.schema';
+import { ArTransactionMinAggregateInputObjectSchema as ArTransactionMinAggregateInputObjectSchema } from './objects/ArTransactionMinAggregateInput.schema';
+import { ArTransactionMaxAggregateInputObjectSchema as ArTransactionMaxAggregateInputObjectSchema } from './objects/ArTransactionMaxAggregateInput.schema';
+import { ArTransactionAvgAggregateInputObjectSchema as ArTransactionAvgAggregateInputObjectSchema } from './objects/ArTransactionAvgAggregateInput.schema';
+import { ArTransactionSumAggregateInputObjectSchema as ArTransactionSumAggregateInputObjectSchema } from './objects/ArTransactionSumAggregateInput.schema';
+
+export const ArTransactionAggregateSchema: z.ZodType<Prisma.ArTransactionAggregateArgs> = z.object({ orderBy: z.union([ArTransactionOrderByWithRelationInputObjectSchema, ArTransactionOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArTransactionWhereInputObjectSchema.optional(), cursor: ArTransactionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ArTransactionCountAggregateInputObjectSchema ]).optional(), _min: ArTransactionMinAggregateInputObjectSchema.optional(), _max: ArTransactionMaxAggregateInputObjectSchema.optional(), _avg: ArTransactionAvgAggregateInputObjectSchema.optional(), _sum: ArTransactionSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ArTransactionAggregateArgs>;
+
+export const ArTransactionAggregateZodSchema = z.object({ orderBy: z.union([ArTransactionOrderByWithRelationInputObjectSchema, ArTransactionOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArTransactionWhereInputObjectSchema.optional(), cursor: ArTransactionWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), ArTransactionCountAggregateInputObjectSchema ]).optional(), _min: ArTransactionMinAggregateInputObjectSchema.optional(), _max: ArTransactionMaxAggregateInputObjectSchema.optional(), _avg: ArTransactionAvgAggregateInputObjectSchema.optional(), _sum: ArTransactionSumAggregateInputObjectSchema.optional() }).strict();

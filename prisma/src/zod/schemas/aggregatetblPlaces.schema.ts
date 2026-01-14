@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblPlacesOrderByWithRelationInputObjectSchema as tblPlacesOrderByWithRelationInputObjectSchema } from './objects/tblPlacesOrderByWithRelationInput.schema';
+import { tblPlacesWhereInputObjectSchema as tblPlacesWhereInputObjectSchema } from './objects/tblPlacesWhereInput.schema';
+import { tblPlacesWhereUniqueInputObjectSchema as tblPlacesWhereUniqueInputObjectSchema } from './objects/tblPlacesWhereUniqueInput.schema';
+import { TblPlacesCountAggregateInputObjectSchema as TblPlacesCountAggregateInputObjectSchema } from './objects/TblPlacesCountAggregateInput.schema';
+import { TblPlacesMinAggregateInputObjectSchema as TblPlacesMinAggregateInputObjectSchema } from './objects/TblPlacesMinAggregateInput.schema';
+import { TblPlacesMaxAggregateInputObjectSchema as TblPlacesMaxAggregateInputObjectSchema } from './objects/TblPlacesMaxAggregateInput.schema';
+import { TblPlacesAvgAggregateInputObjectSchema as TblPlacesAvgAggregateInputObjectSchema } from './objects/TblPlacesAvgAggregateInput.schema';
+import { TblPlacesSumAggregateInputObjectSchema as TblPlacesSumAggregateInputObjectSchema } from './objects/TblPlacesSumAggregateInput.schema';
+
+export const tblPlacesAggregateSchema: z.ZodType<Prisma.tblPlacesAggregateArgs> = z.object({ orderBy: z.union([tblPlacesOrderByWithRelationInputObjectSchema, tblPlacesOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPlacesWhereInputObjectSchema.optional(), cursor: tblPlacesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPlacesCountAggregateInputObjectSchema ]).optional(), _min: TblPlacesMinAggregateInputObjectSchema.optional(), _max: TblPlacesMaxAggregateInputObjectSchema.optional(), _avg: TblPlacesAvgAggregateInputObjectSchema.optional(), _sum: TblPlacesSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblPlacesAggregateArgs>;
+
+export const tblPlacesAggregateZodSchema = z.object({ orderBy: z.union([tblPlacesOrderByWithRelationInputObjectSchema, tblPlacesOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPlacesWhereInputObjectSchema.optional(), cursor: tblPlacesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPlacesCountAggregateInputObjectSchema ]).optional(), _min: TblPlacesMinAggregateInputObjectSchema.optional(), _max: TblPlacesMaxAggregateInputObjectSchema.optional(), _avg: TblPlacesAvgAggregateInputObjectSchema.optional(), _sum: TblPlacesSumAggregateInputObjectSchema.optional() }).strict();

@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictTargetGroupsOrderByWithRelationInputObjectSchema as dictTargetGroupsOrderByWithRelationInputObjectSchema } from './objects/dictTargetGroupsOrderByWithRelationInput.schema';
+import { dictTargetGroupsWhereInputObjectSchema as dictTargetGroupsWhereInputObjectSchema } from './objects/dictTargetGroupsWhereInput.schema';
+import { dictTargetGroupsWhereUniqueInputObjectSchema as dictTargetGroupsWhereUniqueInputObjectSchema } from './objects/dictTargetGroupsWhereUniqueInput.schema';
+import { DictTargetGroupsCountAggregateInputObjectSchema as DictTargetGroupsCountAggregateInputObjectSchema } from './objects/DictTargetGroupsCountAggregateInput.schema';
+
+export const dictTargetGroupsCountSchema: z.ZodType<Prisma.dictTargetGroupsCountArgs> = z.object({ orderBy: z.union([dictTargetGroupsOrderByWithRelationInputObjectSchema, dictTargetGroupsOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictTargetGroupsWhereInputObjectSchema.optional(), cursor: dictTargetGroupsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictTargetGroupsCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictTargetGroupsCountArgs>;
+
+export const dictTargetGroupsCountZodSchema = z.object({ orderBy: z.union([dictTargetGroupsOrderByWithRelationInputObjectSchema, dictTargetGroupsOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictTargetGroupsWhereInputObjectSchema.optional(), cursor: dictTargetGroupsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictTargetGroupsCountAggregateInputObjectSchema ]).optional() }).strict();

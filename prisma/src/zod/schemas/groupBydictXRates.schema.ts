@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictXRatesWhereInputObjectSchema as dictXRatesWhereInputObjectSchema } from './objects/dictXRatesWhereInput.schema';
+import { dictXRatesOrderByWithAggregationInputObjectSchema as dictXRatesOrderByWithAggregationInputObjectSchema } from './objects/dictXRatesOrderByWithAggregationInput.schema';
+import { dictXRatesScalarWhereWithAggregatesInputObjectSchema as dictXRatesScalarWhereWithAggregatesInputObjectSchema } from './objects/dictXRatesScalarWhereWithAggregatesInput.schema';
+import { DictXRatesScalarFieldEnumSchema } from './enums/DictXRatesScalarFieldEnum.schema';
+import { DictXRatesCountAggregateInputObjectSchema as DictXRatesCountAggregateInputObjectSchema } from './objects/DictXRatesCountAggregateInput.schema';
+import { DictXRatesMinAggregateInputObjectSchema as DictXRatesMinAggregateInputObjectSchema } from './objects/DictXRatesMinAggregateInput.schema';
+import { DictXRatesMaxAggregateInputObjectSchema as DictXRatesMaxAggregateInputObjectSchema } from './objects/DictXRatesMaxAggregateInput.schema';
+import { DictXRatesAvgAggregateInputObjectSchema as DictXRatesAvgAggregateInputObjectSchema } from './objects/DictXRatesAvgAggregateInput.schema';
+import { DictXRatesSumAggregateInputObjectSchema as DictXRatesSumAggregateInputObjectSchema } from './objects/DictXRatesSumAggregateInput.schema';
+
+export const dictXRatesGroupBySchema: z.ZodType<Prisma.dictXRatesGroupByArgs> = z.object({ where: dictXRatesWhereInputObjectSchema.optional(), orderBy: z.union([dictXRatesOrderByWithAggregationInputObjectSchema, dictXRatesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictXRatesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictXRatesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictXRatesCountAggregateInputObjectSchema ]).optional(), _min: DictXRatesMinAggregateInputObjectSchema.optional(), _max: DictXRatesMaxAggregateInputObjectSchema.optional(), _avg: DictXRatesAvgAggregateInputObjectSchema.optional(), _sum: DictXRatesSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictXRatesGroupByArgs>;
+
+export const dictXRatesGroupByZodSchema = z.object({ where: dictXRatesWhereInputObjectSchema.optional(), orderBy: z.union([dictXRatesOrderByWithAggregationInputObjectSchema, dictXRatesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictXRatesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictXRatesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictXRatesCountAggregateInputObjectSchema ]).optional(), _min: DictXRatesMinAggregateInputObjectSchema.optional(), _max: DictXRatesMaxAggregateInputObjectSchema.optional(), _avg: DictXRatesAvgAggregateInputObjectSchema.optional(), _sum: DictXRatesSumAggregateInputObjectSchema.optional() }).strict();

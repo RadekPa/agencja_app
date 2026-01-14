@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblAgrRightsWhereInputObjectSchema as tblAgrRightsWhereInputObjectSchema } from './objects/tblAgrRightsWhereInput.schema';
+import { tblAgrRightsOrderByWithAggregationInputObjectSchema as tblAgrRightsOrderByWithAggregationInputObjectSchema } from './objects/tblAgrRightsOrderByWithAggregationInput.schema';
+import { tblAgrRightsScalarWhereWithAggregatesInputObjectSchema as tblAgrRightsScalarWhereWithAggregatesInputObjectSchema } from './objects/tblAgrRightsScalarWhereWithAggregatesInput.schema';
+import { TblAgrRightsScalarFieldEnumSchema } from './enums/TblAgrRightsScalarFieldEnum.schema';
+import { TblAgrRightsCountAggregateInputObjectSchema as TblAgrRightsCountAggregateInputObjectSchema } from './objects/TblAgrRightsCountAggregateInput.schema';
+import { TblAgrRightsMinAggregateInputObjectSchema as TblAgrRightsMinAggregateInputObjectSchema } from './objects/TblAgrRightsMinAggregateInput.schema';
+import { TblAgrRightsMaxAggregateInputObjectSchema as TblAgrRightsMaxAggregateInputObjectSchema } from './objects/TblAgrRightsMaxAggregateInput.schema';
+import { TblAgrRightsAvgAggregateInputObjectSchema as TblAgrRightsAvgAggregateInputObjectSchema } from './objects/TblAgrRightsAvgAggregateInput.schema';
+import { TblAgrRightsSumAggregateInputObjectSchema as TblAgrRightsSumAggregateInputObjectSchema } from './objects/TblAgrRightsSumAggregateInput.schema';
+
+export const tblAgrRightsGroupBySchema: z.ZodType<Prisma.tblAgrRightsGroupByArgs> = z.object({ where: tblAgrRightsWhereInputObjectSchema.optional(), orderBy: z.union([tblAgrRightsOrderByWithAggregationInputObjectSchema, tblAgrRightsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblAgrRightsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblAgrRightsScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblAgrRightsCountAggregateInputObjectSchema ]).optional(), _min: TblAgrRightsMinAggregateInputObjectSchema.optional(), _max: TblAgrRightsMaxAggregateInputObjectSchema.optional(), _avg: TblAgrRightsAvgAggregateInputObjectSchema.optional(), _sum: TblAgrRightsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblAgrRightsGroupByArgs>;
+
+export const tblAgrRightsGroupByZodSchema = z.object({ where: tblAgrRightsWhereInputObjectSchema.optional(), orderBy: z.union([tblAgrRightsOrderByWithAggregationInputObjectSchema, tblAgrRightsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblAgrRightsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblAgrRightsScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblAgrRightsCountAggregateInputObjectSchema ]).optional(), _min: TblAgrRightsMinAggregateInputObjectSchema.optional(), _max: TblAgrRightsMaxAggregateInputObjectSchema.optional(), _avg: TblAgrRightsAvgAggregateInputObjectSchema.optional(), _sum: TblAgrRightsSumAggregateInputObjectSchema.optional() }).strict();

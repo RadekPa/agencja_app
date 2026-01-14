@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictAgrTemplatesWhereInputObjectSchema as dictAgrTemplatesWhereInputObjectSchema } from './objects/dictAgrTemplatesWhereInput.schema';
+import { dictAgrTemplatesOrderByWithAggregationInputObjectSchema as dictAgrTemplatesOrderByWithAggregationInputObjectSchema } from './objects/dictAgrTemplatesOrderByWithAggregationInput.schema';
+import { dictAgrTemplatesScalarWhereWithAggregatesInputObjectSchema as dictAgrTemplatesScalarWhereWithAggregatesInputObjectSchema } from './objects/dictAgrTemplatesScalarWhereWithAggregatesInput.schema';
+import { DictAgrTemplatesScalarFieldEnumSchema } from './enums/DictAgrTemplatesScalarFieldEnum.schema';
+import { DictAgrTemplatesCountAggregateInputObjectSchema as DictAgrTemplatesCountAggregateInputObjectSchema } from './objects/DictAgrTemplatesCountAggregateInput.schema';
+import { DictAgrTemplatesMinAggregateInputObjectSchema as DictAgrTemplatesMinAggregateInputObjectSchema } from './objects/DictAgrTemplatesMinAggregateInput.schema';
+import { DictAgrTemplatesMaxAggregateInputObjectSchema as DictAgrTemplatesMaxAggregateInputObjectSchema } from './objects/DictAgrTemplatesMaxAggregateInput.schema';
+
+export const dictAgrTemplatesGroupBySchema: z.ZodType<Prisma.dictAgrTemplatesGroupByArgs> = z.object({ where: dictAgrTemplatesWhereInputObjectSchema.optional(), orderBy: z.union([dictAgrTemplatesOrderByWithAggregationInputObjectSchema, dictAgrTemplatesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictAgrTemplatesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictAgrTemplatesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictAgrTemplatesCountAggregateInputObjectSchema ]).optional(), _min: DictAgrTemplatesMinAggregateInputObjectSchema.optional(), _max: DictAgrTemplatesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictAgrTemplatesGroupByArgs>;
+
+export const dictAgrTemplatesGroupByZodSchema = z.object({ where: dictAgrTemplatesWhereInputObjectSchema.optional(), orderBy: z.union([dictAgrTemplatesOrderByWithAggregationInputObjectSchema, dictAgrTemplatesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictAgrTemplatesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictAgrTemplatesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictAgrTemplatesCountAggregateInputObjectSchema ]).optional(), _min: DictAgrTemplatesMinAggregateInputObjectSchema.optional(), _max: DictAgrTemplatesMaxAggregateInputObjectSchema.optional() }).strict();

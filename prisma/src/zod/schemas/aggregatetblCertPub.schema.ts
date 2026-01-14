@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblCertPubOrderByWithRelationInputObjectSchema as tblCertPubOrderByWithRelationInputObjectSchema } from './objects/tblCertPubOrderByWithRelationInput.schema';
+import { tblCertPubWhereInputObjectSchema as tblCertPubWhereInputObjectSchema } from './objects/tblCertPubWhereInput.schema';
+import { tblCertPubWhereUniqueInputObjectSchema as tblCertPubWhereUniqueInputObjectSchema } from './objects/tblCertPubWhereUniqueInput.schema';
+import { TblCertPubCountAggregateInputObjectSchema as TblCertPubCountAggregateInputObjectSchema } from './objects/TblCertPubCountAggregateInput.schema';
+import { TblCertPubMinAggregateInputObjectSchema as TblCertPubMinAggregateInputObjectSchema } from './objects/TblCertPubMinAggregateInput.schema';
+import { TblCertPubMaxAggregateInputObjectSchema as TblCertPubMaxAggregateInputObjectSchema } from './objects/TblCertPubMaxAggregateInput.schema';
+import { TblCertPubAvgAggregateInputObjectSchema as TblCertPubAvgAggregateInputObjectSchema } from './objects/TblCertPubAvgAggregateInput.schema';
+import { TblCertPubSumAggregateInputObjectSchema as TblCertPubSumAggregateInputObjectSchema } from './objects/TblCertPubSumAggregateInput.schema';
+
+export const tblCertPubAggregateSchema: z.ZodType<Prisma.tblCertPubAggregateArgs> = z.object({ orderBy: z.union([tblCertPubOrderByWithRelationInputObjectSchema, tblCertPubOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblCertPubWhereInputObjectSchema.optional(), cursor: tblCertPubWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblCertPubCountAggregateInputObjectSchema ]).optional(), _min: TblCertPubMinAggregateInputObjectSchema.optional(), _max: TblCertPubMaxAggregateInputObjectSchema.optional(), _avg: TblCertPubAvgAggregateInputObjectSchema.optional(), _sum: TblCertPubSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblCertPubAggregateArgs>;
+
+export const tblCertPubAggregateZodSchema = z.object({ orderBy: z.union([tblCertPubOrderByWithRelationInputObjectSchema, tblCertPubOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblCertPubWhereInputObjectSchema.optional(), cursor: tblCertPubWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblCertPubCountAggregateInputObjectSchema ]).optional(), _min: TblCertPubMinAggregateInputObjectSchema.optional(), _max: TblCertPubMaxAggregateInputObjectSchema.optional(), _avg: TblCertPubAvgAggregateInputObjectSchema.optional(), _sum: TblCertPubSumAggregateInputObjectSchema.optional() }).strict();

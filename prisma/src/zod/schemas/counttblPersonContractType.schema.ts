@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblPersonContractTypeOrderByWithRelationInputObjectSchema as tblPersonContractTypeOrderByWithRelationInputObjectSchema } from './objects/tblPersonContractTypeOrderByWithRelationInput.schema';
+import { tblPersonContractTypeWhereInputObjectSchema as tblPersonContractTypeWhereInputObjectSchema } from './objects/tblPersonContractTypeWhereInput.schema';
+import { tblPersonContractTypeWhereUniqueInputObjectSchema as tblPersonContractTypeWhereUniqueInputObjectSchema } from './objects/tblPersonContractTypeWhereUniqueInput.schema';
+import { TblPersonContractTypeCountAggregateInputObjectSchema as TblPersonContractTypeCountAggregateInputObjectSchema } from './objects/TblPersonContractTypeCountAggregateInput.schema';
+
+export const tblPersonContractTypeCountSchema: z.ZodType<Prisma.tblPersonContractTypeCountArgs> = z.object({ orderBy: z.union([tblPersonContractTypeOrderByWithRelationInputObjectSchema, tblPersonContractTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPersonContractTypeWhereInputObjectSchema.optional(), cursor: tblPersonContractTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblPersonContractTypeCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.tblPersonContractTypeCountArgs>;
+
+export const tblPersonContractTypeCountZodSchema = z.object({ orderBy: z.union([tblPersonContractTypeOrderByWithRelationInputObjectSchema, tblPersonContractTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPersonContractTypeWhereInputObjectSchema.optional(), cursor: tblPersonContractTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblPersonContractTypeCountAggregateInputObjectSchema ]).optional() }).strict();

@@ -1,0 +1,15 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+import { tblTitlesWhereUniqueInputObjectSchema as tblTitlesWhereUniqueInputObjectSchema } from './tblTitlesWhereUniqueInput.schema';
+import { tblTitlesUpdateWithoutDictCoverFormatInputObjectSchema as tblTitlesUpdateWithoutDictCoverFormatInputObjectSchema } from './tblTitlesUpdateWithoutDictCoverFormatInput.schema';
+import { tblTitlesUncheckedUpdateWithoutDictCoverFormatInputObjectSchema as tblTitlesUncheckedUpdateWithoutDictCoverFormatInputObjectSchema } from './tblTitlesUncheckedUpdateWithoutDictCoverFormatInput.schema';
+import { tblTitlesCreateWithoutDictCoverFormatInputObjectSchema as tblTitlesCreateWithoutDictCoverFormatInputObjectSchema } from './tblTitlesCreateWithoutDictCoverFormatInput.schema';
+import { tblTitlesUncheckedCreateWithoutDictCoverFormatInputObjectSchema as tblTitlesUncheckedCreateWithoutDictCoverFormatInputObjectSchema } from './tblTitlesUncheckedCreateWithoutDictCoverFormatInput.schema'
+
+const makeSchema = () => z.object({
+  where: z.lazy(() => tblTitlesWhereUniqueInputObjectSchema),
+  update: z.union([z.lazy(() => tblTitlesUpdateWithoutDictCoverFormatInputObjectSchema), z.lazy(() => tblTitlesUncheckedUpdateWithoutDictCoverFormatInputObjectSchema)]),
+  create: z.union([z.lazy(() => tblTitlesCreateWithoutDictCoverFormatInputObjectSchema), z.lazy(() => tblTitlesUncheckedCreateWithoutDictCoverFormatInputObjectSchema)])
+}).strict();
+export const tblTitlesUpsertWithWhereUniqueWithoutDictCoverFormatInputObjectSchema: z.ZodType<Prisma.tblTitlesUpsertWithWhereUniqueWithoutDictCoverFormatInput> = makeSchema() as unknown as z.ZodType<Prisma.tblTitlesUpsertWithWhereUniqueWithoutDictCoverFormatInput>;
+export const tblTitlesUpsertWithWhereUniqueWithoutDictCoverFormatInputObjectZodSchema = makeSchema();

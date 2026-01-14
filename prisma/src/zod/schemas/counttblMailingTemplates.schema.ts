@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblMailingTemplatesOrderByWithRelationInputObjectSchema as tblMailingTemplatesOrderByWithRelationInputObjectSchema } from './objects/tblMailingTemplatesOrderByWithRelationInput.schema';
+import { tblMailingTemplatesWhereInputObjectSchema as tblMailingTemplatesWhereInputObjectSchema } from './objects/tblMailingTemplatesWhereInput.schema';
+import { tblMailingTemplatesWhereUniqueInputObjectSchema as tblMailingTemplatesWhereUniqueInputObjectSchema } from './objects/tblMailingTemplatesWhereUniqueInput.schema';
+import { TblMailingTemplatesCountAggregateInputObjectSchema as TblMailingTemplatesCountAggregateInputObjectSchema } from './objects/TblMailingTemplatesCountAggregateInput.schema';
+
+export const tblMailingTemplatesCountSchema: z.ZodType<Prisma.tblMailingTemplatesCountArgs> = z.object({ orderBy: z.union([tblMailingTemplatesOrderByWithRelationInputObjectSchema, tblMailingTemplatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblMailingTemplatesWhereInputObjectSchema.optional(), cursor: tblMailingTemplatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblMailingTemplatesCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.tblMailingTemplatesCountArgs>;
+
+export const tblMailingTemplatesCountZodSchema = z.object({ orderBy: z.union([tblMailingTemplatesOrderByWithRelationInputObjectSchema, tblMailingTemplatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblMailingTemplatesWhereInputObjectSchema.optional(), cursor: tblMailingTemplatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblMailingTemplatesCountAggregateInputObjectSchema ]).optional() }).strict();

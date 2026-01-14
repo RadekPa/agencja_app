@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictCopyTypeWhereInputObjectSchema as dictCopyTypeWhereInputObjectSchema } from './objects/dictCopyTypeWhereInput.schema';
+import { dictCopyTypeOrderByWithAggregationInputObjectSchema as dictCopyTypeOrderByWithAggregationInputObjectSchema } from './objects/dictCopyTypeOrderByWithAggregationInput.schema';
+import { dictCopyTypeScalarWhereWithAggregatesInputObjectSchema as dictCopyTypeScalarWhereWithAggregatesInputObjectSchema } from './objects/dictCopyTypeScalarWhereWithAggregatesInput.schema';
+import { DictCopyTypeScalarFieldEnumSchema } from './enums/DictCopyTypeScalarFieldEnum.schema';
+import { DictCopyTypeCountAggregateInputObjectSchema as DictCopyTypeCountAggregateInputObjectSchema } from './objects/DictCopyTypeCountAggregateInput.schema';
+import { DictCopyTypeMinAggregateInputObjectSchema as DictCopyTypeMinAggregateInputObjectSchema } from './objects/DictCopyTypeMinAggregateInput.schema';
+import { DictCopyTypeMaxAggregateInputObjectSchema as DictCopyTypeMaxAggregateInputObjectSchema } from './objects/DictCopyTypeMaxAggregateInput.schema';
+import { DictCopyTypeAvgAggregateInputObjectSchema as DictCopyTypeAvgAggregateInputObjectSchema } from './objects/DictCopyTypeAvgAggregateInput.schema';
+import { DictCopyTypeSumAggregateInputObjectSchema as DictCopyTypeSumAggregateInputObjectSchema } from './objects/DictCopyTypeSumAggregateInput.schema';
+
+export const dictCopyTypeGroupBySchema: z.ZodType<Prisma.dictCopyTypeGroupByArgs> = z.object({ where: dictCopyTypeWhereInputObjectSchema.optional(), orderBy: z.union([dictCopyTypeOrderByWithAggregationInputObjectSchema, dictCopyTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictCopyTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictCopyTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictCopyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictCopyTypeMinAggregateInputObjectSchema.optional(), _max: DictCopyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictCopyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictCopyTypeSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictCopyTypeGroupByArgs>;
+
+export const dictCopyTypeGroupByZodSchema = z.object({ where: dictCopyTypeWhereInputObjectSchema.optional(), orderBy: z.union([dictCopyTypeOrderByWithAggregationInputObjectSchema, dictCopyTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictCopyTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictCopyTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictCopyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictCopyTypeMinAggregateInputObjectSchema.optional(), _max: DictCopyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictCopyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictCopyTypeSumAggregateInputObjectSchema.optional() }).strict();

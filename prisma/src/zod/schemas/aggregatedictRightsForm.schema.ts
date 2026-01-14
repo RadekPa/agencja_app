@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictRightsFormOrderByWithRelationInputObjectSchema as dictRightsFormOrderByWithRelationInputObjectSchema } from './objects/dictRightsFormOrderByWithRelationInput.schema';
+import { dictRightsFormWhereInputObjectSchema as dictRightsFormWhereInputObjectSchema } from './objects/dictRightsFormWhereInput.schema';
+import { dictRightsFormWhereUniqueInputObjectSchema as dictRightsFormWhereUniqueInputObjectSchema } from './objects/dictRightsFormWhereUniqueInput.schema';
+import { DictRightsFormCountAggregateInputObjectSchema as DictRightsFormCountAggregateInputObjectSchema } from './objects/DictRightsFormCountAggregateInput.schema';
+import { DictRightsFormMinAggregateInputObjectSchema as DictRightsFormMinAggregateInputObjectSchema } from './objects/DictRightsFormMinAggregateInput.schema';
+import { DictRightsFormMaxAggregateInputObjectSchema as DictRightsFormMaxAggregateInputObjectSchema } from './objects/DictRightsFormMaxAggregateInput.schema';
+import { DictRightsFormAvgAggregateInputObjectSchema as DictRightsFormAvgAggregateInputObjectSchema } from './objects/DictRightsFormAvgAggregateInput.schema';
+import { DictRightsFormSumAggregateInputObjectSchema as DictRightsFormSumAggregateInputObjectSchema } from './objects/DictRightsFormSumAggregateInput.schema';
+
+export const dictRightsFormAggregateSchema: z.ZodType<Prisma.dictRightsFormAggregateArgs> = z.object({ orderBy: z.union([dictRightsFormOrderByWithRelationInputObjectSchema, dictRightsFormOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRightsFormWhereInputObjectSchema.optional(), cursor: dictRightsFormWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictRightsFormCountAggregateInputObjectSchema ]).optional(), _min: DictRightsFormMinAggregateInputObjectSchema.optional(), _max: DictRightsFormMaxAggregateInputObjectSchema.optional(), _avg: DictRightsFormAvgAggregateInputObjectSchema.optional(), _sum: DictRightsFormSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictRightsFormAggregateArgs>;
+
+export const dictRightsFormAggregateZodSchema = z.object({ orderBy: z.union([dictRightsFormOrderByWithRelationInputObjectSchema, dictRightsFormOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRightsFormWhereInputObjectSchema.optional(), cursor: dictRightsFormWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictRightsFormCountAggregateInputObjectSchema ]).optional(), _min: DictRightsFormMinAggregateInputObjectSchema.optional(), _max: DictRightsFormMaxAggregateInputObjectSchema.optional(), _avg: DictRightsFormAvgAggregateInputObjectSchema.optional(), _sum: DictRightsFormSumAggregateInputObjectSchema.optional() }).strict();

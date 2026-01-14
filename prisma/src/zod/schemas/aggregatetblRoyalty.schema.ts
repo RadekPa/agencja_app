@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblRoyaltyOrderByWithRelationInputObjectSchema as tblRoyaltyOrderByWithRelationInputObjectSchema } from './objects/tblRoyaltyOrderByWithRelationInput.schema';
+import { tblRoyaltyWhereInputObjectSchema as tblRoyaltyWhereInputObjectSchema } from './objects/tblRoyaltyWhereInput.schema';
+import { tblRoyaltyWhereUniqueInputObjectSchema as tblRoyaltyWhereUniqueInputObjectSchema } from './objects/tblRoyaltyWhereUniqueInput.schema';
+import { TblRoyaltyCountAggregateInputObjectSchema as TblRoyaltyCountAggregateInputObjectSchema } from './objects/TblRoyaltyCountAggregateInput.schema';
+import { TblRoyaltyMinAggregateInputObjectSchema as TblRoyaltyMinAggregateInputObjectSchema } from './objects/TblRoyaltyMinAggregateInput.schema';
+import { TblRoyaltyMaxAggregateInputObjectSchema as TblRoyaltyMaxAggregateInputObjectSchema } from './objects/TblRoyaltyMaxAggregateInput.schema';
+import { TblRoyaltyAvgAggregateInputObjectSchema as TblRoyaltyAvgAggregateInputObjectSchema } from './objects/TblRoyaltyAvgAggregateInput.schema';
+import { TblRoyaltySumAggregateInputObjectSchema as TblRoyaltySumAggregateInputObjectSchema } from './objects/TblRoyaltySumAggregateInput.schema';
+
+export const tblRoyaltyAggregateSchema: z.ZodType<Prisma.tblRoyaltyAggregateArgs> = z.object({ orderBy: z.union([tblRoyaltyOrderByWithRelationInputObjectSchema, tblRoyaltyOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblRoyaltyWhereInputObjectSchema.optional(), cursor: tblRoyaltyWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblRoyaltyCountAggregateInputObjectSchema ]).optional(), _min: TblRoyaltyMinAggregateInputObjectSchema.optional(), _max: TblRoyaltyMaxAggregateInputObjectSchema.optional(), _avg: TblRoyaltyAvgAggregateInputObjectSchema.optional(), _sum: TblRoyaltySumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblRoyaltyAggregateArgs>;
+
+export const tblRoyaltyAggregateZodSchema = z.object({ orderBy: z.union([tblRoyaltyOrderByWithRelationInputObjectSchema, tblRoyaltyOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblRoyaltyWhereInputObjectSchema.optional(), cursor: tblRoyaltyWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblRoyaltyCountAggregateInputObjectSchema ]).optional(), _min: TblRoyaltyMinAggregateInputObjectSchema.optional(), _max: TblRoyaltyMaxAggregateInputObjectSchema.optional(), _avg: TblRoyaltyAvgAggregateInputObjectSchema.optional(), _sum: TblRoyaltySumAggregateInputObjectSchema.optional() }).strict();

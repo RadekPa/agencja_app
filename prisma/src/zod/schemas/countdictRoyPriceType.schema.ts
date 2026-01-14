@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictRoyPriceTypeOrderByWithRelationInputObjectSchema as dictRoyPriceTypeOrderByWithRelationInputObjectSchema } from './objects/dictRoyPriceTypeOrderByWithRelationInput.schema';
+import { dictRoyPriceTypeWhereInputObjectSchema as dictRoyPriceTypeWhereInputObjectSchema } from './objects/dictRoyPriceTypeWhereInput.schema';
+import { dictRoyPriceTypeWhereUniqueInputObjectSchema as dictRoyPriceTypeWhereUniqueInputObjectSchema } from './objects/dictRoyPriceTypeWhereUniqueInput.schema';
+import { DictRoyPriceTypeCountAggregateInputObjectSchema as DictRoyPriceTypeCountAggregateInputObjectSchema } from './objects/DictRoyPriceTypeCountAggregateInput.schema';
+
+export const dictRoyPriceTypeCountSchema: z.ZodType<Prisma.dictRoyPriceTypeCountArgs> = z.object({ orderBy: z.union([dictRoyPriceTypeOrderByWithRelationInputObjectSchema, dictRoyPriceTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRoyPriceTypeWhereInputObjectSchema.optional(), cursor: dictRoyPriceTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictRoyPriceTypeCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictRoyPriceTypeCountArgs>;
+
+export const dictRoyPriceTypeCountZodSchema = z.object({ orderBy: z.union([dictRoyPriceTypeOrderByWithRelationInputObjectSchema, dictRoyPriceTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRoyPriceTypeWhereInputObjectSchema.optional(), cursor: dictRoyPriceTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictRoyPriceTypeCountAggregateInputObjectSchema ]).optional() }).strict();

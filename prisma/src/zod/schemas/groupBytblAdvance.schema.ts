@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblAdvanceWhereInputObjectSchema as tblAdvanceWhereInputObjectSchema } from './objects/tblAdvanceWhereInput.schema';
+import { tblAdvanceOrderByWithAggregationInputObjectSchema as tblAdvanceOrderByWithAggregationInputObjectSchema } from './objects/tblAdvanceOrderByWithAggregationInput.schema';
+import { tblAdvanceScalarWhereWithAggregatesInputObjectSchema as tblAdvanceScalarWhereWithAggregatesInputObjectSchema } from './objects/tblAdvanceScalarWhereWithAggregatesInput.schema';
+import { TblAdvanceScalarFieldEnumSchema } from './enums/TblAdvanceScalarFieldEnum.schema';
+import { TblAdvanceCountAggregateInputObjectSchema as TblAdvanceCountAggregateInputObjectSchema } from './objects/TblAdvanceCountAggregateInput.schema';
+import { TblAdvanceMinAggregateInputObjectSchema as TblAdvanceMinAggregateInputObjectSchema } from './objects/TblAdvanceMinAggregateInput.schema';
+import { TblAdvanceMaxAggregateInputObjectSchema as TblAdvanceMaxAggregateInputObjectSchema } from './objects/TblAdvanceMaxAggregateInput.schema';
+import { TblAdvanceAvgAggregateInputObjectSchema as TblAdvanceAvgAggregateInputObjectSchema } from './objects/TblAdvanceAvgAggregateInput.schema';
+import { TblAdvanceSumAggregateInputObjectSchema as TblAdvanceSumAggregateInputObjectSchema } from './objects/TblAdvanceSumAggregateInput.schema';
+
+export const tblAdvanceGroupBySchema: z.ZodType<Prisma.tblAdvanceGroupByArgs> = z.object({ where: tblAdvanceWhereInputObjectSchema.optional(), orderBy: z.union([tblAdvanceOrderByWithAggregationInputObjectSchema, tblAdvanceOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblAdvanceScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblAdvanceScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblAdvanceCountAggregateInputObjectSchema ]).optional(), _min: TblAdvanceMinAggregateInputObjectSchema.optional(), _max: TblAdvanceMaxAggregateInputObjectSchema.optional(), _avg: TblAdvanceAvgAggregateInputObjectSchema.optional(), _sum: TblAdvanceSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblAdvanceGroupByArgs>;
+
+export const tblAdvanceGroupByZodSchema = z.object({ where: tblAdvanceWhereInputObjectSchema.optional(), orderBy: z.union([tblAdvanceOrderByWithAggregationInputObjectSchema, tblAdvanceOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblAdvanceScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblAdvanceScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblAdvanceCountAggregateInputObjectSchema ]).optional(), _min: TblAdvanceMinAggregateInputObjectSchema.optional(), _max: TblAdvanceMaxAggregateInputObjectSchema.optional(), _avg: TblAdvanceAvgAggregateInputObjectSchema.optional(), _sum: TblAdvanceSumAggregateInputObjectSchema.optional() }).strict();

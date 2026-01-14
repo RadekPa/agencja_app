@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblClients_obsoleteOrderByWithRelationInputObjectSchema as tblClients_obsoleteOrderByWithRelationInputObjectSchema } from './objects/tblClients_obsoleteOrderByWithRelationInput.schema';
+import { tblClients_obsoleteWhereInputObjectSchema as tblClients_obsoleteWhereInputObjectSchema } from './objects/tblClients_obsoleteWhereInput.schema';
+import { tblClients_obsoleteWhereUniqueInputObjectSchema as tblClients_obsoleteWhereUniqueInputObjectSchema } from './objects/tblClients_obsoleteWhereUniqueInput.schema';
+import { TblClients_obsoleteCountAggregateInputObjectSchema as TblClients_obsoleteCountAggregateInputObjectSchema } from './objects/TblClients_obsoleteCountAggregateInput.schema';
+
+export const tblClients_obsoleteCountSchema: z.ZodType<Prisma.tblClients_obsoleteCountArgs> = z.object({ orderBy: z.union([tblClients_obsoleteOrderByWithRelationInputObjectSchema, tblClients_obsoleteOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblClients_obsoleteWhereInputObjectSchema.optional(), cursor: tblClients_obsoleteWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblClients_obsoleteCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.tblClients_obsoleteCountArgs>;
+
+export const tblClients_obsoleteCountZodSchema = z.object({ orderBy: z.union([tblClients_obsoleteOrderByWithRelationInputObjectSchema, tblClients_obsoleteOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblClients_obsoleteWhereInputObjectSchema.optional(), cursor: tblClients_obsoleteWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblClients_obsoleteCountAggregateInputObjectSchema ]).optional() }).strict();

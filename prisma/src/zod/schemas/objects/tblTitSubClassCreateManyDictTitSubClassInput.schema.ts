@@ -1,0 +1,9 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+
+
+const makeSchema = () => z.object({
+  TitleID: z.number().int()
+}).strict();
+export const tblTitSubClassCreateManyDictTitSubClassInputObjectSchema: z.ZodType<Prisma.tblTitSubClassCreateManyDictTitSubClassInput> = makeSchema() as unknown as z.ZodType<Prisma.tblTitSubClassCreateManyDictTitSubClassInput>;
+export const tblTitSubClassCreateManyDictTitSubClassInputObjectZodSchema = makeSchema();

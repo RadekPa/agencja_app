@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictAgrTemplatesOrderByWithRelationInputObjectSchema as dictAgrTemplatesOrderByWithRelationInputObjectSchema } from './objects/dictAgrTemplatesOrderByWithRelationInput.schema';
+import { dictAgrTemplatesWhereInputObjectSchema as dictAgrTemplatesWhereInputObjectSchema } from './objects/dictAgrTemplatesWhereInput.schema';
+import { dictAgrTemplatesWhereUniqueInputObjectSchema as dictAgrTemplatesWhereUniqueInputObjectSchema } from './objects/dictAgrTemplatesWhereUniqueInput.schema';
+import { DictAgrTemplatesCountAggregateInputObjectSchema as DictAgrTemplatesCountAggregateInputObjectSchema } from './objects/DictAgrTemplatesCountAggregateInput.schema';
+import { DictAgrTemplatesMinAggregateInputObjectSchema as DictAgrTemplatesMinAggregateInputObjectSchema } from './objects/DictAgrTemplatesMinAggregateInput.schema';
+import { DictAgrTemplatesMaxAggregateInputObjectSchema as DictAgrTemplatesMaxAggregateInputObjectSchema } from './objects/DictAgrTemplatesMaxAggregateInput.schema';
+
+export const dictAgrTemplatesAggregateSchema: z.ZodType<Prisma.dictAgrTemplatesAggregateArgs> = z.object({ orderBy: z.union([dictAgrTemplatesOrderByWithRelationInputObjectSchema, dictAgrTemplatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictAgrTemplatesWhereInputObjectSchema.optional(), cursor: dictAgrTemplatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictAgrTemplatesCountAggregateInputObjectSchema ]).optional(), _min: DictAgrTemplatesMinAggregateInputObjectSchema.optional(), _max: DictAgrTemplatesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictAgrTemplatesAggregateArgs>;
+
+export const dictAgrTemplatesAggregateZodSchema = z.object({ orderBy: z.union([dictAgrTemplatesOrderByWithRelationInputObjectSchema, dictAgrTemplatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictAgrTemplatesWhereInputObjectSchema.optional(), cursor: dictAgrTemplatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictAgrTemplatesCountAggregateInputObjectSchema ]).optional(), _min: DictAgrTemplatesMinAggregateInputObjectSchema.optional(), _max: DictAgrTemplatesMaxAggregateInputObjectSchema.optional() }).strict();

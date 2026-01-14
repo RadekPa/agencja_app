@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblAuthorsOrderByWithRelationInputObjectSchema as tblAuthorsOrderByWithRelationInputObjectSchema } from './objects/tblAuthorsOrderByWithRelationInput.schema';
+import { tblAuthorsWhereInputObjectSchema as tblAuthorsWhereInputObjectSchema } from './objects/tblAuthorsWhereInput.schema';
+import { tblAuthorsWhereUniqueInputObjectSchema as tblAuthorsWhereUniqueInputObjectSchema } from './objects/tblAuthorsWhereUniqueInput.schema';
+import { TblAuthorsCountAggregateInputObjectSchema as TblAuthorsCountAggregateInputObjectSchema } from './objects/TblAuthorsCountAggregateInput.schema';
+import { TblAuthorsMinAggregateInputObjectSchema as TblAuthorsMinAggregateInputObjectSchema } from './objects/TblAuthorsMinAggregateInput.schema';
+import { TblAuthorsMaxAggregateInputObjectSchema as TblAuthorsMaxAggregateInputObjectSchema } from './objects/TblAuthorsMaxAggregateInput.schema';
+import { TblAuthorsAvgAggregateInputObjectSchema as TblAuthorsAvgAggregateInputObjectSchema } from './objects/TblAuthorsAvgAggregateInput.schema';
+import { TblAuthorsSumAggregateInputObjectSchema as TblAuthorsSumAggregateInputObjectSchema } from './objects/TblAuthorsSumAggregateInput.schema';
+
+export const tblAuthorsAggregateSchema: z.ZodType<Prisma.tblAuthorsAggregateArgs> = z.object({ orderBy: z.union([tblAuthorsOrderByWithRelationInputObjectSchema, tblAuthorsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblAuthorsWhereInputObjectSchema.optional(), cursor: tblAuthorsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblAuthorsCountAggregateInputObjectSchema ]).optional(), _min: TblAuthorsMinAggregateInputObjectSchema.optional(), _max: TblAuthorsMaxAggregateInputObjectSchema.optional(), _avg: TblAuthorsAvgAggregateInputObjectSchema.optional(), _sum: TblAuthorsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblAuthorsAggregateArgs>;
+
+export const tblAuthorsAggregateZodSchema = z.object({ orderBy: z.union([tblAuthorsOrderByWithRelationInputObjectSchema, tblAuthorsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblAuthorsWhereInputObjectSchema.optional(), cursor: tblAuthorsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblAuthorsCountAggregateInputObjectSchema ]).optional(), _min: TblAuthorsMinAggregateInputObjectSchema.optional(), _max: TblAuthorsMaxAggregateInputObjectSchema.optional(), _avg: TblAuthorsAvgAggregateInputObjectSchema.optional(), _sum: TblAuthorsSumAggregateInputObjectSchema.optional() }).strict();

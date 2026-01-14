@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictAgrTemplatesOrderByWithRelationInputObjectSchema as dictAgrTemplatesOrderByWithRelationInputObjectSchema } from './objects/dictAgrTemplatesOrderByWithRelationInput.schema';
+import { dictAgrTemplatesWhereInputObjectSchema as dictAgrTemplatesWhereInputObjectSchema } from './objects/dictAgrTemplatesWhereInput.schema';
+import { dictAgrTemplatesWhereUniqueInputObjectSchema as dictAgrTemplatesWhereUniqueInputObjectSchema } from './objects/dictAgrTemplatesWhereUniqueInput.schema';
+import { DictAgrTemplatesCountAggregateInputObjectSchema as DictAgrTemplatesCountAggregateInputObjectSchema } from './objects/DictAgrTemplatesCountAggregateInput.schema';
+
+export const dictAgrTemplatesCountSchema: z.ZodType<Prisma.dictAgrTemplatesCountArgs> = z.object({ orderBy: z.union([dictAgrTemplatesOrderByWithRelationInputObjectSchema, dictAgrTemplatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictAgrTemplatesWhereInputObjectSchema.optional(), cursor: dictAgrTemplatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictAgrTemplatesCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictAgrTemplatesCountArgs>;
+
+export const dictAgrTemplatesCountZodSchema = z.object({ orderBy: z.union([dictAgrTemplatesOrderByWithRelationInputObjectSchema, dictAgrTemplatesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictAgrTemplatesWhereInputObjectSchema.optional(), cursor: dictAgrTemplatesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictAgrTemplatesCountAggregateInputObjectSchema ]).optional() }).strict();

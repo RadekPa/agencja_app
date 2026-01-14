@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictAdvTermOrderByWithRelationInputObjectSchema as dictAdvTermOrderByWithRelationInputObjectSchema } from './objects/dictAdvTermOrderByWithRelationInput.schema';
+import { dictAdvTermWhereInputObjectSchema as dictAdvTermWhereInputObjectSchema } from './objects/dictAdvTermWhereInput.schema';
+import { dictAdvTermWhereUniqueInputObjectSchema as dictAdvTermWhereUniqueInputObjectSchema } from './objects/dictAdvTermWhereUniqueInput.schema';
+import { DictAdvTermCountAggregateInputObjectSchema as DictAdvTermCountAggregateInputObjectSchema } from './objects/DictAdvTermCountAggregateInput.schema';
+import { DictAdvTermMinAggregateInputObjectSchema as DictAdvTermMinAggregateInputObjectSchema } from './objects/DictAdvTermMinAggregateInput.schema';
+import { DictAdvTermMaxAggregateInputObjectSchema as DictAdvTermMaxAggregateInputObjectSchema } from './objects/DictAdvTermMaxAggregateInput.schema';
+import { DictAdvTermAvgAggregateInputObjectSchema as DictAdvTermAvgAggregateInputObjectSchema } from './objects/DictAdvTermAvgAggregateInput.schema';
+import { DictAdvTermSumAggregateInputObjectSchema as DictAdvTermSumAggregateInputObjectSchema } from './objects/DictAdvTermSumAggregateInput.schema';
+
+export const dictAdvTermAggregateSchema: z.ZodType<Prisma.dictAdvTermAggregateArgs> = z.object({ orderBy: z.union([dictAdvTermOrderByWithRelationInputObjectSchema, dictAdvTermOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictAdvTermWhereInputObjectSchema.optional(), cursor: dictAdvTermWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictAdvTermCountAggregateInputObjectSchema ]).optional(), _min: DictAdvTermMinAggregateInputObjectSchema.optional(), _max: DictAdvTermMaxAggregateInputObjectSchema.optional(), _avg: DictAdvTermAvgAggregateInputObjectSchema.optional(), _sum: DictAdvTermSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictAdvTermAggregateArgs>;
+
+export const dictAdvTermAggregateZodSchema = z.object({ orderBy: z.union([dictAdvTermOrderByWithRelationInputObjectSchema, dictAdvTermOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictAdvTermWhereInputObjectSchema.optional(), cursor: dictAdvTermWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictAdvTermCountAggregateInputObjectSchema ]).optional(), _min: DictAdvTermMinAggregateInputObjectSchema.optional(), _max: DictAdvTermMaxAggregateInputObjectSchema.optional(), _avg: DictAdvTermAvgAggregateInputObjectSchema.optional(), _sum: DictAdvTermSumAggregateInputObjectSchema.optional() }).strict();

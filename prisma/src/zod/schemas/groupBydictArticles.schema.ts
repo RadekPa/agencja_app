@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictArticlesWhereInputObjectSchema as dictArticlesWhereInputObjectSchema } from './objects/dictArticlesWhereInput.schema';
+import { dictArticlesOrderByWithAggregationInputObjectSchema as dictArticlesOrderByWithAggregationInputObjectSchema } from './objects/dictArticlesOrderByWithAggregationInput.schema';
+import { dictArticlesScalarWhereWithAggregatesInputObjectSchema as dictArticlesScalarWhereWithAggregatesInputObjectSchema } from './objects/dictArticlesScalarWhereWithAggregatesInput.schema';
+import { DictArticlesScalarFieldEnumSchema } from './enums/DictArticlesScalarFieldEnum.schema';
+import { DictArticlesCountAggregateInputObjectSchema as DictArticlesCountAggregateInputObjectSchema } from './objects/DictArticlesCountAggregateInput.schema';
+import { DictArticlesMinAggregateInputObjectSchema as DictArticlesMinAggregateInputObjectSchema } from './objects/DictArticlesMinAggregateInput.schema';
+import { DictArticlesMaxAggregateInputObjectSchema as DictArticlesMaxAggregateInputObjectSchema } from './objects/DictArticlesMaxAggregateInput.schema';
+
+export const dictArticlesGroupBySchema: z.ZodType<Prisma.dictArticlesGroupByArgs> = z.object({ where: dictArticlesWhereInputObjectSchema.optional(), orderBy: z.union([dictArticlesOrderByWithAggregationInputObjectSchema, dictArticlesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictArticlesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictArticlesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictArticlesCountAggregateInputObjectSchema ]).optional(), _min: DictArticlesMinAggregateInputObjectSchema.optional(), _max: DictArticlesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictArticlesGroupByArgs>;
+
+export const dictArticlesGroupByZodSchema = z.object({ where: dictArticlesWhereInputObjectSchema.optional(), orderBy: z.union([dictArticlesOrderByWithAggregationInputObjectSchema, dictArticlesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictArticlesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictArticlesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictArticlesCountAggregateInputObjectSchema ]).optional(), _min: DictArticlesMinAggregateInputObjectSchema.optional(), _max: DictArticlesMaxAggregateInputObjectSchema.optional() }).strict();

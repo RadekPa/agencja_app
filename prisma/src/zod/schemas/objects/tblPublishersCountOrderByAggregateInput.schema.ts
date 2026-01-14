@@ -1,0 +1,12 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+import { SortOrderSchema } from '../enums/SortOrder.schema'
+
+const makeSchema = () => z.object({
+  PubID: SortOrderSchema.optional(),
+  PubName: SortOrderSchema.optional(),
+  PubAbb: SortOrderSchema.optional(),
+  ParentPubID: SortOrderSchema.optional()
+}).strict();
+export const tblPublishersCountOrderByAggregateInputObjectSchema: z.ZodType<Prisma.tblPublishersCountOrderByAggregateInput> = makeSchema() as unknown as z.ZodType<Prisma.tblPublishersCountOrderByAggregateInput>;
+export const tblPublishersCountOrderByAggregateInputObjectZodSchema = makeSchema();

@@ -7,8 +7,9 @@ export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
   const t = await getTranslations()
-  
-  const customers = await prisma.customer.count()
+
+  const p = prisma as any
+  const customers = await p.tblCustomers.count()
 
   return (
     <div className="space-y-6">

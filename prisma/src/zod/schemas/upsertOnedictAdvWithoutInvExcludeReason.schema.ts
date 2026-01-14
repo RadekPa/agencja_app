@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictAdvWithoutInvExcludeReasonSelectObjectSchema as dictAdvWithoutInvExcludeReasonSelectObjectSchema } from './objects/dictAdvWithoutInvExcludeReasonSelect.schema';
+import { dictAdvWithoutInvExcludeReasonWhereUniqueInputObjectSchema as dictAdvWithoutInvExcludeReasonWhereUniqueInputObjectSchema } from './objects/dictAdvWithoutInvExcludeReasonWhereUniqueInput.schema';
+import { dictAdvWithoutInvExcludeReasonCreateInputObjectSchema as dictAdvWithoutInvExcludeReasonCreateInputObjectSchema } from './objects/dictAdvWithoutInvExcludeReasonCreateInput.schema';
+import { dictAdvWithoutInvExcludeReasonUncheckedCreateInputObjectSchema as dictAdvWithoutInvExcludeReasonUncheckedCreateInputObjectSchema } from './objects/dictAdvWithoutInvExcludeReasonUncheckedCreateInput.schema';
+import { dictAdvWithoutInvExcludeReasonUpdateInputObjectSchema as dictAdvWithoutInvExcludeReasonUpdateInputObjectSchema } from './objects/dictAdvWithoutInvExcludeReasonUpdateInput.schema';
+import { dictAdvWithoutInvExcludeReasonUncheckedUpdateInputObjectSchema as dictAdvWithoutInvExcludeReasonUncheckedUpdateInputObjectSchema } from './objects/dictAdvWithoutInvExcludeReasonUncheckedUpdateInput.schema';
+
+export const dictAdvWithoutInvExcludeReasonUpsertOneSchema: z.ZodType<Prisma.dictAdvWithoutInvExcludeReasonUpsertArgs> = z.object({ select: dictAdvWithoutInvExcludeReasonSelectObjectSchema.optional(),  where: dictAdvWithoutInvExcludeReasonWhereUniqueInputObjectSchema, create: z.union([ dictAdvWithoutInvExcludeReasonCreateInputObjectSchema, dictAdvWithoutInvExcludeReasonUncheckedCreateInputObjectSchema ]), update: z.union([ dictAdvWithoutInvExcludeReasonUpdateInputObjectSchema, dictAdvWithoutInvExcludeReasonUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.dictAdvWithoutInvExcludeReasonUpsertArgs>;
+
+export const dictAdvWithoutInvExcludeReasonUpsertOneZodSchema = z.object({ select: dictAdvWithoutInvExcludeReasonSelectObjectSchema.optional(),  where: dictAdvWithoutInvExcludeReasonWhereUniqueInputObjectSchema, create: z.union([ dictAdvWithoutInvExcludeReasonCreateInputObjectSchema, dictAdvWithoutInvExcludeReasonUncheckedCreateInputObjectSchema ]), update: z.union([ dictAdvWithoutInvExcludeReasonUpdateInputObjectSchema, dictAdvWithoutInvExcludeReasonUncheckedUpdateInputObjectSchema ]) }).strict();

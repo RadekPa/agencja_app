@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { PearsonAdvAndRoyOrderByWithRelationInputObjectSchema as PearsonAdvAndRoyOrderByWithRelationInputObjectSchema } from './objects/PearsonAdvAndRoyOrderByWithRelationInput.schema';
+import { PearsonAdvAndRoyWhereInputObjectSchema as PearsonAdvAndRoyWhereInputObjectSchema } from './objects/PearsonAdvAndRoyWhereInput.schema';
+import { PearsonAdvAndRoyWhereUniqueInputObjectSchema as PearsonAdvAndRoyWhereUniqueInputObjectSchema } from './objects/PearsonAdvAndRoyWhereUniqueInput.schema';
+import { PearsonAdvAndRoyCountAggregateInputObjectSchema as PearsonAdvAndRoyCountAggregateInputObjectSchema } from './objects/PearsonAdvAndRoyCountAggregateInput.schema';
+
+export const PearsonAdvAndRoyCountSchema: z.ZodType<Prisma.PearsonAdvAndRoyCountArgs> = z.object({ orderBy: z.union([PearsonAdvAndRoyOrderByWithRelationInputObjectSchema, PearsonAdvAndRoyOrderByWithRelationInputObjectSchema.array()]).optional(), where: PearsonAdvAndRoyWhereInputObjectSchema.optional(), cursor: PearsonAdvAndRoyWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), PearsonAdvAndRoyCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.PearsonAdvAndRoyCountArgs>;
+
+export const PearsonAdvAndRoyCountZodSchema = z.object({ orderBy: z.union([PearsonAdvAndRoyOrderByWithRelationInputObjectSchema, PearsonAdvAndRoyOrderByWithRelationInputObjectSchema.array()]).optional(), where: PearsonAdvAndRoyWhereInputObjectSchema.optional(), cursor: PearsonAdvAndRoyWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), PearsonAdvAndRoyCountAggregateInputObjectSchema ]).optional() }).strict();

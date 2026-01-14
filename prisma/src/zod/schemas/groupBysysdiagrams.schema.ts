@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { sysdiagramsWhereInputObjectSchema as sysdiagramsWhereInputObjectSchema } from './objects/sysdiagramsWhereInput.schema';
+import { sysdiagramsOrderByWithAggregationInputObjectSchema as sysdiagramsOrderByWithAggregationInputObjectSchema } from './objects/sysdiagramsOrderByWithAggregationInput.schema';
+import { sysdiagramsScalarWhereWithAggregatesInputObjectSchema as sysdiagramsScalarWhereWithAggregatesInputObjectSchema } from './objects/sysdiagramsScalarWhereWithAggregatesInput.schema';
+import { SysdiagramsScalarFieldEnumSchema } from './enums/SysdiagramsScalarFieldEnum.schema';
+import { SysdiagramsCountAggregateInputObjectSchema as SysdiagramsCountAggregateInputObjectSchema } from './objects/SysdiagramsCountAggregateInput.schema';
+import { SysdiagramsMinAggregateInputObjectSchema as SysdiagramsMinAggregateInputObjectSchema } from './objects/SysdiagramsMinAggregateInput.schema';
+import { SysdiagramsMaxAggregateInputObjectSchema as SysdiagramsMaxAggregateInputObjectSchema } from './objects/SysdiagramsMaxAggregateInput.schema';
+import { SysdiagramsAvgAggregateInputObjectSchema as SysdiagramsAvgAggregateInputObjectSchema } from './objects/SysdiagramsAvgAggregateInput.schema';
+import { SysdiagramsSumAggregateInputObjectSchema as SysdiagramsSumAggregateInputObjectSchema } from './objects/SysdiagramsSumAggregateInput.schema';
+
+export const sysdiagramsGroupBySchema: z.ZodType<Prisma.sysdiagramsGroupByArgs> = z.object({ where: sysdiagramsWhereInputObjectSchema.optional(), orderBy: z.union([sysdiagramsOrderByWithAggregationInputObjectSchema, sysdiagramsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: sysdiagramsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(SysdiagramsScalarFieldEnumSchema), _count: z.union([ z.literal(true), SysdiagramsCountAggregateInputObjectSchema ]).optional(), _min: SysdiagramsMinAggregateInputObjectSchema.optional(), _max: SysdiagramsMaxAggregateInputObjectSchema.optional(), _avg: SysdiagramsAvgAggregateInputObjectSchema.optional(), _sum: SysdiagramsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.sysdiagramsGroupByArgs>;
+
+export const sysdiagramsGroupByZodSchema = z.object({ where: sysdiagramsWhereInputObjectSchema.optional(), orderBy: z.union([sysdiagramsOrderByWithAggregationInputObjectSchema, sysdiagramsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: sysdiagramsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(SysdiagramsScalarFieldEnumSchema), _count: z.union([ z.literal(true), SysdiagramsCountAggregateInputObjectSchema ]).optional(), _min: SysdiagramsMinAggregateInputObjectSchema.optional(), _max: SysdiagramsMaxAggregateInputObjectSchema.optional(), _avg: SysdiagramsAvgAggregateInputObjectSchema.optional(), _sum: SysdiagramsSumAggregateInputObjectSchema.optional() }).strict();

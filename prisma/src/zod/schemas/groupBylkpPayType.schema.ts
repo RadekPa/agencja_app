@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { lkpPayTypeWhereInputObjectSchema as lkpPayTypeWhereInputObjectSchema } from './objects/lkpPayTypeWhereInput.schema';
+import { lkpPayTypeOrderByWithAggregationInputObjectSchema as lkpPayTypeOrderByWithAggregationInputObjectSchema } from './objects/lkpPayTypeOrderByWithAggregationInput.schema';
+import { lkpPayTypeScalarWhereWithAggregatesInputObjectSchema as lkpPayTypeScalarWhereWithAggregatesInputObjectSchema } from './objects/lkpPayTypeScalarWhereWithAggregatesInput.schema';
+import { LkpPayTypeScalarFieldEnumSchema } from './enums/LkpPayTypeScalarFieldEnum.schema';
+import { LkpPayTypeCountAggregateInputObjectSchema as LkpPayTypeCountAggregateInputObjectSchema } from './objects/LkpPayTypeCountAggregateInput.schema';
+import { LkpPayTypeMinAggregateInputObjectSchema as LkpPayTypeMinAggregateInputObjectSchema } from './objects/LkpPayTypeMinAggregateInput.schema';
+import { LkpPayTypeMaxAggregateInputObjectSchema as LkpPayTypeMaxAggregateInputObjectSchema } from './objects/LkpPayTypeMaxAggregateInput.schema';
+import { LkpPayTypeAvgAggregateInputObjectSchema as LkpPayTypeAvgAggregateInputObjectSchema } from './objects/LkpPayTypeAvgAggregateInput.schema';
+import { LkpPayTypeSumAggregateInputObjectSchema as LkpPayTypeSumAggregateInputObjectSchema } from './objects/LkpPayTypeSumAggregateInput.schema';
+
+export const lkpPayTypeGroupBySchema: z.ZodType<Prisma.lkpPayTypeGroupByArgs> = z.object({ where: lkpPayTypeWhereInputObjectSchema.optional(), orderBy: z.union([lkpPayTypeOrderByWithAggregationInputObjectSchema, lkpPayTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: lkpPayTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(LkpPayTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), LkpPayTypeCountAggregateInputObjectSchema ]).optional(), _min: LkpPayTypeMinAggregateInputObjectSchema.optional(), _max: LkpPayTypeMaxAggregateInputObjectSchema.optional(), _avg: LkpPayTypeAvgAggregateInputObjectSchema.optional(), _sum: LkpPayTypeSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.lkpPayTypeGroupByArgs>;
+
+export const lkpPayTypeGroupByZodSchema = z.object({ where: lkpPayTypeWhereInputObjectSchema.optional(), orderBy: z.union([lkpPayTypeOrderByWithAggregationInputObjectSchema, lkpPayTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: lkpPayTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(LkpPayTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), LkpPayTypeCountAggregateInputObjectSchema ]).optional(), _min: LkpPayTypeMinAggregateInputObjectSchema.optional(), _max: LkpPayTypeMaxAggregateInputObjectSchema.optional(), _avg: LkpPayTypeAvgAggregateInputObjectSchema.optional(), _sum: LkpPayTypeSumAggregateInputObjectSchema.optional() }).strict();

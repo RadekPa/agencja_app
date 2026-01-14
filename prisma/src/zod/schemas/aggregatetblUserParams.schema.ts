@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblUserParamsOrderByWithRelationInputObjectSchema as tblUserParamsOrderByWithRelationInputObjectSchema } from './objects/tblUserParamsOrderByWithRelationInput.schema';
+import { tblUserParamsWhereInputObjectSchema as tblUserParamsWhereInputObjectSchema } from './objects/tblUserParamsWhereInput.schema';
+import { tblUserParamsWhereUniqueInputObjectSchema as tblUserParamsWhereUniqueInputObjectSchema } from './objects/tblUserParamsWhereUniqueInput.schema';
+import { TblUserParamsCountAggregateInputObjectSchema as TblUserParamsCountAggregateInputObjectSchema } from './objects/TblUserParamsCountAggregateInput.schema';
+import { TblUserParamsMinAggregateInputObjectSchema as TblUserParamsMinAggregateInputObjectSchema } from './objects/TblUserParamsMinAggregateInput.schema';
+import { TblUserParamsMaxAggregateInputObjectSchema as TblUserParamsMaxAggregateInputObjectSchema } from './objects/TblUserParamsMaxAggregateInput.schema';
+
+export const tblUserParamsAggregateSchema: z.ZodType<Prisma.tblUserParamsAggregateArgs> = z.object({ orderBy: z.union([tblUserParamsOrderByWithRelationInputObjectSchema, tblUserParamsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblUserParamsWhereInputObjectSchema.optional(), cursor: tblUserParamsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblUserParamsCountAggregateInputObjectSchema ]).optional(), _min: TblUserParamsMinAggregateInputObjectSchema.optional(), _max: TblUserParamsMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblUserParamsAggregateArgs>;
+
+export const tblUserParamsAggregateZodSchema = z.object({ orderBy: z.union([tblUserParamsOrderByWithRelationInputObjectSchema, tblUserParamsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblUserParamsWhereInputObjectSchema.optional(), cursor: tblUserParamsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblUserParamsCountAggregateInputObjectSchema ]).optional(), _min: TblUserParamsMinAggregateInputObjectSchema.optional(), _max: TblUserParamsMaxAggregateInputObjectSchema.optional() }).strict();

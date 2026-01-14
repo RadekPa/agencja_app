@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblUserAccessWhereInputObjectSchema as tblUserAccessWhereInputObjectSchema } from './objects/tblUserAccessWhereInput.schema';
+import { tblUserAccessOrderByWithAggregationInputObjectSchema as tblUserAccessOrderByWithAggregationInputObjectSchema } from './objects/tblUserAccessOrderByWithAggregationInput.schema';
+import { tblUserAccessScalarWhereWithAggregatesInputObjectSchema as tblUserAccessScalarWhereWithAggregatesInputObjectSchema } from './objects/tblUserAccessScalarWhereWithAggregatesInput.schema';
+import { TblUserAccessScalarFieldEnumSchema } from './enums/TblUserAccessScalarFieldEnum.schema';
+import { TblUserAccessCountAggregateInputObjectSchema as TblUserAccessCountAggregateInputObjectSchema } from './objects/TblUserAccessCountAggregateInput.schema';
+import { TblUserAccessMinAggregateInputObjectSchema as TblUserAccessMinAggregateInputObjectSchema } from './objects/TblUserAccessMinAggregateInput.schema';
+import { TblUserAccessMaxAggregateInputObjectSchema as TblUserAccessMaxAggregateInputObjectSchema } from './objects/TblUserAccessMaxAggregateInput.schema';
+import { TblUserAccessAvgAggregateInputObjectSchema as TblUserAccessAvgAggregateInputObjectSchema } from './objects/TblUserAccessAvgAggregateInput.schema';
+import { TblUserAccessSumAggregateInputObjectSchema as TblUserAccessSumAggregateInputObjectSchema } from './objects/TblUserAccessSumAggregateInput.schema';
+
+export const tblUserAccessGroupBySchema: z.ZodType<Prisma.tblUserAccessGroupByArgs> = z.object({ where: tblUserAccessWhereInputObjectSchema.optional(), orderBy: z.union([tblUserAccessOrderByWithAggregationInputObjectSchema, tblUserAccessOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblUserAccessScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblUserAccessScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblUserAccessCountAggregateInputObjectSchema ]).optional(), _min: TblUserAccessMinAggregateInputObjectSchema.optional(), _max: TblUserAccessMaxAggregateInputObjectSchema.optional(), _avg: TblUserAccessAvgAggregateInputObjectSchema.optional(), _sum: TblUserAccessSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblUserAccessGroupByArgs>;
+
+export const tblUserAccessGroupByZodSchema = z.object({ where: tblUserAccessWhereInputObjectSchema.optional(), orderBy: z.union([tblUserAccessOrderByWithAggregationInputObjectSchema, tblUserAccessOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblUserAccessScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblUserAccessScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblUserAccessCountAggregateInputObjectSchema ]).optional(), _min: TblUserAccessMinAggregateInputObjectSchema.optional(), _max: TblUserAccessMaxAggregateInputObjectSchema.optional(), _avg: TblUserAccessAvgAggregateInputObjectSchema.optional(), _sum: TblUserAccessSumAggregateInputObjectSchema.optional() }).strict();

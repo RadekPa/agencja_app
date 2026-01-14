@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictTitSubClassOrderByWithRelationInputObjectSchema as dictTitSubClassOrderByWithRelationInputObjectSchema } from './objects/dictTitSubClassOrderByWithRelationInput.schema';
+import { dictTitSubClassWhereInputObjectSchema as dictTitSubClassWhereInputObjectSchema } from './objects/dictTitSubClassWhereInput.schema';
+import { dictTitSubClassWhereUniqueInputObjectSchema as dictTitSubClassWhereUniqueInputObjectSchema } from './objects/dictTitSubClassWhereUniqueInput.schema';
+import { DictTitSubClassCountAggregateInputObjectSchema as DictTitSubClassCountAggregateInputObjectSchema } from './objects/DictTitSubClassCountAggregateInput.schema';
+import { DictTitSubClassMinAggregateInputObjectSchema as DictTitSubClassMinAggregateInputObjectSchema } from './objects/DictTitSubClassMinAggregateInput.schema';
+import { DictTitSubClassMaxAggregateInputObjectSchema as DictTitSubClassMaxAggregateInputObjectSchema } from './objects/DictTitSubClassMaxAggregateInput.schema';
+
+export const dictTitSubClassAggregateSchema: z.ZodType<Prisma.dictTitSubClassAggregateArgs> = z.object({ orderBy: z.union([dictTitSubClassOrderByWithRelationInputObjectSchema, dictTitSubClassOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictTitSubClassWhereInputObjectSchema.optional(), cursor: dictTitSubClassWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictTitSubClassCountAggregateInputObjectSchema ]).optional(), _min: DictTitSubClassMinAggregateInputObjectSchema.optional(), _max: DictTitSubClassMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictTitSubClassAggregateArgs>;
+
+export const dictTitSubClassAggregateZodSchema = z.object({ orderBy: z.union([dictTitSubClassOrderByWithRelationInputObjectSchema, dictTitSubClassOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictTitSubClassWhereInputObjectSchema.optional(), cursor: dictTitSubClassWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictTitSubClassCountAggregateInputObjectSchema ]).optional(), _min: DictTitSubClassMinAggregateInputObjectSchema.optional(), _max: DictTitSubClassMaxAggregateInputObjectSchema.optional() }).strict();

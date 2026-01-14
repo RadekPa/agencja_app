@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArApplyWhereInputObjectSchema as ArApplyWhereInputObjectSchema } from './objects/ArApplyWhereInput.schema';
+import { ArApplyOrderByWithAggregationInputObjectSchema as ArApplyOrderByWithAggregationInputObjectSchema } from './objects/ArApplyOrderByWithAggregationInput.schema';
+import { ArApplyScalarWhereWithAggregatesInputObjectSchema as ArApplyScalarWhereWithAggregatesInputObjectSchema } from './objects/ArApplyScalarWhereWithAggregatesInput.schema';
+import { ArApplyScalarFieldEnumSchema } from './enums/ArApplyScalarFieldEnum.schema';
+import { ArApplyCountAggregateInputObjectSchema as ArApplyCountAggregateInputObjectSchema } from './objects/ArApplyCountAggregateInput.schema';
+import { ArApplyMinAggregateInputObjectSchema as ArApplyMinAggregateInputObjectSchema } from './objects/ArApplyMinAggregateInput.schema';
+import { ArApplyMaxAggregateInputObjectSchema as ArApplyMaxAggregateInputObjectSchema } from './objects/ArApplyMaxAggregateInput.schema';
+import { ArApplyAvgAggregateInputObjectSchema as ArApplyAvgAggregateInputObjectSchema } from './objects/ArApplyAvgAggregateInput.schema';
+import { ArApplySumAggregateInputObjectSchema as ArApplySumAggregateInputObjectSchema } from './objects/ArApplySumAggregateInput.schema';
+
+export const ArApplyGroupBySchema: z.ZodType<Prisma.ArApplyGroupByArgs> = z.object({ where: ArApplyWhereInputObjectSchema.optional(), orderBy: z.union([ArApplyOrderByWithAggregationInputObjectSchema, ArApplyOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ArApplyScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ArApplyScalarFieldEnumSchema), _count: z.union([ z.literal(true), ArApplyCountAggregateInputObjectSchema ]).optional(), _min: ArApplyMinAggregateInputObjectSchema.optional(), _max: ArApplyMaxAggregateInputObjectSchema.optional(), _avg: ArApplyAvgAggregateInputObjectSchema.optional(), _sum: ArApplySumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ArApplyGroupByArgs>;
+
+export const ArApplyGroupByZodSchema = z.object({ where: ArApplyWhereInputObjectSchema.optional(), orderBy: z.union([ArApplyOrderByWithAggregationInputObjectSchema, ArApplyOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ArApplyScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ArApplyScalarFieldEnumSchema), _count: z.union([ z.literal(true), ArApplyCountAggregateInputObjectSchema ]).optional(), _min: ArApplyMinAggregateInputObjectSchema.optional(), _max: ArApplyMaxAggregateInputObjectSchema.optional(), _avg: ArApplyAvgAggregateInputObjectSchema.optional(), _sum: ArApplySumAggregateInputObjectSchema.optional() }).strict();

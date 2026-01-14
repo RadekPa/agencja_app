@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictCoverFormatOrderByWithRelationInputObjectSchema as dictCoverFormatOrderByWithRelationInputObjectSchema } from './objects/dictCoverFormatOrderByWithRelationInput.schema';
+import { dictCoverFormatWhereInputObjectSchema as dictCoverFormatWhereInputObjectSchema } from './objects/dictCoverFormatWhereInput.schema';
+import { dictCoverFormatWhereUniqueInputObjectSchema as dictCoverFormatWhereUniqueInputObjectSchema } from './objects/dictCoverFormatWhereUniqueInput.schema';
+import { DictCoverFormatCountAggregateInputObjectSchema as DictCoverFormatCountAggregateInputObjectSchema } from './objects/DictCoverFormatCountAggregateInput.schema';
+import { DictCoverFormatMinAggregateInputObjectSchema as DictCoverFormatMinAggregateInputObjectSchema } from './objects/DictCoverFormatMinAggregateInput.schema';
+import { DictCoverFormatMaxAggregateInputObjectSchema as DictCoverFormatMaxAggregateInputObjectSchema } from './objects/DictCoverFormatMaxAggregateInput.schema';
+import { DictCoverFormatAvgAggregateInputObjectSchema as DictCoverFormatAvgAggregateInputObjectSchema } from './objects/DictCoverFormatAvgAggregateInput.schema';
+import { DictCoverFormatSumAggregateInputObjectSchema as DictCoverFormatSumAggregateInputObjectSchema } from './objects/DictCoverFormatSumAggregateInput.schema';
+
+export const dictCoverFormatAggregateSchema: z.ZodType<Prisma.dictCoverFormatAggregateArgs> = z.object({ orderBy: z.union([dictCoverFormatOrderByWithRelationInputObjectSchema, dictCoverFormatOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictCoverFormatWhereInputObjectSchema.optional(), cursor: dictCoverFormatWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictCoverFormatCountAggregateInputObjectSchema ]).optional(), _min: DictCoverFormatMinAggregateInputObjectSchema.optional(), _max: DictCoverFormatMaxAggregateInputObjectSchema.optional(), _avg: DictCoverFormatAvgAggregateInputObjectSchema.optional(), _sum: DictCoverFormatSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictCoverFormatAggregateArgs>;
+
+export const dictCoverFormatAggregateZodSchema = z.object({ orderBy: z.union([dictCoverFormatOrderByWithRelationInputObjectSchema, dictCoverFormatOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictCoverFormatWhereInputObjectSchema.optional(), cursor: dictCoverFormatWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictCoverFormatCountAggregateInputObjectSchema ]).optional(), _min: DictCoverFormatMinAggregateInputObjectSchema.optional(), _max: DictCoverFormatMaxAggregateInputObjectSchema.optional(), _avg: DictCoverFormatAvgAggregateInputObjectSchema.optional(), _sum: DictCoverFormatSumAggregateInputObjectSchema.optional() }).strict();

@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictTitMainClassWhereInputObjectSchema as dictTitMainClassWhereInputObjectSchema } from './objects/dictTitMainClassWhereInput.schema';
+import { dictTitMainClassOrderByWithAggregationInputObjectSchema as dictTitMainClassOrderByWithAggregationInputObjectSchema } from './objects/dictTitMainClassOrderByWithAggregationInput.schema';
+import { dictTitMainClassScalarWhereWithAggregatesInputObjectSchema as dictTitMainClassScalarWhereWithAggregatesInputObjectSchema } from './objects/dictTitMainClassScalarWhereWithAggregatesInput.schema';
+import { DictTitMainClassScalarFieldEnumSchema } from './enums/DictTitMainClassScalarFieldEnum.schema';
+import { DictTitMainClassCountAggregateInputObjectSchema as DictTitMainClassCountAggregateInputObjectSchema } from './objects/DictTitMainClassCountAggregateInput.schema';
+import { DictTitMainClassMinAggregateInputObjectSchema as DictTitMainClassMinAggregateInputObjectSchema } from './objects/DictTitMainClassMinAggregateInput.schema';
+import { DictTitMainClassMaxAggregateInputObjectSchema as DictTitMainClassMaxAggregateInputObjectSchema } from './objects/DictTitMainClassMaxAggregateInput.schema';
+
+export const dictTitMainClassGroupBySchema: z.ZodType<Prisma.dictTitMainClassGroupByArgs> = z.object({ where: dictTitMainClassWhereInputObjectSchema.optional(), orderBy: z.union([dictTitMainClassOrderByWithAggregationInputObjectSchema, dictTitMainClassOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictTitMainClassScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictTitMainClassScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictTitMainClassCountAggregateInputObjectSchema ]).optional(), _min: DictTitMainClassMinAggregateInputObjectSchema.optional(), _max: DictTitMainClassMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictTitMainClassGroupByArgs>;
+
+export const dictTitMainClassGroupByZodSchema = z.object({ where: dictTitMainClassWhereInputObjectSchema.optional(), orderBy: z.union([dictTitMainClassOrderByWithAggregationInputObjectSchema, dictTitMainClassOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictTitMainClassScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictTitMainClassScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictTitMainClassCountAggregateInputObjectSchema ]).optional(), _min: DictTitMainClassMinAggregateInputObjectSchema.optional(), _max: DictTitMainClassMaxAggregateInputObjectSchema.optional() }).strict();

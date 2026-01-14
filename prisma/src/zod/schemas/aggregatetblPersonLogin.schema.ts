@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblPersonLoginOrderByWithRelationInputObjectSchema as tblPersonLoginOrderByWithRelationInputObjectSchema } from './objects/tblPersonLoginOrderByWithRelationInput.schema';
+import { tblPersonLoginWhereInputObjectSchema as tblPersonLoginWhereInputObjectSchema } from './objects/tblPersonLoginWhereInput.schema';
+import { tblPersonLoginWhereUniqueInputObjectSchema as tblPersonLoginWhereUniqueInputObjectSchema } from './objects/tblPersonLoginWhereUniqueInput.schema';
+import { TblPersonLoginCountAggregateInputObjectSchema as TblPersonLoginCountAggregateInputObjectSchema } from './objects/TblPersonLoginCountAggregateInput.schema';
+import { TblPersonLoginMinAggregateInputObjectSchema as TblPersonLoginMinAggregateInputObjectSchema } from './objects/TblPersonLoginMinAggregateInput.schema';
+import { TblPersonLoginMaxAggregateInputObjectSchema as TblPersonLoginMaxAggregateInputObjectSchema } from './objects/TblPersonLoginMaxAggregateInput.schema';
+import { TblPersonLoginAvgAggregateInputObjectSchema as TblPersonLoginAvgAggregateInputObjectSchema } from './objects/TblPersonLoginAvgAggregateInput.schema';
+import { TblPersonLoginSumAggregateInputObjectSchema as TblPersonLoginSumAggregateInputObjectSchema } from './objects/TblPersonLoginSumAggregateInput.schema';
+
+export const tblPersonLoginAggregateSchema: z.ZodType<Prisma.tblPersonLoginAggregateArgs> = z.object({ orderBy: z.union([tblPersonLoginOrderByWithRelationInputObjectSchema, tblPersonLoginOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPersonLoginWhereInputObjectSchema.optional(), cursor: tblPersonLoginWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPersonLoginCountAggregateInputObjectSchema ]).optional(), _min: TblPersonLoginMinAggregateInputObjectSchema.optional(), _max: TblPersonLoginMaxAggregateInputObjectSchema.optional(), _avg: TblPersonLoginAvgAggregateInputObjectSchema.optional(), _sum: TblPersonLoginSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblPersonLoginAggregateArgs>;
+
+export const tblPersonLoginAggregateZodSchema = z.object({ orderBy: z.union([tblPersonLoginOrderByWithRelationInputObjectSchema, tblPersonLoginOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblPersonLoginWhereInputObjectSchema.optional(), cursor: tblPersonLoginWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblPersonLoginCountAggregateInputObjectSchema ]).optional(), _min: TblPersonLoginMinAggregateInputObjectSchema.optional(), _max: TblPersonLoginMaxAggregateInputObjectSchema.optional(), _avg: TblPersonLoginAvgAggregateInputObjectSchema.optional(), _sum: TblPersonLoginSumAggregateInputObjectSchema.optional() }).strict();

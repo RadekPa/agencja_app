@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictEventsOrderByWithRelationInputObjectSchema as dictEventsOrderByWithRelationInputObjectSchema } from './objects/dictEventsOrderByWithRelationInput.schema';
+import { dictEventsWhereInputObjectSchema as dictEventsWhereInputObjectSchema } from './objects/dictEventsWhereInput.schema';
+import { dictEventsWhereUniqueInputObjectSchema as dictEventsWhereUniqueInputObjectSchema } from './objects/dictEventsWhereUniqueInput.schema';
+import { DictEventsCountAggregateInputObjectSchema as DictEventsCountAggregateInputObjectSchema } from './objects/DictEventsCountAggregateInput.schema';
+import { DictEventsMinAggregateInputObjectSchema as DictEventsMinAggregateInputObjectSchema } from './objects/DictEventsMinAggregateInput.schema';
+import { DictEventsMaxAggregateInputObjectSchema as DictEventsMaxAggregateInputObjectSchema } from './objects/DictEventsMaxAggregateInput.schema';
+import { DictEventsAvgAggregateInputObjectSchema as DictEventsAvgAggregateInputObjectSchema } from './objects/DictEventsAvgAggregateInput.schema';
+import { DictEventsSumAggregateInputObjectSchema as DictEventsSumAggregateInputObjectSchema } from './objects/DictEventsSumAggregateInput.schema';
+
+export const dictEventsAggregateSchema: z.ZodType<Prisma.dictEventsAggregateArgs> = z.object({ orderBy: z.union([dictEventsOrderByWithRelationInputObjectSchema, dictEventsOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictEventsWhereInputObjectSchema.optional(), cursor: dictEventsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictEventsCountAggregateInputObjectSchema ]).optional(), _min: DictEventsMinAggregateInputObjectSchema.optional(), _max: DictEventsMaxAggregateInputObjectSchema.optional(), _avg: DictEventsAvgAggregateInputObjectSchema.optional(), _sum: DictEventsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictEventsAggregateArgs>;
+
+export const dictEventsAggregateZodSchema = z.object({ orderBy: z.union([dictEventsOrderByWithRelationInputObjectSchema, dictEventsOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictEventsWhereInputObjectSchema.optional(), cursor: dictEventsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictEventsCountAggregateInputObjectSchema ]).optional(), _min: DictEventsMinAggregateInputObjectSchema.optional(), _max: DictEventsMaxAggregateInputObjectSchema.optional(), _avg: DictEventsAvgAggregateInputObjectSchema.optional(), _sum: DictEventsSumAggregateInputObjectSchema.optional() }).strict();

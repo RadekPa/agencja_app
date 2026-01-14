@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblTitSubClassOrderByWithRelationInputObjectSchema as tblTitSubClassOrderByWithRelationInputObjectSchema } from './objects/tblTitSubClassOrderByWithRelationInput.schema';
+import { tblTitSubClassWhereInputObjectSchema as tblTitSubClassWhereInputObjectSchema } from './objects/tblTitSubClassWhereInput.schema';
+import { tblTitSubClassWhereUniqueInputObjectSchema as tblTitSubClassWhereUniqueInputObjectSchema } from './objects/tblTitSubClassWhereUniqueInput.schema';
+import { TblTitSubClassCountAggregateInputObjectSchema as TblTitSubClassCountAggregateInputObjectSchema } from './objects/TblTitSubClassCountAggregateInput.schema';
+import { TblTitSubClassMinAggregateInputObjectSchema as TblTitSubClassMinAggregateInputObjectSchema } from './objects/TblTitSubClassMinAggregateInput.schema';
+import { TblTitSubClassMaxAggregateInputObjectSchema as TblTitSubClassMaxAggregateInputObjectSchema } from './objects/TblTitSubClassMaxAggregateInput.schema';
+import { TblTitSubClassAvgAggregateInputObjectSchema as TblTitSubClassAvgAggregateInputObjectSchema } from './objects/TblTitSubClassAvgAggregateInput.schema';
+import { TblTitSubClassSumAggregateInputObjectSchema as TblTitSubClassSumAggregateInputObjectSchema } from './objects/TblTitSubClassSumAggregateInput.schema';
+
+export const tblTitSubClassAggregateSchema: z.ZodType<Prisma.tblTitSubClassAggregateArgs> = z.object({ orderBy: z.union([tblTitSubClassOrderByWithRelationInputObjectSchema, tblTitSubClassOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblTitSubClassWhereInputObjectSchema.optional(), cursor: tblTitSubClassWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblTitSubClassCountAggregateInputObjectSchema ]).optional(), _min: TblTitSubClassMinAggregateInputObjectSchema.optional(), _max: TblTitSubClassMaxAggregateInputObjectSchema.optional(), _avg: TblTitSubClassAvgAggregateInputObjectSchema.optional(), _sum: TblTitSubClassSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblTitSubClassAggregateArgs>;
+
+export const tblTitSubClassAggregateZodSchema = z.object({ orderBy: z.union([tblTitSubClassOrderByWithRelationInputObjectSchema, tblTitSubClassOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblTitSubClassWhereInputObjectSchema.optional(), cursor: tblTitSubClassWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblTitSubClassCountAggregateInputObjectSchema ]).optional(), _min: TblTitSubClassMinAggregateInputObjectSchema.optional(), _max: TblTitSubClassMaxAggregateInputObjectSchema.optional(), _avg: TblTitSubClassAvgAggregateInputObjectSchema.optional(), _sum: TblTitSubClassSumAggregateInputObjectSchema.optional() }).strict();

@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictDistributionTypeOrderByWithRelationInputObjectSchema as dictDistributionTypeOrderByWithRelationInputObjectSchema } from './objects/dictDistributionTypeOrderByWithRelationInput.schema';
+import { dictDistributionTypeWhereInputObjectSchema as dictDistributionTypeWhereInputObjectSchema } from './objects/dictDistributionTypeWhereInput.schema';
+import { dictDistributionTypeWhereUniqueInputObjectSchema as dictDistributionTypeWhereUniqueInputObjectSchema } from './objects/dictDistributionTypeWhereUniqueInput.schema';
+import { DictDistributionTypeCountAggregateInputObjectSchema as DictDistributionTypeCountAggregateInputObjectSchema } from './objects/DictDistributionTypeCountAggregateInput.schema';
+
+export const dictDistributionTypeCountSchema: z.ZodType<Prisma.dictDistributionTypeCountArgs> = z.object({ orderBy: z.union([dictDistributionTypeOrderByWithRelationInputObjectSchema, dictDistributionTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictDistributionTypeWhereInputObjectSchema.optional(), cursor: dictDistributionTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictDistributionTypeCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.dictDistributionTypeCountArgs>;
+
+export const dictDistributionTypeCountZodSchema = z.object({ orderBy: z.union([dictDistributionTypeOrderByWithRelationInputObjectSchema, dictDistributionTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictDistributionTypeWhereInputObjectSchema.optional(), cursor: dictDistributionTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), DictDistributionTypeCountAggregateInputObjectSchema ]).optional() }).strict();

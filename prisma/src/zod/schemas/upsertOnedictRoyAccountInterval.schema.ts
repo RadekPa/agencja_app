@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictRoyAccountIntervalSelectObjectSchema as dictRoyAccountIntervalSelectObjectSchema } from './objects/dictRoyAccountIntervalSelect.schema';
+import { dictRoyAccountIntervalIncludeObjectSchema as dictRoyAccountIntervalIncludeObjectSchema } from './objects/dictRoyAccountIntervalInclude.schema';
+import { dictRoyAccountIntervalWhereUniqueInputObjectSchema as dictRoyAccountIntervalWhereUniqueInputObjectSchema } from './objects/dictRoyAccountIntervalWhereUniqueInput.schema';
+import { dictRoyAccountIntervalCreateInputObjectSchema as dictRoyAccountIntervalCreateInputObjectSchema } from './objects/dictRoyAccountIntervalCreateInput.schema';
+import { dictRoyAccountIntervalUncheckedCreateInputObjectSchema as dictRoyAccountIntervalUncheckedCreateInputObjectSchema } from './objects/dictRoyAccountIntervalUncheckedCreateInput.schema';
+import { dictRoyAccountIntervalUpdateInputObjectSchema as dictRoyAccountIntervalUpdateInputObjectSchema } from './objects/dictRoyAccountIntervalUpdateInput.schema';
+import { dictRoyAccountIntervalUncheckedUpdateInputObjectSchema as dictRoyAccountIntervalUncheckedUpdateInputObjectSchema } from './objects/dictRoyAccountIntervalUncheckedUpdateInput.schema';
+
+export const dictRoyAccountIntervalUpsertOneSchema: z.ZodType<Prisma.dictRoyAccountIntervalUpsertArgs> = z.object({ select: dictRoyAccountIntervalSelectObjectSchema.optional(), include: dictRoyAccountIntervalIncludeObjectSchema.optional(), where: dictRoyAccountIntervalWhereUniqueInputObjectSchema, create: z.union([ dictRoyAccountIntervalCreateInputObjectSchema, dictRoyAccountIntervalUncheckedCreateInputObjectSchema ]), update: z.union([ dictRoyAccountIntervalUpdateInputObjectSchema, dictRoyAccountIntervalUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.dictRoyAccountIntervalUpsertArgs>;
+
+export const dictRoyAccountIntervalUpsertOneZodSchema = z.object({ select: dictRoyAccountIntervalSelectObjectSchema.optional(), include: dictRoyAccountIntervalIncludeObjectSchema.optional(), where: dictRoyAccountIntervalWhereUniqueInputObjectSchema, create: z.union([ dictRoyAccountIntervalCreateInputObjectSchema, dictRoyAccountIntervalUncheckedCreateInputObjectSchema ]), update: z.union([ dictRoyAccountIntervalUpdateInputObjectSchema, dictRoyAccountIntervalUncheckedUpdateInputObjectSchema ]) }).strict();

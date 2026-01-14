@@ -1,0 +1,45 @@
+import * as z from 'zod';
+export const tblFraVAT_NewFindManyResultSchema = z.object({
+  data: z.array(z.object({
+  FVNr: z.number().int(),
+  FVDate: z.date(),
+  FVDateIssued: z.date().optional(),
+  FVType: z.number().int().optional(),
+  CustID: z.number().int().optional(),
+  OrigCurrency: z.string().optional(),
+  FVCurrency: z.string().optional(),
+  GraalPerc: z.number().optional(),
+  VATCode: z.string().optional(),
+  VatPerc: z.number().optional(),
+  NetAmt: z.number().optional(),
+  NetAmtCurr: z.number().optional(),
+  VatAmt: z.number().optional(),
+  XRate: z.number().optional(),
+  VatAmtCurr: z.number().optional(),
+  GrossAmt: z.number().optional(),
+  InvNr: z.number().int().optional(),
+  InvAmt: z.number().optional(),
+  Title: z.string().optional(),
+  ISBNNr: z.string().optional(),
+  PayType: z.string().optional(),
+  InvType: z.string().optional(),
+  FVDescription: z.string().optional(),
+  BilNr: z.number().int().optional(),
+  OrigFVNr: z.number().int().optional(),
+  CorrectFVNr: z.number().int().optional(),
+  CreditID: z.number().int().optional(),
+  ApplyID: z.number().int().optional(),
+  PayDate: z.date().optional(),
+  EnterDate: z.date().optional(),
+  EnterEmployee: z.string().optional(),
+  Status: z.string().optional()
+})),
+  pagination: z.object({
+  page: z.number().int().min(1),
+  pageSize: z.number().int().min(1),
+  total: z.number().int().min(0),
+  totalPages: z.number().int().min(0),
+  hasNext: z.boolean(),
+  hasPrev: z.boolean()
+})
+});

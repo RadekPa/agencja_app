@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblMailingListsOrderByWithRelationInputObjectSchema as tblMailingListsOrderByWithRelationInputObjectSchema } from './objects/tblMailingListsOrderByWithRelationInput.schema';
+import { tblMailingListsWhereInputObjectSchema as tblMailingListsWhereInputObjectSchema } from './objects/tblMailingListsWhereInput.schema';
+import { tblMailingListsWhereUniqueInputObjectSchema as tblMailingListsWhereUniqueInputObjectSchema } from './objects/tblMailingListsWhereUniqueInput.schema';
+import { TblMailingListsCountAggregateInputObjectSchema as TblMailingListsCountAggregateInputObjectSchema } from './objects/TblMailingListsCountAggregateInput.schema';
+import { TblMailingListsMinAggregateInputObjectSchema as TblMailingListsMinAggregateInputObjectSchema } from './objects/TblMailingListsMinAggregateInput.schema';
+import { TblMailingListsMaxAggregateInputObjectSchema as TblMailingListsMaxAggregateInputObjectSchema } from './objects/TblMailingListsMaxAggregateInput.schema';
+import { TblMailingListsAvgAggregateInputObjectSchema as TblMailingListsAvgAggregateInputObjectSchema } from './objects/TblMailingListsAvgAggregateInput.schema';
+import { TblMailingListsSumAggregateInputObjectSchema as TblMailingListsSumAggregateInputObjectSchema } from './objects/TblMailingListsSumAggregateInput.schema';
+
+export const tblMailingListsAggregateSchema: z.ZodType<Prisma.tblMailingListsAggregateArgs> = z.object({ orderBy: z.union([tblMailingListsOrderByWithRelationInputObjectSchema, tblMailingListsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblMailingListsWhereInputObjectSchema.optional(), cursor: tblMailingListsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblMailingListsCountAggregateInputObjectSchema ]).optional(), _min: TblMailingListsMinAggregateInputObjectSchema.optional(), _max: TblMailingListsMaxAggregateInputObjectSchema.optional(), _avg: TblMailingListsAvgAggregateInputObjectSchema.optional(), _sum: TblMailingListsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblMailingListsAggregateArgs>;
+
+export const tblMailingListsAggregateZodSchema = z.object({ orderBy: z.union([tblMailingListsOrderByWithRelationInputObjectSchema, tblMailingListsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblMailingListsWhereInputObjectSchema.optional(), cursor: tblMailingListsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblMailingListsCountAggregateInputObjectSchema ]).optional(), _min: TblMailingListsMinAggregateInputObjectSchema.optional(), _max: TblMailingListsMaxAggregateInputObjectSchema.optional(), _avg: TblMailingListsAvgAggregateInputObjectSchema.optional(), _sum: TblMailingListsSumAggregateInputObjectSchema.optional() }).strict();

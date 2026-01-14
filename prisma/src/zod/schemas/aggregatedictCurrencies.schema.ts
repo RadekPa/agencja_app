@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictCurrenciesOrderByWithRelationInputObjectSchema as dictCurrenciesOrderByWithRelationInputObjectSchema } from './objects/dictCurrenciesOrderByWithRelationInput.schema';
+import { dictCurrenciesWhereInputObjectSchema as dictCurrenciesWhereInputObjectSchema } from './objects/dictCurrenciesWhereInput.schema';
+import { dictCurrenciesWhereUniqueInputObjectSchema as dictCurrenciesWhereUniqueInputObjectSchema } from './objects/dictCurrenciesWhereUniqueInput.schema';
+import { DictCurrenciesCountAggregateInputObjectSchema as DictCurrenciesCountAggregateInputObjectSchema } from './objects/DictCurrenciesCountAggregateInput.schema';
+import { DictCurrenciesMinAggregateInputObjectSchema as DictCurrenciesMinAggregateInputObjectSchema } from './objects/DictCurrenciesMinAggregateInput.schema';
+import { DictCurrenciesMaxAggregateInputObjectSchema as DictCurrenciesMaxAggregateInputObjectSchema } from './objects/DictCurrenciesMaxAggregateInput.schema';
+
+export const dictCurrenciesAggregateSchema: z.ZodType<Prisma.dictCurrenciesAggregateArgs> = z.object({ orderBy: z.union([dictCurrenciesOrderByWithRelationInputObjectSchema, dictCurrenciesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictCurrenciesWhereInputObjectSchema.optional(), cursor: dictCurrenciesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictCurrenciesCountAggregateInputObjectSchema ]).optional(), _min: DictCurrenciesMinAggregateInputObjectSchema.optional(), _max: DictCurrenciesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictCurrenciesAggregateArgs>;
+
+export const dictCurrenciesAggregateZodSchema = z.object({ orderBy: z.union([dictCurrenciesOrderByWithRelationInputObjectSchema, dictCurrenciesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictCurrenciesWhereInputObjectSchema.optional(), cursor: dictCurrenciesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictCurrenciesCountAggregateInputObjectSchema ]).optional(), _min: DictCurrenciesMinAggregateInputObjectSchema.optional(), _max: DictCurrenciesMaxAggregateInputObjectSchema.optional() }).strict();

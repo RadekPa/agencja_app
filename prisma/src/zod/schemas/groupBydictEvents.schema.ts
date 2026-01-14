@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictEventsWhereInputObjectSchema as dictEventsWhereInputObjectSchema } from './objects/dictEventsWhereInput.schema';
+import { dictEventsOrderByWithAggregationInputObjectSchema as dictEventsOrderByWithAggregationInputObjectSchema } from './objects/dictEventsOrderByWithAggregationInput.schema';
+import { dictEventsScalarWhereWithAggregatesInputObjectSchema as dictEventsScalarWhereWithAggregatesInputObjectSchema } from './objects/dictEventsScalarWhereWithAggregatesInput.schema';
+import { DictEventsScalarFieldEnumSchema } from './enums/DictEventsScalarFieldEnum.schema';
+import { DictEventsCountAggregateInputObjectSchema as DictEventsCountAggregateInputObjectSchema } from './objects/DictEventsCountAggregateInput.schema';
+import { DictEventsMinAggregateInputObjectSchema as DictEventsMinAggregateInputObjectSchema } from './objects/DictEventsMinAggregateInput.schema';
+import { DictEventsMaxAggregateInputObjectSchema as DictEventsMaxAggregateInputObjectSchema } from './objects/DictEventsMaxAggregateInput.schema';
+import { DictEventsAvgAggregateInputObjectSchema as DictEventsAvgAggregateInputObjectSchema } from './objects/DictEventsAvgAggregateInput.schema';
+import { DictEventsSumAggregateInputObjectSchema as DictEventsSumAggregateInputObjectSchema } from './objects/DictEventsSumAggregateInput.schema';
+
+export const dictEventsGroupBySchema: z.ZodType<Prisma.dictEventsGroupByArgs> = z.object({ where: dictEventsWhereInputObjectSchema.optional(), orderBy: z.union([dictEventsOrderByWithAggregationInputObjectSchema, dictEventsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictEventsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictEventsScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictEventsCountAggregateInputObjectSchema ]).optional(), _min: DictEventsMinAggregateInputObjectSchema.optional(), _max: DictEventsMaxAggregateInputObjectSchema.optional(), _avg: DictEventsAvgAggregateInputObjectSchema.optional(), _sum: DictEventsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictEventsGroupByArgs>;
+
+export const dictEventsGroupByZodSchema = z.object({ where: dictEventsWhereInputObjectSchema.optional(), orderBy: z.union([dictEventsOrderByWithAggregationInputObjectSchema, dictEventsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictEventsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictEventsScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictEventsCountAggregateInputObjectSchema ]).optional(), _min: DictEventsMinAggregateInputObjectSchema.optional(), _max: DictEventsMaxAggregateInputObjectSchema.optional(), _avg: DictEventsAvgAggregateInputObjectSchema.optional(), _sum: DictEventsSumAggregateInputObjectSchema.optional() }).strict();

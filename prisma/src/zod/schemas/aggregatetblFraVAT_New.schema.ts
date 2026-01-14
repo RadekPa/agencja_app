@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblFraVAT_NewOrderByWithRelationInputObjectSchema as tblFraVAT_NewOrderByWithRelationInputObjectSchema } from './objects/tblFraVAT_NewOrderByWithRelationInput.schema';
+import { tblFraVAT_NewWhereInputObjectSchema as tblFraVAT_NewWhereInputObjectSchema } from './objects/tblFraVAT_NewWhereInput.schema';
+import { tblFraVAT_NewWhereUniqueInputObjectSchema as tblFraVAT_NewWhereUniqueInputObjectSchema } from './objects/tblFraVAT_NewWhereUniqueInput.schema';
+import { TblFraVAT_NewCountAggregateInputObjectSchema as TblFraVAT_NewCountAggregateInputObjectSchema } from './objects/TblFraVAT_NewCountAggregateInput.schema';
+import { TblFraVAT_NewMinAggregateInputObjectSchema as TblFraVAT_NewMinAggregateInputObjectSchema } from './objects/TblFraVAT_NewMinAggregateInput.schema';
+import { TblFraVAT_NewMaxAggregateInputObjectSchema as TblFraVAT_NewMaxAggregateInputObjectSchema } from './objects/TblFraVAT_NewMaxAggregateInput.schema';
+import { TblFraVAT_NewAvgAggregateInputObjectSchema as TblFraVAT_NewAvgAggregateInputObjectSchema } from './objects/TblFraVAT_NewAvgAggregateInput.schema';
+import { TblFraVAT_NewSumAggregateInputObjectSchema as TblFraVAT_NewSumAggregateInputObjectSchema } from './objects/TblFraVAT_NewSumAggregateInput.schema';
+
+export const tblFraVAT_NewAggregateSchema: z.ZodType<Prisma.TblFraVAT_NewAggregateArgs> = z.object({ orderBy: z.union([tblFraVAT_NewOrderByWithRelationInputObjectSchema, tblFraVAT_NewOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblFraVAT_NewWhereInputObjectSchema.optional(), cursor: tblFraVAT_NewWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblFraVAT_NewCountAggregateInputObjectSchema ]).optional(), _min: TblFraVAT_NewMinAggregateInputObjectSchema.optional(), _max: TblFraVAT_NewMaxAggregateInputObjectSchema.optional(), _avg: TblFraVAT_NewAvgAggregateInputObjectSchema.optional(), _sum: TblFraVAT_NewSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.TblFraVAT_NewAggregateArgs>;
+
+export const tblFraVAT_NewAggregateZodSchema = z.object({ orderBy: z.union([tblFraVAT_NewOrderByWithRelationInputObjectSchema, tblFraVAT_NewOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblFraVAT_NewWhereInputObjectSchema.optional(), cursor: tblFraVAT_NewWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblFraVAT_NewCountAggregateInputObjectSchema ]).optional(), _min: TblFraVAT_NewMinAggregateInputObjectSchema.optional(), _max: TblFraVAT_NewMaxAggregateInputObjectSchema.optional(), _avg: TblFraVAT_NewAvgAggregateInputObjectSchema.optional(), _sum: TblFraVAT_NewSumAggregateInputObjectSchema.optional() }).strict();

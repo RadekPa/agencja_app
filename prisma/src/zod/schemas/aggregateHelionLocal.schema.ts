@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { HelionLocalOrderByWithRelationInputObjectSchema as HelionLocalOrderByWithRelationInputObjectSchema } from './objects/HelionLocalOrderByWithRelationInput.schema';
+import { HelionLocalWhereInputObjectSchema as HelionLocalWhereInputObjectSchema } from './objects/HelionLocalWhereInput.schema';
+import { HelionLocalWhereUniqueInputObjectSchema as HelionLocalWhereUniqueInputObjectSchema } from './objects/HelionLocalWhereUniqueInput.schema';
+import { HelionLocalCountAggregateInputObjectSchema as HelionLocalCountAggregateInputObjectSchema } from './objects/HelionLocalCountAggregateInput.schema';
+import { HelionLocalMinAggregateInputObjectSchema as HelionLocalMinAggregateInputObjectSchema } from './objects/HelionLocalMinAggregateInput.schema';
+import { HelionLocalMaxAggregateInputObjectSchema as HelionLocalMaxAggregateInputObjectSchema } from './objects/HelionLocalMaxAggregateInput.schema';
+
+export const HelionLocalAggregateSchema: z.ZodType<Prisma.HelionLocalAggregateArgs> = z.object({ orderBy: z.union([HelionLocalOrderByWithRelationInputObjectSchema, HelionLocalOrderByWithRelationInputObjectSchema.array()]).optional(), where: HelionLocalWhereInputObjectSchema.optional(), cursor: HelionLocalWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), HelionLocalCountAggregateInputObjectSchema ]).optional(), _min: HelionLocalMinAggregateInputObjectSchema.optional(), _max: HelionLocalMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.HelionLocalAggregateArgs>;
+
+export const HelionLocalAggregateZodSchema = z.object({ orderBy: z.union([HelionLocalOrderByWithRelationInputObjectSchema, HelionLocalOrderByWithRelationInputObjectSchema.array()]).optional(), where: HelionLocalWhereInputObjectSchema.optional(), cursor: HelionLocalWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), HelionLocalCountAggregateInputObjectSchema ]).optional(), _min: HelionLocalMinAggregateInputObjectSchema.optional(), _max: HelionLocalMaxAggregateInputObjectSchema.optional() }).strict();

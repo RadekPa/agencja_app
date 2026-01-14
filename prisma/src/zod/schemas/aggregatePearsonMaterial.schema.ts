@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { PearsonMaterialOrderByWithRelationInputObjectSchema as PearsonMaterialOrderByWithRelationInputObjectSchema } from './objects/PearsonMaterialOrderByWithRelationInput.schema';
+import { PearsonMaterialWhereInputObjectSchema as PearsonMaterialWhereInputObjectSchema } from './objects/PearsonMaterialWhereInput.schema';
+import { PearsonMaterialWhereUniqueInputObjectSchema as PearsonMaterialWhereUniqueInputObjectSchema } from './objects/PearsonMaterialWhereUniqueInput.schema';
+import { PearsonMaterialCountAggregateInputObjectSchema as PearsonMaterialCountAggregateInputObjectSchema } from './objects/PearsonMaterialCountAggregateInput.schema';
+import { PearsonMaterialMinAggregateInputObjectSchema as PearsonMaterialMinAggregateInputObjectSchema } from './objects/PearsonMaterialMinAggregateInput.schema';
+import { PearsonMaterialMaxAggregateInputObjectSchema as PearsonMaterialMaxAggregateInputObjectSchema } from './objects/PearsonMaterialMaxAggregateInput.schema';
+import { PearsonMaterialAvgAggregateInputObjectSchema as PearsonMaterialAvgAggregateInputObjectSchema } from './objects/PearsonMaterialAvgAggregateInput.schema';
+import { PearsonMaterialSumAggregateInputObjectSchema as PearsonMaterialSumAggregateInputObjectSchema } from './objects/PearsonMaterialSumAggregateInput.schema';
+
+export const PearsonMaterialAggregateSchema: z.ZodType<Prisma.PearsonMaterialAggregateArgs> = z.object({ orderBy: z.union([PearsonMaterialOrderByWithRelationInputObjectSchema, PearsonMaterialOrderByWithRelationInputObjectSchema.array()]).optional(), where: PearsonMaterialWhereInputObjectSchema.optional(), cursor: PearsonMaterialWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), PearsonMaterialCountAggregateInputObjectSchema ]).optional(), _min: PearsonMaterialMinAggregateInputObjectSchema.optional(), _max: PearsonMaterialMaxAggregateInputObjectSchema.optional(), _avg: PearsonMaterialAvgAggregateInputObjectSchema.optional(), _sum: PearsonMaterialSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.PearsonMaterialAggregateArgs>;
+
+export const PearsonMaterialAggregateZodSchema = z.object({ orderBy: z.union([PearsonMaterialOrderByWithRelationInputObjectSchema, PearsonMaterialOrderByWithRelationInputObjectSchema.array()]).optional(), where: PearsonMaterialWhereInputObjectSchema.optional(), cursor: PearsonMaterialWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), PearsonMaterialCountAggregateInputObjectSchema ]).optional(), _min: PearsonMaterialMinAggregateInputObjectSchema.optional(), _max: PearsonMaterialMaxAggregateInputObjectSchema.optional(), _avg: PearsonMaterialAvgAggregateInputObjectSchema.optional(), _sum: PearsonMaterialSumAggregateInputObjectSchema.optional() }).strict();

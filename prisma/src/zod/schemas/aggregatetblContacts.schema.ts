@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblContactsOrderByWithRelationInputObjectSchema as tblContactsOrderByWithRelationInputObjectSchema } from './objects/tblContactsOrderByWithRelationInput.schema';
+import { tblContactsWhereInputObjectSchema as tblContactsWhereInputObjectSchema } from './objects/tblContactsWhereInput.schema';
+import { tblContactsWhereUniqueInputObjectSchema as tblContactsWhereUniqueInputObjectSchema } from './objects/tblContactsWhereUniqueInput.schema';
+import { TblContactsCountAggregateInputObjectSchema as TblContactsCountAggregateInputObjectSchema } from './objects/TblContactsCountAggregateInput.schema';
+import { TblContactsMinAggregateInputObjectSchema as TblContactsMinAggregateInputObjectSchema } from './objects/TblContactsMinAggregateInput.schema';
+import { TblContactsMaxAggregateInputObjectSchema as TblContactsMaxAggregateInputObjectSchema } from './objects/TblContactsMaxAggregateInput.schema';
+import { TblContactsAvgAggregateInputObjectSchema as TblContactsAvgAggregateInputObjectSchema } from './objects/TblContactsAvgAggregateInput.schema';
+import { TblContactsSumAggregateInputObjectSchema as TblContactsSumAggregateInputObjectSchema } from './objects/TblContactsSumAggregateInput.schema';
+
+export const tblContactsAggregateSchema: z.ZodType<Prisma.tblContactsAggregateArgs> = z.object({ orderBy: z.union([tblContactsOrderByWithRelationInputObjectSchema, tblContactsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblContactsWhereInputObjectSchema.optional(), cursor: tblContactsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblContactsCountAggregateInputObjectSchema ]).optional(), _min: TblContactsMinAggregateInputObjectSchema.optional(), _max: TblContactsMaxAggregateInputObjectSchema.optional(), _avg: TblContactsAvgAggregateInputObjectSchema.optional(), _sum: TblContactsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblContactsAggregateArgs>;
+
+export const tblContactsAggregateZodSchema = z.object({ orderBy: z.union([tblContactsOrderByWithRelationInputObjectSchema, tblContactsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblContactsWhereInputObjectSchema.optional(), cursor: tblContactsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblContactsCountAggregateInputObjectSchema ]).optional(), _min: TblContactsMinAggregateInputObjectSchema.optional(), _max: TblContactsMaxAggregateInputObjectSchema.optional(), _avg: TblContactsAvgAggregateInputObjectSchema.optional(), _sum: TblContactsSumAggregateInputObjectSchema.optional() }).strict();

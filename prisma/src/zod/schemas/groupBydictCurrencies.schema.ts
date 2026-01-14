@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictCurrenciesWhereInputObjectSchema as dictCurrenciesWhereInputObjectSchema } from './objects/dictCurrenciesWhereInput.schema';
+import { dictCurrenciesOrderByWithAggregationInputObjectSchema as dictCurrenciesOrderByWithAggregationInputObjectSchema } from './objects/dictCurrenciesOrderByWithAggregationInput.schema';
+import { dictCurrenciesScalarWhereWithAggregatesInputObjectSchema as dictCurrenciesScalarWhereWithAggregatesInputObjectSchema } from './objects/dictCurrenciesScalarWhereWithAggregatesInput.schema';
+import { DictCurrenciesScalarFieldEnumSchema } from './enums/DictCurrenciesScalarFieldEnum.schema';
+import { DictCurrenciesCountAggregateInputObjectSchema as DictCurrenciesCountAggregateInputObjectSchema } from './objects/DictCurrenciesCountAggregateInput.schema';
+import { DictCurrenciesMinAggregateInputObjectSchema as DictCurrenciesMinAggregateInputObjectSchema } from './objects/DictCurrenciesMinAggregateInput.schema';
+import { DictCurrenciesMaxAggregateInputObjectSchema as DictCurrenciesMaxAggregateInputObjectSchema } from './objects/DictCurrenciesMaxAggregateInput.schema';
+
+export const dictCurrenciesGroupBySchema: z.ZodType<Prisma.dictCurrenciesGroupByArgs> = z.object({ where: dictCurrenciesWhereInputObjectSchema.optional(), orderBy: z.union([dictCurrenciesOrderByWithAggregationInputObjectSchema, dictCurrenciesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictCurrenciesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictCurrenciesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictCurrenciesCountAggregateInputObjectSchema ]).optional(), _min: DictCurrenciesMinAggregateInputObjectSchema.optional(), _max: DictCurrenciesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictCurrenciesGroupByArgs>;
+
+export const dictCurrenciesGroupByZodSchema = z.object({ where: dictCurrenciesWhereInputObjectSchema.optional(), orderBy: z.union([dictCurrenciesOrderByWithAggregationInputObjectSchema, dictCurrenciesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictCurrenciesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictCurrenciesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictCurrenciesCountAggregateInputObjectSchema ]).optional(), _min: DictCurrenciesMinAggregateInputObjectSchema.optional(), _max: DictCurrenciesMaxAggregateInputObjectSchema.optional() }).strict();

@@ -2368,46 +2368,4 @@ model xlsKursy2015 {
   @@ignore
 }
 
-/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
-model xlsKursy2016 {
-  data               DateTime? @db.DateTime
-  THB                Float?    @map("1 THB")
-  USD                Float?    @map("1 USD")
-  AUD                Float?    @map("1 AUD")
-  HKD                Float?    @map("1 HKD")
-  CAD                Float?    @map("1 CAD")
-  NZD                Float?    @map("1 NZD")
-  SGD                Float?    @map("1 SGD")
-  EUR                Float?    @map("1 EUR")
-  HUF                Float?    @map("100 HUF")
-  CHF                Float?    @map("1 CHF")
-  GBP                Float?    @map("1 GBP")
-  UAH                Float?    @map("1 UAH")
-  JPY                Float?    @map("100 JPY")
-  CZK                Float?    @map("1 CZK")
-  DKK                Float?    @map("1 DKK")
-  ISK                Float?    @map("100 ISK")
-  NOK                Float?    @map("1 NOK")
-  SEK                Float?    @map("1 SEK")
-  HRK                Float?    @map("1 HRK")
-  RON                Float?    @map("1 RON")
-  BGN                Float?    @map("1 BGN")
-  TRY                Float?    @map("1 TRY")
-  ILS                Float?    @map("1 ILS")
-  CLP                Float?    @map("100 CLP")
-  PHP                Float?    @map("1 PHP")
-  MXN                Float?    @map("1 MXN")
-  ZAR                Float?    @map("1 ZAR")
-  BRL                Float?    @map("1 BRL")
-  MYR                Float?    @map("1 MYR")
-  RUB                Float?    @map("1 RUB")
-  IDR                Float?    @map("10000 IDR")
-  INR                Float?    @map("100 INR")
-  KRW                Float?    @map("100 KRW")
-  CNY                Float?    @map("1 CNY")
-  XDR                Float?    @map("1 XDR")
-  nr_tabeli          Float?    @map("nr tabeli")
-  pelny_numer_tabeli String?   @map("pelny numer tabeli") @db.NVarChar(255)
-
-  @@ignore
-}
+/// Duplicate of xlsKursy2016 kept at top of file; removing to allow Prisma client generation.

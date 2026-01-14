@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { LocalUserOrderByWithRelationInputObjectSchema as LocalUserOrderByWithRelationInputObjectSchema } from './objects/LocalUserOrderByWithRelationInput.schema';
+import { LocalUserWhereInputObjectSchema as LocalUserWhereInputObjectSchema } from './objects/LocalUserWhereInput.schema';
+import { LocalUserWhereUniqueInputObjectSchema as LocalUserWhereUniqueInputObjectSchema } from './objects/LocalUserWhereUniqueInput.schema';
+import { LocalUserCountAggregateInputObjectSchema as LocalUserCountAggregateInputObjectSchema } from './objects/LocalUserCountAggregateInput.schema';
+import { LocalUserMinAggregateInputObjectSchema as LocalUserMinAggregateInputObjectSchema } from './objects/LocalUserMinAggregateInput.schema';
+import { LocalUserMaxAggregateInputObjectSchema as LocalUserMaxAggregateInputObjectSchema } from './objects/LocalUserMaxAggregateInput.schema';
+import { LocalUserAvgAggregateInputObjectSchema as LocalUserAvgAggregateInputObjectSchema } from './objects/LocalUserAvgAggregateInput.schema';
+import { LocalUserSumAggregateInputObjectSchema as LocalUserSumAggregateInputObjectSchema } from './objects/LocalUserSumAggregateInput.schema';
+
+export const LocalUserAggregateSchema: z.ZodType<Prisma.LocalUserAggregateArgs> = z.object({ orderBy: z.union([LocalUserOrderByWithRelationInputObjectSchema, LocalUserOrderByWithRelationInputObjectSchema.array()]).optional(), where: LocalUserWhereInputObjectSchema.optional(), cursor: LocalUserWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), LocalUserCountAggregateInputObjectSchema ]).optional(), _min: LocalUserMinAggregateInputObjectSchema.optional(), _max: LocalUserMaxAggregateInputObjectSchema.optional(), _avg: LocalUserAvgAggregateInputObjectSchema.optional(), _sum: LocalUserSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.LocalUserAggregateArgs>;
+
+export const LocalUserAggregateZodSchema = z.object({ orderBy: z.union([LocalUserOrderByWithRelationInputObjectSchema, LocalUserOrderByWithRelationInputObjectSchema.array()]).optional(), where: LocalUserWhereInputObjectSchema.optional(), cursor: LocalUserWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), LocalUserCountAggregateInputObjectSchema ]).optional(), _min: LocalUserMinAggregateInputObjectSchema.optional(), _max: LocalUserMaxAggregateInputObjectSchema.optional(), _avg: LocalUserAvgAggregateInputObjectSchema.optional(), _sum: LocalUserSumAggregateInputObjectSchema.optional() }).strict();

@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictArticlesOrderByWithRelationInputObjectSchema as dictArticlesOrderByWithRelationInputObjectSchema } from './objects/dictArticlesOrderByWithRelationInput.schema';
+import { dictArticlesWhereInputObjectSchema as dictArticlesWhereInputObjectSchema } from './objects/dictArticlesWhereInput.schema';
+import { dictArticlesWhereUniqueInputObjectSchema as dictArticlesWhereUniqueInputObjectSchema } from './objects/dictArticlesWhereUniqueInput.schema';
+import { DictArticlesCountAggregateInputObjectSchema as DictArticlesCountAggregateInputObjectSchema } from './objects/DictArticlesCountAggregateInput.schema';
+import { DictArticlesMinAggregateInputObjectSchema as DictArticlesMinAggregateInputObjectSchema } from './objects/DictArticlesMinAggregateInput.schema';
+import { DictArticlesMaxAggregateInputObjectSchema as DictArticlesMaxAggregateInputObjectSchema } from './objects/DictArticlesMaxAggregateInput.schema';
+
+export const dictArticlesAggregateSchema: z.ZodType<Prisma.dictArticlesAggregateArgs> = z.object({ orderBy: z.union([dictArticlesOrderByWithRelationInputObjectSchema, dictArticlesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictArticlesWhereInputObjectSchema.optional(), cursor: dictArticlesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictArticlesCountAggregateInputObjectSchema ]).optional(), _min: DictArticlesMinAggregateInputObjectSchema.optional(), _max: DictArticlesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictArticlesAggregateArgs>;
+
+export const dictArticlesAggregateZodSchema = z.object({ orderBy: z.union([dictArticlesOrderByWithRelationInputObjectSchema, dictArticlesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictArticlesWhereInputObjectSchema.optional(), cursor: dictArticlesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictArticlesCountAggregateInputObjectSchema ]).optional(), _min: DictArticlesMinAggregateInputObjectSchema.optional(), _max: DictArticlesMaxAggregateInputObjectSchema.optional() }).strict();

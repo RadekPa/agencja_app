@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { pdxTRANSFERWhereInputObjectSchema as pdxTRANSFERWhereInputObjectSchema } from './objects/pdxTRANSFERWhereInput.schema';
+import { pdxTRANSFEROrderByWithAggregationInputObjectSchema as pdxTRANSFEROrderByWithAggregationInputObjectSchema } from './objects/pdxTRANSFEROrderByWithAggregationInput.schema';
+import { pdxTRANSFERScalarWhereWithAggregatesInputObjectSchema as pdxTRANSFERScalarWhereWithAggregatesInputObjectSchema } from './objects/pdxTRANSFERScalarWhereWithAggregatesInput.schema';
+import { PdxTRANSFERScalarFieldEnumSchema } from './enums/PdxTRANSFERScalarFieldEnum.schema';
+import { PdxTRANSFERCountAggregateInputObjectSchema as PdxTRANSFERCountAggregateInputObjectSchema } from './objects/PdxTRANSFERCountAggregateInput.schema';
+import { PdxTRANSFERMinAggregateInputObjectSchema as PdxTRANSFERMinAggregateInputObjectSchema } from './objects/PdxTRANSFERMinAggregateInput.schema';
+import { PdxTRANSFERMaxAggregateInputObjectSchema as PdxTRANSFERMaxAggregateInputObjectSchema } from './objects/PdxTRANSFERMaxAggregateInput.schema';
+import { PdxTRANSFERAvgAggregateInputObjectSchema as PdxTRANSFERAvgAggregateInputObjectSchema } from './objects/PdxTRANSFERAvgAggregateInput.schema';
+import { PdxTRANSFERSumAggregateInputObjectSchema as PdxTRANSFERSumAggregateInputObjectSchema } from './objects/PdxTRANSFERSumAggregateInput.schema';
+
+export const pdxTRANSFERGroupBySchema: z.ZodType<Prisma.pdxTRANSFERGroupByArgs> = z.object({ where: pdxTRANSFERWhereInputObjectSchema.optional(), orderBy: z.union([pdxTRANSFEROrderByWithAggregationInputObjectSchema, pdxTRANSFEROrderByWithAggregationInputObjectSchema.array()]).optional(), having: pdxTRANSFERScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(PdxTRANSFERScalarFieldEnumSchema), _count: z.union([ z.literal(true), PdxTRANSFERCountAggregateInputObjectSchema ]).optional(), _min: PdxTRANSFERMinAggregateInputObjectSchema.optional(), _max: PdxTRANSFERMaxAggregateInputObjectSchema.optional(), _avg: PdxTRANSFERAvgAggregateInputObjectSchema.optional(), _sum: PdxTRANSFERSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.pdxTRANSFERGroupByArgs>;
+
+export const pdxTRANSFERGroupByZodSchema = z.object({ where: pdxTRANSFERWhereInputObjectSchema.optional(), orderBy: z.union([pdxTRANSFEROrderByWithAggregationInputObjectSchema, pdxTRANSFEROrderByWithAggregationInputObjectSchema.array()]).optional(), having: pdxTRANSFERScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(PdxTRANSFERScalarFieldEnumSchema), _count: z.union([ z.literal(true), PdxTRANSFERCountAggregateInputObjectSchema ]).optional(), _min: PdxTRANSFERMinAggregateInputObjectSchema.optional(), _max: PdxTRANSFERMaxAggregateInputObjectSchema.optional(), _avg: PdxTRANSFERAvgAggregateInputObjectSchema.optional(), _sum: PdxTRANSFERSumAggregateInputObjectSchema.optional() }).strict();

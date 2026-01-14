@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { HelionLocalWhereInputObjectSchema as HelionLocalWhereInputObjectSchema } from './objects/HelionLocalWhereInput.schema';
+import { HelionLocalOrderByWithAggregationInputObjectSchema as HelionLocalOrderByWithAggregationInputObjectSchema } from './objects/HelionLocalOrderByWithAggregationInput.schema';
+import { HelionLocalScalarWhereWithAggregatesInputObjectSchema as HelionLocalScalarWhereWithAggregatesInputObjectSchema } from './objects/HelionLocalScalarWhereWithAggregatesInput.schema';
+import { HelionLocalScalarFieldEnumSchema } from './enums/HelionLocalScalarFieldEnum.schema';
+import { HelionLocalCountAggregateInputObjectSchema as HelionLocalCountAggregateInputObjectSchema } from './objects/HelionLocalCountAggregateInput.schema';
+import { HelionLocalMinAggregateInputObjectSchema as HelionLocalMinAggregateInputObjectSchema } from './objects/HelionLocalMinAggregateInput.schema';
+import { HelionLocalMaxAggregateInputObjectSchema as HelionLocalMaxAggregateInputObjectSchema } from './objects/HelionLocalMaxAggregateInput.schema';
+
+export const HelionLocalGroupBySchema: z.ZodType<Prisma.HelionLocalGroupByArgs> = z.object({ where: HelionLocalWhereInputObjectSchema.optional(), orderBy: z.union([HelionLocalOrderByWithAggregationInputObjectSchema, HelionLocalOrderByWithAggregationInputObjectSchema.array()]).optional(), having: HelionLocalScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(HelionLocalScalarFieldEnumSchema), _count: z.union([ z.literal(true), HelionLocalCountAggregateInputObjectSchema ]).optional(), _min: HelionLocalMinAggregateInputObjectSchema.optional(), _max: HelionLocalMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.HelionLocalGroupByArgs>;
+
+export const HelionLocalGroupByZodSchema = z.object({ where: HelionLocalWhereInputObjectSchema.optional(), orderBy: z.union([HelionLocalOrderByWithAggregationInputObjectSchema, HelionLocalOrderByWithAggregationInputObjectSchema.array()]).optional(), having: HelionLocalScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(HelionLocalScalarFieldEnumSchema), _count: z.union([ z.literal(true), HelionLocalCountAggregateInputObjectSchema ]).optional(), _min: HelionLocalMinAggregateInputObjectSchema.optional(), _max: HelionLocalMaxAggregateInputObjectSchema.optional() }).strict();

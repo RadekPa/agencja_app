@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictCopyTypeOrderByWithRelationInputObjectSchema as dictCopyTypeOrderByWithRelationInputObjectSchema } from './objects/dictCopyTypeOrderByWithRelationInput.schema';
+import { dictCopyTypeWhereInputObjectSchema as dictCopyTypeWhereInputObjectSchema } from './objects/dictCopyTypeWhereInput.schema';
+import { dictCopyTypeWhereUniqueInputObjectSchema as dictCopyTypeWhereUniqueInputObjectSchema } from './objects/dictCopyTypeWhereUniqueInput.schema';
+import { DictCopyTypeCountAggregateInputObjectSchema as DictCopyTypeCountAggregateInputObjectSchema } from './objects/DictCopyTypeCountAggregateInput.schema';
+import { DictCopyTypeMinAggregateInputObjectSchema as DictCopyTypeMinAggregateInputObjectSchema } from './objects/DictCopyTypeMinAggregateInput.schema';
+import { DictCopyTypeMaxAggregateInputObjectSchema as DictCopyTypeMaxAggregateInputObjectSchema } from './objects/DictCopyTypeMaxAggregateInput.schema';
+import { DictCopyTypeAvgAggregateInputObjectSchema as DictCopyTypeAvgAggregateInputObjectSchema } from './objects/DictCopyTypeAvgAggregateInput.schema';
+import { DictCopyTypeSumAggregateInputObjectSchema as DictCopyTypeSumAggregateInputObjectSchema } from './objects/DictCopyTypeSumAggregateInput.schema';
+
+export const dictCopyTypeAggregateSchema: z.ZodType<Prisma.dictCopyTypeAggregateArgs> = z.object({ orderBy: z.union([dictCopyTypeOrderByWithRelationInputObjectSchema, dictCopyTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictCopyTypeWhereInputObjectSchema.optional(), cursor: dictCopyTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictCopyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictCopyTypeMinAggregateInputObjectSchema.optional(), _max: DictCopyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictCopyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictCopyTypeSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictCopyTypeAggregateArgs>;
+
+export const dictCopyTypeAggregateZodSchema = z.object({ orderBy: z.union([dictCopyTypeOrderByWithRelationInputObjectSchema, dictCopyTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictCopyTypeWhereInputObjectSchema.optional(), cursor: dictCopyTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictCopyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictCopyTypeMinAggregateInputObjectSchema.optional(), _max: DictCopyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictCopyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictCopyTypeSumAggregateInputObjectSchema.optional() }).strict();

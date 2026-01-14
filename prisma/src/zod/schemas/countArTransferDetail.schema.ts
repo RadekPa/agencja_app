@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArTransferDetailOrderByWithRelationInputObjectSchema as ArTransferDetailOrderByWithRelationInputObjectSchema } from './objects/ArTransferDetailOrderByWithRelationInput.schema';
+import { ArTransferDetailWhereInputObjectSchema as ArTransferDetailWhereInputObjectSchema } from './objects/ArTransferDetailWhereInput.schema';
+import { ArTransferDetailWhereUniqueInputObjectSchema as ArTransferDetailWhereUniqueInputObjectSchema } from './objects/ArTransferDetailWhereUniqueInput.schema';
+import { ArTransferDetailCountAggregateInputObjectSchema as ArTransferDetailCountAggregateInputObjectSchema } from './objects/ArTransferDetailCountAggregateInput.schema';
+
+export const ArTransferDetailCountSchema: z.ZodType<Prisma.ArTransferDetailCountArgs> = z.object({ orderBy: z.union([ArTransferDetailOrderByWithRelationInputObjectSchema, ArTransferDetailOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArTransferDetailWhereInputObjectSchema.optional(), cursor: ArTransferDetailWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ArTransferDetailCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.ArTransferDetailCountArgs>;
+
+export const ArTransferDetailCountZodSchema = z.object({ orderBy: z.union([ArTransferDetailOrderByWithRelationInputObjectSchema, ArTransferDetailOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArTransferDetailWhereInputObjectSchema.optional(), cursor: ArTransferDetailWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), ArTransferDetailCountAggregateInputObjectSchema ]).optional() }).strict();

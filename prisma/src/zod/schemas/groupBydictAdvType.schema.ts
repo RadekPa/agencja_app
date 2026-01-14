@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictAdvTypeWhereInputObjectSchema as dictAdvTypeWhereInputObjectSchema } from './objects/dictAdvTypeWhereInput.schema';
+import { dictAdvTypeOrderByWithAggregationInputObjectSchema as dictAdvTypeOrderByWithAggregationInputObjectSchema } from './objects/dictAdvTypeOrderByWithAggregationInput.schema';
+import { dictAdvTypeScalarWhereWithAggregatesInputObjectSchema as dictAdvTypeScalarWhereWithAggregatesInputObjectSchema } from './objects/dictAdvTypeScalarWhereWithAggregatesInput.schema';
+import { DictAdvTypeScalarFieldEnumSchema } from './enums/DictAdvTypeScalarFieldEnum.schema';
+import { DictAdvTypeCountAggregateInputObjectSchema as DictAdvTypeCountAggregateInputObjectSchema } from './objects/DictAdvTypeCountAggregateInput.schema';
+import { DictAdvTypeMinAggregateInputObjectSchema as DictAdvTypeMinAggregateInputObjectSchema } from './objects/DictAdvTypeMinAggregateInput.schema';
+import { DictAdvTypeMaxAggregateInputObjectSchema as DictAdvTypeMaxAggregateInputObjectSchema } from './objects/DictAdvTypeMaxAggregateInput.schema';
+import { DictAdvTypeAvgAggregateInputObjectSchema as DictAdvTypeAvgAggregateInputObjectSchema } from './objects/DictAdvTypeAvgAggregateInput.schema';
+import { DictAdvTypeSumAggregateInputObjectSchema as DictAdvTypeSumAggregateInputObjectSchema } from './objects/DictAdvTypeSumAggregateInput.schema';
+
+export const dictAdvTypeGroupBySchema: z.ZodType<Prisma.dictAdvTypeGroupByArgs> = z.object({ where: dictAdvTypeWhereInputObjectSchema.optional(), orderBy: z.union([dictAdvTypeOrderByWithAggregationInputObjectSchema, dictAdvTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictAdvTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictAdvTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictAdvTypeCountAggregateInputObjectSchema ]).optional(), _min: DictAdvTypeMinAggregateInputObjectSchema.optional(), _max: DictAdvTypeMaxAggregateInputObjectSchema.optional(), _avg: DictAdvTypeAvgAggregateInputObjectSchema.optional(), _sum: DictAdvTypeSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictAdvTypeGroupByArgs>;
+
+export const dictAdvTypeGroupByZodSchema = z.object({ where: dictAdvTypeWhereInputObjectSchema.optional(), orderBy: z.union([dictAdvTypeOrderByWithAggregationInputObjectSchema, dictAdvTypeOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictAdvTypeScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictAdvTypeScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictAdvTypeCountAggregateInputObjectSchema ]).optional(), _min: DictAdvTypeMinAggregateInputObjectSchema.optional(), _max: DictAdvTypeMaxAggregateInputObjectSchema.optional(), _avg: DictAdvTypeAvgAggregateInputObjectSchema.optional(), _sum: DictAdvTypeSumAggregateInputObjectSchema.optional() }).strict();

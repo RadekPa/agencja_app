@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblPubLocalWhereInputObjectSchema as tblPubLocalWhereInputObjectSchema } from './objects/tblPubLocalWhereInput.schema';
+import { tblPubLocalOrderByWithAggregationInputObjectSchema as tblPubLocalOrderByWithAggregationInputObjectSchema } from './objects/tblPubLocalOrderByWithAggregationInput.schema';
+import { tblPubLocalScalarWhereWithAggregatesInputObjectSchema as tblPubLocalScalarWhereWithAggregatesInputObjectSchema } from './objects/tblPubLocalScalarWhereWithAggregatesInput.schema';
+import { TblPubLocalScalarFieldEnumSchema } from './enums/TblPubLocalScalarFieldEnum.schema';
+import { TblPubLocalCountAggregateInputObjectSchema as TblPubLocalCountAggregateInputObjectSchema } from './objects/TblPubLocalCountAggregateInput.schema';
+import { TblPubLocalMinAggregateInputObjectSchema as TblPubLocalMinAggregateInputObjectSchema } from './objects/TblPubLocalMinAggregateInput.schema';
+import { TblPubLocalMaxAggregateInputObjectSchema as TblPubLocalMaxAggregateInputObjectSchema } from './objects/TblPubLocalMaxAggregateInput.schema';
+import { TblPubLocalAvgAggregateInputObjectSchema as TblPubLocalAvgAggregateInputObjectSchema } from './objects/TblPubLocalAvgAggregateInput.schema';
+import { TblPubLocalSumAggregateInputObjectSchema as TblPubLocalSumAggregateInputObjectSchema } from './objects/TblPubLocalSumAggregateInput.schema';
+
+export const tblPubLocalGroupBySchema: z.ZodType<Prisma.tblPubLocalGroupByArgs> = z.object({ where: tblPubLocalWhereInputObjectSchema.optional(), orderBy: z.union([tblPubLocalOrderByWithAggregationInputObjectSchema, tblPubLocalOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblPubLocalScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblPubLocalScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblPubLocalCountAggregateInputObjectSchema ]).optional(), _min: TblPubLocalMinAggregateInputObjectSchema.optional(), _max: TblPubLocalMaxAggregateInputObjectSchema.optional(), _avg: TblPubLocalAvgAggregateInputObjectSchema.optional(), _sum: TblPubLocalSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblPubLocalGroupByArgs>;
+
+export const tblPubLocalGroupByZodSchema = z.object({ where: tblPubLocalWhereInputObjectSchema.optional(), orderBy: z.union([tblPubLocalOrderByWithAggregationInputObjectSchema, tblPubLocalOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblPubLocalScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblPubLocalScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblPubLocalCountAggregateInputObjectSchema ]).optional(), _min: TblPubLocalMinAggregateInputObjectSchema.optional(), _max: TblPubLocalMaxAggregateInputObjectSchema.optional(), _avg: TblPubLocalAvgAggregateInputObjectSchema.optional(), _sum: TblPubLocalSumAggregateInputObjectSchema.optional() }).strict();

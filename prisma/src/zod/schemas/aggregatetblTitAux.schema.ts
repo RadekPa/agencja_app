@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblTitAuxOrderByWithRelationInputObjectSchema as tblTitAuxOrderByWithRelationInputObjectSchema } from './objects/tblTitAuxOrderByWithRelationInput.schema';
+import { tblTitAuxWhereInputObjectSchema as tblTitAuxWhereInputObjectSchema } from './objects/tblTitAuxWhereInput.schema';
+import { tblTitAuxWhereUniqueInputObjectSchema as tblTitAuxWhereUniqueInputObjectSchema } from './objects/tblTitAuxWhereUniqueInput.schema';
+import { TblTitAuxCountAggregateInputObjectSchema as TblTitAuxCountAggregateInputObjectSchema } from './objects/TblTitAuxCountAggregateInput.schema';
+import { TblTitAuxMinAggregateInputObjectSchema as TblTitAuxMinAggregateInputObjectSchema } from './objects/TblTitAuxMinAggregateInput.schema';
+import { TblTitAuxMaxAggregateInputObjectSchema as TblTitAuxMaxAggregateInputObjectSchema } from './objects/TblTitAuxMaxAggregateInput.schema';
+import { TblTitAuxAvgAggregateInputObjectSchema as TblTitAuxAvgAggregateInputObjectSchema } from './objects/TblTitAuxAvgAggregateInput.schema';
+import { TblTitAuxSumAggregateInputObjectSchema as TblTitAuxSumAggregateInputObjectSchema } from './objects/TblTitAuxSumAggregateInput.schema';
+
+export const tblTitAuxAggregateSchema: z.ZodType<Prisma.tblTitAuxAggregateArgs> = z.object({ orderBy: z.union([tblTitAuxOrderByWithRelationInputObjectSchema, tblTitAuxOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblTitAuxWhereInputObjectSchema.optional(), cursor: tblTitAuxWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblTitAuxCountAggregateInputObjectSchema ]).optional(), _min: TblTitAuxMinAggregateInputObjectSchema.optional(), _max: TblTitAuxMaxAggregateInputObjectSchema.optional(), _avg: TblTitAuxAvgAggregateInputObjectSchema.optional(), _sum: TblTitAuxSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblTitAuxAggregateArgs>;
+
+export const tblTitAuxAggregateZodSchema = z.object({ orderBy: z.union([tblTitAuxOrderByWithRelationInputObjectSchema, tblTitAuxOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblTitAuxWhereInputObjectSchema.optional(), cursor: tblTitAuxWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblTitAuxCountAggregateInputObjectSchema ]).optional(), _min: TblTitAuxMinAggregateInputObjectSchema.optional(), _max: TblTitAuxMaxAggregateInputObjectSchema.optional(), _avg: TblTitAuxAvgAggregateInputObjectSchema.optional(), _sum: TblTitAuxSumAggregateInputObjectSchema.optional() }).strict();

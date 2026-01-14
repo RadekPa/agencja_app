@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictRoyTypeOrderByWithRelationInputObjectSchema as dictRoyTypeOrderByWithRelationInputObjectSchema } from './objects/dictRoyTypeOrderByWithRelationInput.schema';
+import { dictRoyTypeWhereInputObjectSchema as dictRoyTypeWhereInputObjectSchema } from './objects/dictRoyTypeWhereInput.schema';
+import { dictRoyTypeWhereUniqueInputObjectSchema as dictRoyTypeWhereUniqueInputObjectSchema } from './objects/dictRoyTypeWhereUniqueInput.schema';
+import { DictRoyTypeCountAggregateInputObjectSchema as DictRoyTypeCountAggregateInputObjectSchema } from './objects/DictRoyTypeCountAggregateInput.schema';
+import { DictRoyTypeMinAggregateInputObjectSchema as DictRoyTypeMinAggregateInputObjectSchema } from './objects/DictRoyTypeMinAggregateInput.schema';
+import { DictRoyTypeMaxAggregateInputObjectSchema as DictRoyTypeMaxAggregateInputObjectSchema } from './objects/DictRoyTypeMaxAggregateInput.schema';
+import { DictRoyTypeAvgAggregateInputObjectSchema as DictRoyTypeAvgAggregateInputObjectSchema } from './objects/DictRoyTypeAvgAggregateInput.schema';
+import { DictRoyTypeSumAggregateInputObjectSchema as DictRoyTypeSumAggregateInputObjectSchema } from './objects/DictRoyTypeSumAggregateInput.schema';
+
+export const dictRoyTypeAggregateSchema: z.ZodType<Prisma.dictRoyTypeAggregateArgs> = z.object({ orderBy: z.union([dictRoyTypeOrderByWithRelationInputObjectSchema, dictRoyTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRoyTypeWhereInputObjectSchema.optional(), cursor: dictRoyTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictRoyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictRoyTypeMinAggregateInputObjectSchema.optional(), _max: DictRoyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictRoyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictRoyTypeSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictRoyTypeAggregateArgs>;
+
+export const dictRoyTypeAggregateZodSchema = z.object({ orderBy: z.union([dictRoyTypeOrderByWithRelationInputObjectSchema, dictRoyTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictRoyTypeWhereInputObjectSchema.optional(), cursor: dictRoyTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictRoyTypeCountAggregateInputObjectSchema ]).optional(), _min: DictRoyTypeMinAggregateInputObjectSchema.optional(), _max: DictRoyTypeMaxAggregateInputObjectSchema.optional(), _avg: DictRoyTypeAvgAggregateInputObjectSchema.optional(), _sum: DictRoyTypeSumAggregateInputObjectSchema.optional() }).strict();

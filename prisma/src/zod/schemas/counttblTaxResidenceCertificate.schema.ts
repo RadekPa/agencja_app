@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblTaxResidenceCertificateOrderByWithRelationInputObjectSchema as tblTaxResidenceCertificateOrderByWithRelationInputObjectSchema } from './objects/tblTaxResidenceCertificateOrderByWithRelationInput.schema';
+import { tblTaxResidenceCertificateWhereInputObjectSchema as tblTaxResidenceCertificateWhereInputObjectSchema } from './objects/tblTaxResidenceCertificateWhereInput.schema';
+import { tblTaxResidenceCertificateWhereUniqueInputObjectSchema as tblTaxResidenceCertificateWhereUniqueInputObjectSchema } from './objects/tblTaxResidenceCertificateWhereUniqueInput.schema';
+import { TblTaxResidenceCertificateCountAggregateInputObjectSchema as TblTaxResidenceCertificateCountAggregateInputObjectSchema } from './objects/TblTaxResidenceCertificateCountAggregateInput.schema';
+
+export const tblTaxResidenceCertificateCountSchema: z.ZodType<Prisma.tblTaxResidenceCertificateCountArgs> = z.object({ orderBy: z.union([tblTaxResidenceCertificateOrderByWithRelationInputObjectSchema, tblTaxResidenceCertificateOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblTaxResidenceCertificateWhereInputObjectSchema.optional(), cursor: tblTaxResidenceCertificateWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblTaxResidenceCertificateCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.tblTaxResidenceCertificateCountArgs>;
+
+export const tblTaxResidenceCertificateCountZodSchema = z.object({ orderBy: z.union([tblTaxResidenceCertificateOrderByWithRelationInputObjectSchema, tblTaxResidenceCertificateOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblTaxResidenceCertificateWhereInputObjectSchema.optional(), cursor: tblTaxResidenceCertificateWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblTaxResidenceCertificateCountAggregateInputObjectSchema ]).optional() }).strict();

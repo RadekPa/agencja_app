@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dbo_LocalUserOrderByWithRelationInputObjectSchema as dbo_LocalUserOrderByWithRelationInputObjectSchema } from './objects/dbo_LocalUserOrderByWithRelationInput.schema';
+import { dbo_LocalUserWhereInputObjectSchema as dbo_LocalUserWhereInputObjectSchema } from './objects/dbo_LocalUserWhereInput.schema';
+import { dbo_LocalUserWhereUniqueInputObjectSchema as dbo_LocalUserWhereUniqueInputObjectSchema } from './objects/dbo_LocalUserWhereUniqueInput.schema';
+import { Dbo_LocalUserCountAggregateInputObjectSchema as Dbo_LocalUserCountAggregateInputObjectSchema } from './objects/Dbo_LocalUserCountAggregateInput.schema';
+import { Dbo_LocalUserMinAggregateInputObjectSchema as Dbo_LocalUserMinAggregateInputObjectSchema } from './objects/Dbo_LocalUserMinAggregateInput.schema';
+import { Dbo_LocalUserMaxAggregateInputObjectSchema as Dbo_LocalUserMaxAggregateInputObjectSchema } from './objects/Dbo_LocalUserMaxAggregateInput.schema';
+import { Dbo_LocalUserAvgAggregateInputObjectSchema as Dbo_LocalUserAvgAggregateInputObjectSchema } from './objects/Dbo_LocalUserAvgAggregateInput.schema';
+import { Dbo_LocalUserSumAggregateInputObjectSchema as Dbo_LocalUserSumAggregateInputObjectSchema } from './objects/Dbo_LocalUserSumAggregateInput.schema';
+
+export const dbo_LocalUserAggregateSchema: z.ZodType<Prisma.Dbo_LocalUserAggregateArgs> = z.object({ orderBy: z.union([dbo_LocalUserOrderByWithRelationInputObjectSchema, dbo_LocalUserOrderByWithRelationInputObjectSchema.array()]).optional(), where: dbo_LocalUserWhereInputObjectSchema.optional(), cursor: dbo_LocalUserWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), Dbo_LocalUserCountAggregateInputObjectSchema ]).optional(), _min: Dbo_LocalUserMinAggregateInputObjectSchema.optional(), _max: Dbo_LocalUserMaxAggregateInputObjectSchema.optional(), _avg: Dbo_LocalUserAvgAggregateInputObjectSchema.optional(), _sum: Dbo_LocalUserSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.Dbo_LocalUserAggregateArgs>;
+
+export const dbo_LocalUserAggregateZodSchema = z.object({ orderBy: z.union([dbo_LocalUserOrderByWithRelationInputObjectSchema, dbo_LocalUserOrderByWithRelationInputObjectSchema.array()]).optional(), where: dbo_LocalUserWhereInputObjectSchema.optional(), cursor: dbo_LocalUserWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), Dbo_LocalUserCountAggregateInputObjectSchema ]).optional(), _min: Dbo_LocalUserMinAggregateInputObjectSchema.optional(), _max: Dbo_LocalUserMaxAggregateInputObjectSchema.optional(), _avg: Dbo_LocalUserAvgAggregateInputObjectSchema.optional(), _sum: Dbo_LocalUserSumAggregateInputObjectSchema.optional() }).strict();

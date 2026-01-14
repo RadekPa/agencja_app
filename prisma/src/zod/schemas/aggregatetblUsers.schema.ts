@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblUsersOrderByWithRelationInputObjectSchema as tblUsersOrderByWithRelationInputObjectSchema } from './objects/tblUsersOrderByWithRelationInput.schema';
+import { tblUsersWhereInputObjectSchema as tblUsersWhereInputObjectSchema } from './objects/tblUsersWhereInput.schema';
+import { tblUsersWhereUniqueInputObjectSchema as tblUsersWhereUniqueInputObjectSchema } from './objects/tblUsersWhereUniqueInput.schema';
+import { TblUsersCountAggregateInputObjectSchema as TblUsersCountAggregateInputObjectSchema } from './objects/TblUsersCountAggregateInput.schema';
+import { TblUsersMinAggregateInputObjectSchema as TblUsersMinAggregateInputObjectSchema } from './objects/TblUsersMinAggregateInput.schema';
+import { TblUsersMaxAggregateInputObjectSchema as TblUsersMaxAggregateInputObjectSchema } from './objects/TblUsersMaxAggregateInput.schema';
+import { TblUsersAvgAggregateInputObjectSchema as TblUsersAvgAggregateInputObjectSchema } from './objects/TblUsersAvgAggregateInput.schema';
+import { TblUsersSumAggregateInputObjectSchema as TblUsersSumAggregateInputObjectSchema } from './objects/TblUsersSumAggregateInput.schema';
+
+export const tblUsersAggregateSchema: z.ZodType<Prisma.tblUsersAggregateArgs> = z.object({ orderBy: z.union([tblUsersOrderByWithRelationInputObjectSchema, tblUsersOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblUsersWhereInputObjectSchema.optional(), cursor: tblUsersWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblUsersCountAggregateInputObjectSchema ]).optional(), _min: TblUsersMinAggregateInputObjectSchema.optional(), _max: TblUsersMaxAggregateInputObjectSchema.optional(), _avg: TblUsersAvgAggregateInputObjectSchema.optional(), _sum: TblUsersSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblUsersAggregateArgs>;
+
+export const tblUsersAggregateZodSchema = z.object({ orderBy: z.union([tblUsersOrderByWithRelationInputObjectSchema, tblUsersOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblUsersWhereInputObjectSchema.optional(), cursor: tblUsersWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblUsersCountAggregateInputObjectSchema ]).optional(), _min: TblUsersMinAggregateInputObjectSchema.optional(), _max: TblUsersMaxAggregateInputObjectSchema.optional(), _avg: TblUsersAvgAggregateInputObjectSchema.optional(), _sum: TblUsersSumAggregateInputObjectSchema.optional() }).strict();

@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblTaxResidenceCertificateSelectObjectSchema as tblTaxResidenceCertificateSelectObjectSchema } from './objects/tblTaxResidenceCertificateSelect.schema';
+import { tblTaxResidenceCertificateWhereUniqueInputObjectSchema as tblTaxResidenceCertificateWhereUniqueInputObjectSchema } from './objects/tblTaxResidenceCertificateWhereUniqueInput.schema';
+import { tblTaxResidenceCertificateCreateInputObjectSchema as tblTaxResidenceCertificateCreateInputObjectSchema } from './objects/tblTaxResidenceCertificateCreateInput.schema';
+import { tblTaxResidenceCertificateUncheckedCreateInputObjectSchema as tblTaxResidenceCertificateUncheckedCreateInputObjectSchema } from './objects/tblTaxResidenceCertificateUncheckedCreateInput.schema';
+import { tblTaxResidenceCertificateUpdateInputObjectSchema as tblTaxResidenceCertificateUpdateInputObjectSchema } from './objects/tblTaxResidenceCertificateUpdateInput.schema';
+import { tblTaxResidenceCertificateUncheckedUpdateInputObjectSchema as tblTaxResidenceCertificateUncheckedUpdateInputObjectSchema } from './objects/tblTaxResidenceCertificateUncheckedUpdateInput.schema';
+
+export const tblTaxResidenceCertificateUpsertOneSchema: z.ZodType<Prisma.tblTaxResidenceCertificateUpsertArgs> = z.object({ select: tblTaxResidenceCertificateSelectObjectSchema.optional(),  where: tblTaxResidenceCertificateWhereUniqueInputObjectSchema, create: z.union([ tblTaxResidenceCertificateCreateInputObjectSchema, tblTaxResidenceCertificateUncheckedCreateInputObjectSchema ]), update: z.union([ tblTaxResidenceCertificateUpdateInputObjectSchema, tblTaxResidenceCertificateUncheckedUpdateInputObjectSchema ]) }).strict() as unknown as z.ZodType<Prisma.tblTaxResidenceCertificateUpsertArgs>;
+
+export const tblTaxResidenceCertificateUpsertOneZodSchema = z.object({ select: tblTaxResidenceCertificateSelectObjectSchema.optional(),  where: tblTaxResidenceCertificateWhereUniqueInputObjectSchema, create: z.union([ tblTaxResidenceCertificateCreateInputObjectSchema, tblTaxResidenceCertificateUncheckedCreateInputObjectSchema ]), update: z.union([ tblTaxResidenceCertificateUpdateInputObjectSchema, tblTaxResidenceCertificateUncheckedUpdateInputObjectSchema ]) }).strict();

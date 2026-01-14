@@ -1,0 +1,13 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictLanguagesWhereInputObjectSchema as dictLanguagesWhereInputObjectSchema } from './objects/dictLanguagesWhereInput.schema';
+import { dictLanguagesOrderByWithAggregationInputObjectSchema as dictLanguagesOrderByWithAggregationInputObjectSchema } from './objects/dictLanguagesOrderByWithAggregationInput.schema';
+import { dictLanguagesScalarWhereWithAggregatesInputObjectSchema as dictLanguagesScalarWhereWithAggregatesInputObjectSchema } from './objects/dictLanguagesScalarWhereWithAggregatesInput.schema';
+import { DictLanguagesScalarFieldEnumSchema } from './enums/DictLanguagesScalarFieldEnum.schema';
+import { DictLanguagesCountAggregateInputObjectSchema as DictLanguagesCountAggregateInputObjectSchema } from './objects/DictLanguagesCountAggregateInput.schema';
+import { DictLanguagesMinAggregateInputObjectSchema as DictLanguagesMinAggregateInputObjectSchema } from './objects/DictLanguagesMinAggregateInput.schema';
+import { DictLanguagesMaxAggregateInputObjectSchema as DictLanguagesMaxAggregateInputObjectSchema } from './objects/DictLanguagesMaxAggregateInput.schema';
+
+export const dictLanguagesGroupBySchema: z.ZodType<Prisma.dictLanguagesGroupByArgs> = z.object({ where: dictLanguagesWhereInputObjectSchema.optional(), orderBy: z.union([dictLanguagesOrderByWithAggregationInputObjectSchema, dictLanguagesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictLanguagesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictLanguagesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictLanguagesCountAggregateInputObjectSchema ]).optional(), _min: DictLanguagesMinAggregateInputObjectSchema.optional(), _max: DictLanguagesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictLanguagesGroupByArgs>;
+
+export const dictLanguagesGroupByZodSchema = z.object({ where: dictLanguagesWhereInputObjectSchema.optional(), orderBy: z.union([dictLanguagesOrderByWithAggregationInputObjectSchema, dictLanguagesOrderByWithAggregationInputObjectSchema.array()]).optional(), having: dictLanguagesScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(DictLanguagesScalarFieldEnumSchema), _count: z.union([ z.literal(true), DictLanguagesCountAggregateInputObjectSchema ]).optional(), _min: DictLanguagesMinAggregateInputObjectSchema.optional(), _max: DictLanguagesMaxAggregateInputObjectSchema.optional() }).strict();

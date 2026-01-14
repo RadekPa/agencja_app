@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblAuthorsWhereInputObjectSchema as tblAuthorsWhereInputObjectSchema } from './objects/tblAuthorsWhereInput.schema';
+import { tblAuthorsOrderByWithAggregationInputObjectSchema as tblAuthorsOrderByWithAggregationInputObjectSchema } from './objects/tblAuthorsOrderByWithAggregationInput.schema';
+import { tblAuthorsScalarWhereWithAggregatesInputObjectSchema as tblAuthorsScalarWhereWithAggregatesInputObjectSchema } from './objects/tblAuthorsScalarWhereWithAggregatesInput.schema';
+import { TblAuthorsScalarFieldEnumSchema } from './enums/TblAuthorsScalarFieldEnum.schema';
+import { TblAuthorsCountAggregateInputObjectSchema as TblAuthorsCountAggregateInputObjectSchema } from './objects/TblAuthorsCountAggregateInput.schema';
+import { TblAuthorsMinAggregateInputObjectSchema as TblAuthorsMinAggregateInputObjectSchema } from './objects/TblAuthorsMinAggregateInput.schema';
+import { TblAuthorsMaxAggregateInputObjectSchema as TblAuthorsMaxAggregateInputObjectSchema } from './objects/TblAuthorsMaxAggregateInput.schema';
+import { TblAuthorsAvgAggregateInputObjectSchema as TblAuthorsAvgAggregateInputObjectSchema } from './objects/TblAuthorsAvgAggregateInput.schema';
+import { TblAuthorsSumAggregateInputObjectSchema as TblAuthorsSumAggregateInputObjectSchema } from './objects/TblAuthorsSumAggregateInput.schema';
+
+export const tblAuthorsGroupBySchema: z.ZodType<Prisma.tblAuthorsGroupByArgs> = z.object({ where: tblAuthorsWhereInputObjectSchema.optional(), orderBy: z.union([tblAuthorsOrderByWithAggregationInputObjectSchema, tblAuthorsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblAuthorsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblAuthorsScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblAuthorsCountAggregateInputObjectSchema ]).optional(), _min: TblAuthorsMinAggregateInputObjectSchema.optional(), _max: TblAuthorsMaxAggregateInputObjectSchema.optional(), _avg: TblAuthorsAvgAggregateInputObjectSchema.optional(), _sum: TblAuthorsSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblAuthorsGroupByArgs>;
+
+export const tblAuthorsGroupByZodSchema = z.object({ where: tblAuthorsWhereInputObjectSchema.optional(), orderBy: z.union([tblAuthorsOrderByWithAggregationInputObjectSchema, tblAuthorsOrderByWithAggregationInputObjectSchema.array()]).optional(), having: tblAuthorsScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(TblAuthorsScalarFieldEnumSchema), _count: z.union([ z.literal(true), TblAuthorsCountAggregateInputObjectSchema ]).optional(), _min: TblAuthorsMinAggregateInputObjectSchema.optional(), _max: TblAuthorsMaxAggregateInputObjectSchema.optional(), _avg: TblAuthorsAvgAggregateInputObjectSchema.optional(), _sum: TblAuthorsSumAggregateInputObjectSchema.optional() }).strict();

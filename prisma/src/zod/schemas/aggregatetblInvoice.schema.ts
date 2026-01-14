@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblInvoiceOrderByWithRelationInputObjectSchema as tblInvoiceOrderByWithRelationInputObjectSchema } from './objects/tblInvoiceOrderByWithRelationInput.schema';
+import { tblInvoiceWhereInputObjectSchema as tblInvoiceWhereInputObjectSchema } from './objects/tblInvoiceWhereInput.schema';
+import { tblInvoiceWhereUniqueInputObjectSchema as tblInvoiceWhereUniqueInputObjectSchema } from './objects/tblInvoiceWhereUniqueInput.schema';
+import { TblInvoiceCountAggregateInputObjectSchema as TblInvoiceCountAggregateInputObjectSchema } from './objects/TblInvoiceCountAggregateInput.schema';
+import { TblInvoiceMinAggregateInputObjectSchema as TblInvoiceMinAggregateInputObjectSchema } from './objects/TblInvoiceMinAggregateInput.schema';
+import { TblInvoiceMaxAggregateInputObjectSchema as TblInvoiceMaxAggregateInputObjectSchema } from './objects/TblInvoiceMaxAggregateInput.schema';
+import { TblInvoiceAvgAggregateInputObjectSchema as TblInvoiceAvgAggregateInputObjectSchema } from './objects/TblInvoiceAvgAggregateInput.schema';
+import { TblInvoiceSumAggregateInputObjectSchema as TblInvoiceSumAggregateInputObjectSchema } from './objects/TblInvoiceSumAggregateInput.schema';
+
+export const tblInvoiceAggregateSchema: z.ZodType<Prisma.tblInvoiceAggregateArgs> = z.object({ orderBy: z.union([tblInvoiceOrderByWithRelationInputObjectSchema, tblInvoiceOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblInvoiceWhereInputObjectSchema.optional(), cursor: tblInvoiceWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblInvoiceCountAggregateInputObjectSchema ]).optional(), _min: TblInvoiceMinAggregateInputObjectSchema.optional(), _max: TblInvoiceMaxAggregateInputObjectSchema.optional(), _avg: TblInvoiceAvgAggregateInputObjectSchema.optional(), _sum: TblInvoiceSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblInvoiceAggregateArgs>;
+
+export const tblInvoiceAggregateZodSchema = z.object({ orderBy: z.union([tblInvoiceOrderByWithRelationInputObjectSchema, tblInvoiceOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblInvoiceWhereInputObjectSchema.optional(), cursor: tblInvoiceWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblInvoiceCountAggregateInputObjectSchema ]).optional(), _min: TblInvoiceMinAggregateInputObjectSchema.optional(), _max: TblInvoiceMaxAggregateInputObjectSchema.optional(), _avg: TblInvoiceAvgAggregateInputObjectSchema.optional(), _sum: TblInvoiceSumAggregateInputObjectSchema.optional() }).strict();

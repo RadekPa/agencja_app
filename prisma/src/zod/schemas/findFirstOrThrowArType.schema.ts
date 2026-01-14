@@ -1,0 +1,25 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArTypeOrderByWithRelationInputObjectSchema as ArTypeOrderByWithRelationInputObjectSchema } from './objects/ArTypeOrderByWithRelationInput.schema';
+import { ArTypeWhereInputObjectSchema as ArTypeWhereInputObjectSchema } from './objects/ArTypeWhereInput.schema';
+import { ArTypeWhereUniqueInputObjectSchema as ArTypeWhereUniqueInputObjectSchema } from './objects/ArTypeWhereUniqueInput.schema';
+import { ArTypeScalarFieldEnumSchema } from './enums/ArTypeScalarFieldEnum.schema';
+
+// Select schema needs to be in file to prevent circular imports
+//------------------------------------------------------
+
+export const ArTypeFindFirstOrThrowSelectSchema: z.ZodType<Prisma.ArTypeSelect> = z.object({
+    ArType: z.boolean().optional(),
+    ArTypeDescription: z.boolean().optional(),
+    ArTypeDescriptionPL: z.boolean().optional()
+  }).strict() as unknown as z.ZodType<Prisma.ArTypeSelect>;
+
+export const ArTypeFindFirstOrThrowSelectZodSchema = z.object({
+    ArType: z.boolean().optional(),
+    ArTypeDescription: z.boolean().optional(),
+    ArTypeDescriptionPL: z.boolean().optional()
+  }).strict();
+
+export const ArTypeFindFirstOrThrowSchema: z.ZodType<Prisma.ArTypeFindFirstOrThrowArgs> = z.object({ select: ArTypeFindFirstOrThrowSelectSchema.optional(),  orderBy: z.union([ArTypeOrderByWithRelationInputObjectSchema, ArTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArTypeWhereInputObjectSchema.optional(), cursor: ArTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ArTypeScalarFieldEnumSchema, ArTypeScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.ArTypeFindFirstOrThrowArgs>;
+
+export const ArTypeFindFirstOrThrowZodSchema = z.object({ select: ArTypeFindFirstOrThrowSelectSchema.optional(),  orderBy: z.union([ArTypeOrderByWithRelationInputObjectSchema, ArTypeOrderByWithRelationInputObjectSchema.array()]).optional(), where: ArTypeWhereInputObjectSchema.optional(), cursor: ArTypeWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([ArTypeScalarFieldEnumSchema, ArTypeScalarFieldEnumSchema.array()]).optional() }).strict();

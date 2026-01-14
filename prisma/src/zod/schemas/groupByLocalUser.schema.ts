@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { LocalUserWhereInputObjectSchema as LocalUserWhereInputObjectSchema } from './objects/LocalUserWhereInput.schema';
+import { LocalUserOrderByWithAggregationInputObjectSchema as LocalUserOrderByWithAggregationInputObjectSchema } from './objects/LocalUserOrderByWithAggregationInput.schema';
+import { LocalUserScalarWhereWithAggregatesInputObjectSchema as LocalUserScalarWhereWithAggregatesInputObjectSchema } from './objects/LocalUserScalarWhereWithAggregatesInput.schema';
+import { LocalUserScalarFieldEnumSchema } from './enums/LocalUserScalarFieldEnum.schema';
+import { LocalUserCountAggregateInputObjectSchema as LocalUserCountAggregateInputObjectSchema } from './objects/LocalUserCountAggregateInput.schema';
+import { LocalUserMinAggregateInputObjectSchema as LocalUserMinAggregateInputObjectSchema } from './objects/LocalUserMinAggregateInput.schema';
+import { LocalUserMaxAggregateInputObjectSchema as LocalUserMaxAggregateInputObjectSchema } from './objects/LocalUserMaxAggregateInput.schema';
+import { LocalUserAvgAggregateInputObjectSchema as LocalUserAvgAggregateInputObjectSchema } from './objects/LocalUserAvgAggregateInput.schema';
+import { LocalUserSumAggregateInputObjectSchema as LocalUserSumAggregateInputObjectSchema } from './objects/LocalUserSumAggregateInput.schema';
+
+export const LocalUserGroupBySchema: z.ZodType<Prisma.LocalUserGroupByArgs> = z.object({ where: LocalUserWhereInputObjectSchema.optional(), orderBy: z.union([LocalUserOrderByWithAggregationInputObjectSchema, LocalUserOrderByWithAggregationInputObjectSchema.array()]).optional(), having: LocalUserScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(LocalUserScalarFieldEnumSchema), _count: z.union([ z.literal(true), LocalUserCountAggregateInputObjectSchema ]).optional(), _min: LocalUserMinAggregateInputObjectSchema.optional(), _max: LocalUserMaxAggregateInputObjectSchema.optional(), _avg: LocalUserAvgAggregateInputObjectSchema.optional(), _sum: LocalUserSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.LocalUserGroupByArgs>;
+
+export const LocalUserGroupByZodSchema = z.object({ where: LocalUserWhereInputObjectSchema.optional(), orderBy: z.union([LocalUserOrderByWithAggregationInputObjectSchema, LocalUserOrderByWithAggregationInputObjectSchema.array()]).optional(), having: LocalUserScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(LocalUserScalarFieldEnumSchema), _count: z.union([ z.literal(true), LocalUserCountAggregateInputObjectSchema ]).optional(), _min: LocalUserMinAggregateInputObjectSchema.optional(), _max: LocalUserMaxAggregateInputObjectSchema.optional(), _avg: LocalUserAvgAggregateInputObjectSchema.optional(), _sum: LocalUserSumAggregateInputObjectSchema.optional() }).strict();

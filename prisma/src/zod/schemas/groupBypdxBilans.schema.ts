@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { pdxBilansWhereInputObjectSchema as pdxBilansWhereInputObjectSchema } from './objects/pdxBilansWhereInput.schema';
+import { pdxBilansOrderByWithAggregationInputObjectSchema as pdxBilansOrderByWithAggregationInputObjectSchema } from './objects/pdxBilansOrderByWithAggregationInput.schema';
+import { pdxBilansScalarWhereWithAggregatesInputObjectSchema as pdxBilansScalarWhereWithAggregatesInputObjectSchema } from './objects/pdxBilansScalarWhereWithAggregatesInput.schema';
+import { PdxBilansScalarFieldEnumSchema } from './enums/PdxBilansScalarFieldEnum.schema';
+import { PdxBilansCountAggregateInputObjectSchema as PdxBilansCountAggregateInputObjectSchema } from './objects/PdxBilansCountAggregateInput.schema';
+import { PdxBilansMinAggregateInputObjectSchema as PdxBilansMinAggregateInputObjectSchema } from './objects/PdxBilansMinAggregateInput.schema';
+import { PdxBilansMaxAggregateInputObjectSchema as PdxBilansMaxAggregateInputObjectSchema } from './objects/PdxBilansMaxAggregateInput.schema';
+import { PdxBilansAvgAggregateInputObjectSchema as PdxBilansAvgAggregateInputObjectSchema } from './objects/PdxBilansAvgAggregateInput.schema';
+import { PdxBilansSumAggregateInputObjectSchema as PdxBilansSumAggregateInputObjectSchema } from './objects/PdxBilansSumAggregateInput.schema';
+
+export const pdxBilansGroupBySchema: z.ZodType<Prisma.pdxBilansGroupByArgs> = z.object({ where: pdxBilansWhereInputObjectSchema.optional(), orderBy: z.union([pdxBilansOrderByWithAggregationInputObjectSchema, pdxBilansOrderByWithAggregationInputObjectSchema.array()]).optional(), having: pdxBilansScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(PdxBilansScalarFieldEnumSchema), _count: z.union([ z.literal(true), PdxBilansCountAggregateInputObjectSchema ]).optional(), _min: PdxBilansMinAggregateInputObjectSchema.optional(), _max: PdxBilansMaxAggregateInputObjectSchema.optional(), _avg: PdxBilansAvgAggregateInputObjectSchema.optional(), _sum: PdxBilansSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.pdxBilansGroupByArgs>;
+
+export const pdxBilansGroupByZodSchema = z.object({ where: pdxBilansWhereInputObjectSchema.optional(), orderBy: z.union([pdxBilansOrderByWithAggregationInputObjectSchema, pdxBilansOrderByWithAggregationInputObjectSchema.array()]).optional(), having: pdxBilansScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(PdxBilansScalarFieldEnumSchema), _count: z.union([ z.literal(true), PdxBilansCountAggregateInputObjectSchema ]).optional(), _min: PdxBilansMinAggregateInputObjectSchema.optional(), _max: PdxBilansMaxAggregateInputObjectSchema.optional(), _avg: PdxBilansAvgAggregateInputObjectSchema.optional(), _sum: PdxBilansSumAggregateInputObjectSchema.optional() }).strict();

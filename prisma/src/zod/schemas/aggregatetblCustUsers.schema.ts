@@ -1,0 +1,14 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblCustUsersOrderByWithRelationInputObjectSchema as tblCustUsersOrderByWithRelationInputObjectSchema } from './objects/tblCustUsersOrderByWithRelationInput.schema';
+import { tblCustUsersWhereInputObjectSchema as tblCustUsersWhereInputObjectSchema } from './objects/tblCustUsersWhereInput.schema';
+import { tblCustUsersWhereUniqueInputObjectSchema as tblCustUsersWhereUniqueInputObjectSchema } from './objects/tblCustUsersWhereUniqueInput.schema';
+import { TblCustUsersCountAggregateInputObjectSchema as TblCustUsersCountAggregateInputObjectSchema } from './objects/TblCustUsersCountAggregateInput.schema';
+import { TblCustUsersMinAggregateInputObjectSchema as TblCustUsersMinAggregateInputObjectSchema } from './objects/TblCustUsersMinAggregateInput.schema';
+import { TblCustUsersMaxAggregateInputObjectSchema as TblCustUsersMaxAggregateInputObjectSchema } from './objects/TblCustUsersMaxAggregateInput.schema';
+import { TblCustUsersAvgAggregateInputObjectSchema as TblCustUsersAvgAggregateInputObjectSchema } from './objects/TblCustUsersAvgAggregateInput.schema';
+import { TblCustUsersSumAggregateInputObjectSchema as TblCustUsersSumAggregateInputObjectSchema } from './objects/TblCustUsersSumAggregateInput.schema';
+
+export const tblCustUsersAggregateSchema: z.ZodType<Prisma.tblCustUsersAggregateArgs> = z.object({ orderBy: z.union([tblCustUsersOrderByWithRelationInputObjectSchema, tblCustUsersOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblCustUsersWhereInputObjectSchema.optional(), cursor: tblCustUsersWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblCustUsersCountAggregateInputObjectSchema ]).optional(), _min: TblCustUsersMinAggregateInputObjectSchema.optional(), _max: TblCustUsersMaxAggregateInputObjectSchema.optional(), _avg: TblCustUsersAvgAggregateInputObjectSchema.optional(), _sum: TblCustUsersSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.tblCustUsersAggregateArgs>;
+
+export const tblCustUsersAggregateZodSchema = z.object({ orderBy: z.union([tblCustUsersOrderByWithRelationInputObjectSchema, tblCustUsersOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblCustUsersWhereInputObjectSchema.optional(), cursor: tblCustUsersWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), TblCustUsersCountAggregateInputObjectSchema ]).optional(), _min: TblCustUsersMinAggregateInputObjectSchema.optional(), _max: TblCustUsersMaxAggregateInputObjectSchema.optional(), _avg: TblCustUsersAvgAggregateInputObjectSchema.optional(), _sum: TblCustUsersSumAggregateInputObjectSchema.optional() }).strict();

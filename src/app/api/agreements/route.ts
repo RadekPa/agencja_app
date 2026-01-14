@@ -17,7 +17,8 @@ export async function GET(req: Request) {
     const order = (url.searchParams.get('order') || 'desc').toLowerCase() === 'asc' ? 'asc' : 'desc'
 
     const where: any = {}
-    if (customerName) where.tblCustomers = { name: { contains: customerName } }
+    // tblCustomers model exposes Name (PascalCase)
+    if (customerName) where.tblCustomers = { Name: { contains: customerName } }
     if (status) where.Status = status
     if (currency) where.CurrID = currency
     if (dateFrom || dateTo) where.AgrDate = {}
@@ -37,7 +38,8 @@ export async function GET(req: Request) {
         skip,
         orderBy,
         include: {
-          tblCustomers: { select: { CustID: true, name: true } },
+          // Table uses PascalCase columns; Prisma model exposes Name not name
+          tblCustomers: { select: { CustID: true, Name: true } },
           tblTitles: { select: { TitleID: true, Title: true } },
           dictCurrencies: { select: { CurrID: true, CurrDesc: true } },
           dictLanguages: { select: { LangAbb: true, LangDesc: true } }
@@ -48,7 +50,7 @@ export async function GET(req: Request) {
     const items = data.map(d => ({
       id: d.AgrID,
       customerId: d.CustID,
-      customerName: d.tblCustomers?.name ?? null,
+      customerName: d.tblCustomers?.Name ?? null,
       titleId: d.TitleID,
       titleName: d.tblTitles?.Title ?? null,
       date: d.AgrDate.toISOString(),
@@ -56,8 +58,8 @@ export async function GET(req: Request) {
       currencyDesc: d.dictCurrencies?.CurrDesc || null,
       language: d.LangAbbr || null,
       languageDesc: d.dictLanguages?.LangDesc || null,
-      commission: d.Commission ?? 0,
-      commissionMaterials: d.CommissionMaterials ?? 0,
+      commission: d.Commission ? Number(d.Commission) : 0,
+      commissionMaterials: d.CommissionMaterials ? Number(d.CommissionMaterials) : 0,
       clientReference: d.ClientReference || null,
       status: d.Status || 'A',
       validYY: d.ValidYY || 0,

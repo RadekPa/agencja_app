@@ -1,0 +1,15 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { ArAccountWhereInputObjectSchema as ArAccountWhereInputObjectSchema } from './objects/ArAccountWhereInput.schema';
+import { ArAccountOrderByWithAggregationInputObjectSchema as ArAccountOrderByWithAggregationInputObjectSchema } from './objects/ArAccountOrderByWithAggregationInput.schema';
+import { ArAccountScalarWhereWithAggregatesInputObjectSchema as ArAccountScalarWhereWithAggregatesInputObjectSchema } from './objects/ArAccountScalarWhereWithAggregatesInput.schema';
+import { ArAccountScalarFieldEnumSchema } from './enums/ArAccountScalarFieldEnum.schema';
+import { ArAccountCountAggregateInputObjectSchema as ArAccountCountAggregateInputObjectSchema } from './objects/ArAccountCountAggregateInput.schema';
+import { ArAccountMinAggregateInputObjectSchema as ArAccountMinAggregateInputObjectSchema } from './objects/ArAccountMinAggregateInput.schema';
+import { ArAccountMaxAggregateInputObjectSchema as ArAccountMaxAggregateInputObjectSchema } from './objects/ArAccountMaxAggregateInput.schema';
+import { ArAccountAvgAggregateInputObjectSchema as ArAccountAvgAggregateInputObjectSchema } from './objects/ArAccountAvgAggregateInput.schema';
+import { ArAccountSumAggregateInputObjectSchema as ArAccountSumAggregateInputObjectSchema } from './objects/ArAccountSumAggregateInput.schema';
+
+export const ArAccountGroupBySchema: z.ZodType<Prisma.ArAccountGroupByArgs> = z.object({ where: ArAccountWhereInputObjectSchema.optional(), orderBy: z.union([ArAccountOrderByWithAggregationInputObjectSchema, ArAccountOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ArAccountScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ArAccountScalarFieldEnumSchema), _count: z.union([ z.literal(true), ArAccountCountAggregateInputObjectSchema ]).optional(), _min: ArAccountMinAggregateInputObjectSchema.optional(), _max: ArAccountMaxAggregateInputObjectSchema.optional(), _avg: ArAccountAvgAggregateInputObjectSchema.optional(), _sum: ArAccountSumAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.ArAccountGroupByArgs>;
+
+export const ArAccountGroupByZodSchema = z.object({ where: ArAccountWhereInputObjectSchema.optional(), orderBy: z.union([ArAccountOrderByWithAggregationInputObjectSchema, ArAccountOrderByWithAggregationInputObjectSchema.array()]).optional(), having: ArAccountScalarWhereWithAggregatesInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), by: z.array(ArAccountScalarFieldEnumSchema), _count: z.union([ z.literal(true), ArAccountCountAggregateInputObjectSchema ]).optional(), _min: ArAccountMinAggregateInputObjectSchema.optional(), _max: ArAccountMaxAggregateInputObjectSchema.optional(), _avg: ArAccountAvgAggregateInputObjectSchema.optional(), _sum: ArAccountSumAggregateInputObjectSchema.optional() }).strict();

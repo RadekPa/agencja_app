@@ -1,0 +1,12 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { dictXRateExcelNamesOrderByWithRelationInputObjectSchema as dictXRateExcelNamesOrderByWithRelationInputObjectSchema } from './objects/dictXRateExcelNamesOrderByWithRelationInput.schema';
+import { dictXRateExcelNamesWhereInputObjectSchema as dictXRateExcelNamesWhereInputObjectSchema } from './objects/dictXRateExcelNamesWhereInput.schema';
+import { dictXRateExcelNamesWhereUniqueInputObjectSchema as dictXRateExcelNamesWhereUniqueInputObjectSchema } from './objects/dictXRateExcelNamesWhereUniqueInput.schema';
+import { DictXRateExcelNamesCountAggregateInputObjectSchema as DictXRateExcelNamesCountAggregateInputObjectSchema } from './objects/DictXRateExcelNamesCountAggregateInput.schema';
+import { DictXRateExcelNamesMinAggregateInputObjectSchema as DictXRateExcelNamesMinAggregateInputObjectSchema } from './objects/DictXRateExcelNamesMinAggregateInput.schema';
+import { DictXRateExcelNamesMaxAggregateInputObjectSchema as DictXRateExcelNamesMaxAggregateInputObjectSchema } from './objects/DictXRateExcelNamesMaxAggregateInput.schema';
+
+export const dictXRateExcelNamesAggregateSchema: z.ZodType<Prisma.dictXRateExcelNamesAggregateArgs> = z.object({ orderBy: z.union([dictXRateExcelNamesOrderByWithRelationInputObjectSchema, dictXRateExcelNamesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictXRateExcelNamesWhereInputObjectSchema.optional(), cursor: dictXRateExcelNamesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictXRateExcelNamesCountAggregateInputObjectSchema ]).optional(), _min: DictXRateExcelNamesMinAggregateInputObjectSchema.optional(), _max: DictXRateExcelNamesMaxAggregateInputObjectSchema.optional() }).strict() as unknown as z.ZodType<Prisma.dictXRateExcelNamesAggregateArgs>;
+
+export const dictXRateExcelNamesAggregateZodSchema = z.object({ orderBy: z.union([dictXRateExcelNamesOrderByWithRelationInputObjectSchema, dictXRateExcelNamesOrderByWithRelationInputObjectSchema.array()]).optional(), where: dictXRateExcelNamesWhereInputObjectSchema.optional(), cursor: dictXRateExcelNamesWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), _count: z.union([ z.literal(true), DictXRateExcelNamesCountAggregateInputObjectSchema ]).optional(), _min: DictXRateExcelNamesMinAggregateInputObjectSchema.optional(), _max: DictXRateExcelNamesMaxAggregateInputObjectSchema.optional() }).strict();

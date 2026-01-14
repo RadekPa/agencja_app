@@ -1,0 +1,10 @@
+import type { Prisma } from '@prisma/client';
+import * as z from 'zod';
+import { tblInvoiceDetailsOrderByWithRelationInputObjectSchema as tblInvoiceDetailsOrderByWithRelationInputObjectSchema } from './objects/tblInvoiceDetailsOrderByWithRelationInput.schema';
+import { tblInvoiceDetailsWhereInputObjectSchema as tblInvoiceDetailsWhereInputObjectSchema } from './objects/tblInvoiceDetailsWhereInput.schema';
+import { tblInvoiceDetailsWhereUniqueInputObjectSchema as tblInvoiceDetailsWhereUniqueInputObjectSchema } from './objects/tblInvoiceDetailsWhereUniqueInput.schema';
+import { TblInvoiceDetailsCountAggregateInputObjectSchema as TblInvoiceDetailsCountAggregateInputObjectSchema } from './objects/TblInvoiceDetailsCountAggregateInput.schema';
+
+export const tblInvoiceDetailsCountSchema: z.ZodType<Prisma.tblInvoiceDetailsCountArgs> = z.object({ orderBy: z.union([tblInvoiceDetailsOrderByWithRelationInputObjectSchema, tblInvoiceDetailsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblInvoiceDetailsWhereInputObjectSchema.optional(), cursor: tblInvoiceDetailsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblInvoiceDetailsCountAggregateInputObjectSchema ]).optional() }).strict() as unknown as z.ZodType<Prisma.tblInvoiceDetailsCountArgs>;
+
+export const tblInvoiceDetailsCountZodSchema = z.object({ orderBy: z.union([tblInvoiceDetailsOrderByWithRelationInputObjectSchema, tblInvoiceDetailsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblInvoiceDetailsWhereInputObjectSchema.optional(), cursor: tblInvoiceDetailsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), select: z.union([ z.literal(true), TblInvoiceDetailsCountAggregateInputObjectSchema ]).optional() }).strict();
