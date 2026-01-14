@@ -275,6 +275,20 @@ export function Sidebar({ collapsed = false }: Props) {
                     <span>Cashflow</span>
                   </Link>
                 )}
+                {canAccess('invoices') && (
+                  <Link 
+                    href="/finances/agreements" 
+                    className={cn(
+                      "flex items-center gap-3 pl-10 pr-3 py-2 rounded-md text-sm transition-colors",
+                      pathname.startsWith('/finances/agreements')
+                        ? "bg-primary/10 text-primary font-medium" 
+                        : "hover:bg-accent hover:text-accent-foreground"
+                    )}
+                  >
+                    <Receipt className="h-3.5 w-3.5" />
+                    <span>Umowy</span>
+                  </Link>
+                )}
               </div>
             </div>
           )}

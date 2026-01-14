@@ -267,7 +267,7 @@
   },
   "simpleInvoices": {
     "title": "Simple Invoices",
-    "listTitle": "Simple Invoices List",
+    "listTitle": "Invoices List",
     "createInvoice": "Create Invoice",
     "editInvoice": "Edit Invoice",
     "deleteInvoice": "Delete Invoice",
