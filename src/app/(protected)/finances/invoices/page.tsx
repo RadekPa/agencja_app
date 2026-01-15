@@ -163,6 +163,8 @@ export default function InvoicesPage() {
         ...(filters.clientName && { clientName: filters.clientName })
       })
 
+      console.log('applyFilters - filters:', filters)
+      console.log('applyFilters - URL:', `/api/invoices?${params}`)
       const response = await fetch(`/api/invoices?${params}`)
       const data = await response.json()
       setInvoices(data.data || [])
@@ -250,6 +252,7 @@ export default function InvoicesPage() {
 
   useEffect(() => {
     // Reload data when filters change - debounced by 300ms
+    console.log('Filters changed:', filters)
     const timer = setTimeout(() => {
       applyFilters(1)
     }, 300)
@@ -588,7 +591,7 @@ export default function InvoicesPage() {
                         <Td><Link href={`/finances/invoices/${i.id}`} className="text-primary hover:underline">{i.id}</Link></Td>
                         <Td className="text-sm">{i.clientName}</Td>
                         <Td><Link href={`/finances/invoices/${i.id}`} className="text-primary hover:underline">{i.fvDescription || i.title}</Link></Td>
-                        <Td className="text-sm">{new Intl.DateTimeFormat('pl-PL').format(new Date(i.date))}</Td>
+                        <Td className="text-sm">{i.date ? new Intl.DateTimeFormat('pl-PL').format(new Date(i.date)) : '-'}</Td>
                         <Td className="text-sm">{i.currency || '-'}</Td>
                         <Td className="text-right font-medium">{(i.netAmtCurr ?? i.netAmt ?? 0).toFixed(2)}</Td>
                         <Td className="text-right font-medium">{(i.vatAmtCurr ?? i.vatAmt ?? 0).toFixed(2)}</Td>

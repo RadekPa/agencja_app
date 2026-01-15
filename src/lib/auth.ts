@@ -16,6 +16,12 @@ export const authOptions: NextAuthOptions = {
         if (!credentials?.email || !credentials?.password) return null
         
         try {
+          // Sprawdzenie czy Prisma jest dostępna
+          if (!prisma) {
+            console.error('Auth error: Prisma client not initialized. Check DATABASE_URL environment variable.')
+            return null
+          }
+
           // Timeout dla zapytania do bazy (10 sekund)
           const userPromise = prisma.user.findUnique({ 
             where: { email: credentials.email },

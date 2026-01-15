@@ -5,30 +5,37 @@ export async function GET(req: Request) {
   try {
     const url = new URL(req.url)
     const currencySearch = (url.searchParams.get('currencySearch') || '').trim()
-    const [statusRows, currencyRows] = await Promise.all([
-      prisma.invoice.findMany({
-        where: { status: { not: null } },
-        select: { status: true },
-        distinct: ['status']
-      }),
-      currencySearch
-        ? prisma.$queryRaw<Array<{ CurrID: string | null; CurrDesc: string | null }>>`SELECT CurrID, CurrDesc FROM dictCurrencies WHERE CurrID LIKE ${'%' + currencySearch + '%'} OR CurrDesc LIKE ${'%' + currencySearch + '%'} ORDER BY CurrID`
-        : prisma.$queryRaw<Array<{ CurrID: string | null; CurrDesc: string | null }>>`SELECT CurrID, CurrDesc FROM dictCurrencies ORDER BY CurrID`
-    ])
+
+    const p = prisma as any
+    const statusRows = await p.tblFraVAT_New.findMany({
+      where: { Status: { not: null } },
+      select: { Status: true },
+      distinct: ['Status']
+    })
+
+    const currencyWhere: any = { FVCurrency: { not: null } }
+    if (currencySearch) {
+      // SQL Server collation is usually case-insensitive, so `contains` works for search here
+      currencyWhere.FVCurrency = { contains: currencySearch }
+    }
+
+    const currencyRows = await p.tblFraVAT_New.findMany({
+      where: currencyWhere,
+      select: { FVCurrency: true },
+      distinct: ['FVCurrency']
+    })
 
     const statuses = Array.from(new Set(statusRows
-      .map(s => (s.status ?? '').trim())
+      .map(s => (s.Status ?? '').trim())
       .filter(Boolean)
     )).sort()
 
-    const currencies = Array.from(new Map(
-      currencyRows
-        .map(c => [
-          (c.CurrID ?? '').trim(),
-          { id: (c.CurrID ?? '').trim(), desc: (c.CurrDesc ?? '').trim() }
-        ])
-        .filter(([id]) => Boolean(id))
-    ).values())
+    const currencies = Array.from(new Set(currencyRows
+      .map(c => (c.FVCurrency ?? '').trim())
+      .filter(Boolean)
+    ))
+      .sort()
+      .map(c => ({ id: c, desc: c }))
 
     return NextResponse.json({ statuses, currencies })
   } catch (err: any) {

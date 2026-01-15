@@ -5,8 +5,8 @@ import { StringNullableFilterObjectSchema as StringNullableFilterObjectSchema } 
 import { BoolNullableFilterObjectSchema as BoolNullableFilterObjectSchema } from './BoolNullableFilter.schema';
 import { TblCustomersScalarRelationFilterObjectSchema as TblCustomersScalarRelationFilterObjectSchema } from './TblCustomersScalarRelationFilter.schema';
 import { tblCustomersWhereInputObjectSchema as tblCustomersWhereInputObjectSchema } from './tblCustomersWhereInput.schema';
-import { TblContactsScalarRelationFilterObjectSchema as TblContactsScalarRelationFilterObjectSchema } from './TblContactsScalarRelationFilter.schema';
-import { tblContactsWhereInputObjectSchema as tblContactsWhereInputObjectSchema } from './tblContactsWhereInput.schema'
+import { ContactScalarRelationFilterObjectSchema as ContactScalarRelationFilterObjectSchema } from './ContactScalarRelationFilter.schema';
+import { ContactWhereInputObjectSchema as ContactWhereInputObjectSchema } from './ContactWhereInput.schema'
 
 const tblcustcontactswhereinputSchema = z.object({
   AND: z.union([z.lazy(() => tblCustContactsWhereInputObjectSchema), z.lazy(() => tblCustContactsWhereInputObjectSchema).array()]).optional(),
@@ -22,7 +22,7 @@ const tblcustcontactswhereinputSchema = z.object({
   Email: z.union([z.lazy(() => StringNullableFilterObjectSchema), z.string().max(50)]).optional().nullable(),
   IsSameAsClient: z.union([z.lazy(() => BoolNullableFilterObjectSchema), z.boolean()]).optional().nullable(),
   tblCustomers: z.union([z.lazy(() => TblCustomersScalarRelationFilterObjectSchema), z.lazy(() => tblCustomersWhereInputObjectSchema)]).optional(),
-  tblContacts: z.union([z.lazy(() => TblContactsScalarRelationFilterObjectSchema), z.lazy(() => tblContactsWhereInputObjectSchema)]).optional()
+  contact: z.union([z.lazy(() => ContactScalarRelationFilterObjectSchema), z.lazy(() => ContactWhereInputObjectSchema)]).optional()
 }).strict();
 export const tblCustContactsWhereInputObjectSchema: z.ZodType<Prisma.tblCustContactsWhereInput> = tblcustcontactswhereinputSchema as unknown as z.ZodType<Prisma.tblCustContactsWhereInput>;
 export const tblCustContactsWhereInputObjectZodSchema = tblcustcontactswhereinputSchema;

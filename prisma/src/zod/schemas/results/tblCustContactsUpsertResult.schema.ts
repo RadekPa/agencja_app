@@ -10,5 +10,5 @@ export const tblCustContactsUpsertResultSchema = z.object({
   Email: z.string().optional(),
   IsSameAsClient: z.boolean().optional(),
   tblCustomers: z.unknown(),
-  tblContacts: z.unknown()
+  contact: z.unknown()
 });

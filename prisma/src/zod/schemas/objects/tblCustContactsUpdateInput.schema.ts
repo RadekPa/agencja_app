@@ -4,7 +4,7 @@ import { IntFieldUpdateOperationsInputObjectSchema as IntFieldUpdateOperationsIn
 import { NullableStringFieldUpdateOperationsInputObjectSchema as NullableStringFieldUpdateOperationsInputObjectSchema } from './NullableStringFieldUpdateOperationsInput.schema';
 import { NullableBoolFieldUpdateOperationsInputObjectSchema as NullableBoolFieldUpdateOperationsInputObjectSchema } from './NullableBoolFieldUpdateOperationsInput.schema';
 import { tblCustomersUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema as tblCustomersUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema } from './tblCustomersUpdateOneRequiredWithoutTblCustContactsNestedInput.schema';
-import { tblContactsUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema as tblContactsUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema } from './tblContactsUpdateOneRequiredWithoutTblCustContactsNestedInput.schema'
+import { ContactUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema as ContactUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema } from './ContactUpdateOneRequiredWithoutTblCustContactsNestedInput.schema'
 
 const makeSchema = () => z.object({
   DefaultContact: z.union([z.number().int(), z.lazy(() => IntFieldUpdateOperationsInputObjectSchema)]).optional(),
@@ -15,7 +15,7 @@ const makeSchema = () => z.object({
   Email: z.union([z.string().max(50), z.lazy(() => NullableStringFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   IsSameAsClient: z.union([z.boolean(), z.lazy(() => NullableBoolFieldUpdateOperationsInputObjectSchema)]).optional().nullable(),
   tblCustomers: z.lazy(() => tblCustomersUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema).optional(),
-  tblContacts: z.lazy(() => tblContactsUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema).optional()
+  contact: z.lazy(() => ContactUpdateOneRequiredWithoutTblCustContactsNestedInputObjectSchema).optional()
 }).strict();
 export const tblCustContactsUpdateInputObjectSchema: z.ZodType<Prisma.tblCustContactsUpdateInput> = makeSchema() as unknown as z.ZodType<Prisma.tblCustContactsUpdateInput>;
 export const tblCustContactsUpdateInputObjectZodSchema = makeSchema();

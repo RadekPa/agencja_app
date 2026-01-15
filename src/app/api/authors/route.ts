@@ -10,59 +10,91 @@ export async function GET(req: Request) {
   const sortBy = searchParams.get('sortBy') || 'id'
   const sortOrder = searchParams.get('sortOrder') || 'asc'
 
-  const p = prisma as any
-  
-  // Build where clause for search
-  const where: any = search ? {
-    OR: [
-      { firstName: { contains: search } },
-      { lastName: { contains: search } },
-      { fullName: { contains: search } },
-      { penName: { contains: search } },
-    ]
-  } : {}
+  const mapOrderField = (field: string) => {
+    const mapping: Record<string, string> = {
+      id: 'AuthorID',
+      firstName: 'FirstName',
+      lastName: 'LastName',
+      fullName: 'FullName',
+      penName: 'PenName',
+      dateMod: 'DateMod'
+    }
+    return mapping[field] || 'AuthorID'
+  }
 
-  // Build orderBy - validate sortBy field
-  const validSortFields = ['id', 'firstName', 'lastName', 'fullName', 'penName', 'dateMod']
-  const orderByField = validSortFields.includes(sortBy) ? sortBy : 'id'
-  const orderBy = { [orderByField]: sortOrder === 'desc' ? 'desc' : 'asc' }
+  const where: Prisma.tblAuthorsWhereInput = search
+    ? {
+        OR: [
+          { FirstName: { contains: search, mode: 'insensitive' } },
+          { LastName: { contains: search, mode: 'insensitive' } },
+          { FullName: { contains: search, mode: 'insensitive' } },
+          { PenName: { contains: search, mode: 'insensitive' } }
+        ]
+      }
+    : {}
 
-  // Get total count for pagination
-  const total = await p.author.count({ where })
+  const orderBy = {
+    [mapOrderField(sortBy)]: sortOrder === 'desc' ? 'desc' : 'asc'
+  } as Prisma.tblAuthorsOrderByWithRelationInput
 
-  // Get paginated results
-  const authors = await p.author.findMany({
+  const total = await (prisma as any).tblAuthors.count({ where })
+  const authors = await (prisma as any).tblAuthors.findMany({
     where,
     orderBy,
     skip: (page - 1) * pageSize,
-    take: pageSize,
+    take: pageSize
   })
 
+  const mapped = authors.map((a: any) => ({
+    id: a.AuthorID,
+    fullName: a.FullName,
+    firstName: a.FirstName,
+    middleName: a.MiddleName,
+    lastName: a.LastName,
+    suffix: a.Suffix,
+    penName: a.PenName,
+    remarks: a.Remarks,
+    dateMod: a.DateMod,
+    userMod: a.UserMod
+  }))
+
   return NextResponse.json({
-    data: authors,
+    data: mapped,
     meta: {
       page,
       pageSize,
       total,
-      pages: Math.ceil(total / pageSize),
+      pages: Math.ceil(total / pageSize)
     }
   })
 }
 
 export async function POST(req: Request) {
   const body = await req.json()
-  const p = prisma as any
-  
-  const author = await p.author.create({ 
-    data: { 
-      fullName: body.fullName || null,
-      firstName: body.firstName || null,
-      middleName: body.middleName || null,
-      lastName: body.lastName || null,
-      suffix: body.suffix || null,
-      penName: body.penName || null,
-      remarks: body.remarks || null,
-    } 
+  const author = await (prisma as any).tblAuthors.create({
+    data: {
+      FullName: body.fullName || null,
+      FirstName: body.firstName || null,
+      MiddleName: body.middleName || null,
+      LastName: body.lastName || null,
+      Suffix: body.suffix || null,
+      PenName: body.penName || null,
+      Remarks: body.remarks || null
+    }
   })
-  return NextResponse.json(author, { status: 201 })
+
+  const mapped = {
+    id: author.AuthorID,
+    fullName: author.FullName,
+    firstName: author.FirstName,
+    middleName: author.MiddleName,
+    lastName: author.LastName,
+    suffix: author.Suffix,
+    penName: author.PenName,
+    remarks: author.Remarks,
+    dateMod: author.DateMod,
+    userMod: author.UserMod
+  }
+
+  return NextResponse.json(mapped, { status: 201 })
 }

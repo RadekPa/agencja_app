@@ -20,7 +20,7 @@ export const tblCustContactsFindFirstOrThrowSelectSchema: z.ZodType<Prisma.tblCu
     Email: z.boolean().optional(),
     IsSameAsClient: z.boolean().optional(),
     tblCustomers: z.boolean().optional(),
-    tblContacts: z.boolean().optional()
+    contact: z.boolean().optional()
   }).strict() as unknown as z.ZodType<Prisma.tblCustContactsSelect>;
 
 export const tblCustContactsFindFirstOrThrowSelectZodSchema = z.object({
@@ -34,7 +34,7 @@ export const tblCustContactsFindFirstOrThrowSelectZodSchema = z.object({
     Email: z.boolean().optional(),
     IsSameAsClient: z.boolean().optional(),
     tblCustomers: z.boolean().optional(),
-    tblContacts: z.boolean().optional()
+    contact: z.boolean().optional()
   }).strict();
 
 export const tblCustContactsFindFirstOrThrowSchema: z.ZodType<Prisma.tblCustContactsFindFirstOrThrowArgs> = z.object({ select: tblCustContactsFindFirstOrThrowSelectSchema.optional(), include: z.lazy(() => tblCustContactsIncludeObjectSchema.optional()), orderBy: z.union([tblCustContactsOrderByWithRelationInputObjectSchema, tblCustContactsOrderByWithRelationInputObjectSchema.array()]).optional(), where: tblCustContactsWhereInputObjectSchema.optional(), cursor: tblCustContactsWhereUniqueInputObjectSchema.optional(), take: z.number().optional(), skip: z.number().optional(), distinct: z.union([TblCustContactsScalarFieldEnumSchema, TblCustContactsScalarFieldEnumSchema.array()]).optional() }).strict() as unknown as z.ZodType<Prisma.tblCustContactsFindFirstOrThrowArgs>;

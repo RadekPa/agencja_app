@@ -11,7 +11,7 @@ export const tblCustContactsFindManyResultSchema = z.object({
   Email: z.string().optional(),
   IsSameAsClient: z.boolean().optional(),
   tblCustomers: z.unknown(),
-  tblContacts: z.unknown()
+  contact: z.unknown()
 })),
   pagination: z.object({
   page: z.number().int().min(1),

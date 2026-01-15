@@ -10,7 +10,7 @@ export const tblCustContactsAggregateResultSchema = z.object({  _count: z.object
     Email: z.number(),
     IsSameAsClient: z.number(),
     tblCustomers: z.number(),
-    tblContacts: z.number()
+    contact: z.number()
   }).optional(),
   _sum: z.object({
     ContactID: z.number().nullable(),

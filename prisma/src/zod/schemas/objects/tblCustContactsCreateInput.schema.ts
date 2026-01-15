@@ -1,7 +1,7 @@
 import * as z from 'zod';
 import type { Prisma } from '@prisma/client';
 import { tblCustomersCreateNestedOneWithoutTblCustContactsInputObjectSchema as tblCustomersCreateNestedOneWithoutTblCustContactsInputObjectSchema } from './tblCustomersCreateNestedOneWithoutTblCustContactsInput.schema';
-import { tblContactsCreateNestedOneWithoutTblCustContactsInputObjectSchema as tblContactsCreateNestedOneWithoutTblCustContactsInputObjectSchema } from './tblContactsCreateNestedOneWithoutTblCustContactsInput.schema'
+import { ContactCreateNestedOneWithoutTblCustContactsInputObjectSchema as ContactCreateNestedOneWithoutTblCustContactsInputObjectSchema } from './ContactCreateNestedOneWithoutTblCustContactsInput.schema'
 
 const makeSchema = () => z.object({
   DefaultContact: z.number().int(),
@@ -12,7 +12,7 @@ const makeSchema = () => z.object({
   Email: z.string().max(50).optional().nullable(),
   IsSameAsClient: z.boolean().optional().nullable(),
   tblCustomers: z.lazy(() => tblCustomersCreateNestedOneWithoutTblCustContactsInputObjectSchema),
-  tblContacts: z.lazy(() => tblContactsCreateNestedOneWithoutTblCustContactsInputObjectSchema)
+  contact: z.lazy(() => ContactCreateNestedOneWithoutTblCustContactsInputObjectSchema)
 }).strict();
 export const tblCustContactsCreateInputObjectSchema: z.ZodType<Prisma.tblCustContactsCreateInput> = makeSchema() as unknown as z.ZodType<Prisma.tblCustContactsCreateInput>;
 export const tblCustContactsCreateInputObjectZodSchema = makeSchema();

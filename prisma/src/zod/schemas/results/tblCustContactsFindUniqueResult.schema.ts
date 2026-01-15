@@ -10,5 +10,5 @@ export const tblCustContactsFindUniqueResultSchema = z.nullable(z.object({
   Email: z.string().optional(),
   IsSameAsClient: z.boolean().optional(),
   tblCustomers: z.unknown(),
-  tblContacts: z.unknown()
+  contact: z.unknown()
 }));

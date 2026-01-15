@@ -11,7 +11,7 @@ export const tblCustContactsInputSchema = z.object({
     Email: z.string().optional().nullable(),
     IsSameAsClient: z.boolean().optional().nullable(),
     tblCustomers: z.unknown(),
-    tblContacts: z.unknown()
+    contact: z.unknown()
 }).strict();
 
 export type tblCustContactsInputType = z.infer<typeof tblCustContactsInputSchema>;

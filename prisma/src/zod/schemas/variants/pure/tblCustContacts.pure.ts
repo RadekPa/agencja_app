@@ -11,7 +11,7 @@ export const tblCustContactsModelSchema = z.object({
     Email: z.string().nullable(),
     IsSameAsClient: z.boolean().nullable(),
     tblCustomers: z.unknown(),
-    tblContacts: z.unknown()
+    contact: z.unknown()
 }).strict();
 
 export type tblCustContactsPureType = z.infer<typeof tblCustContactsModelSchema>;

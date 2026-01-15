@@ -15,64 +15,74 @@ export async function GET(req: Request) {
     const dateTo = url.searchParams.get('dateTo')
     const descr = (url.searchParams.get('descr') || '').trim()
     const currency = (url.searchParams.get('currency') || '').trim()
-    const sort = url.searchParams.get('sort') || 'invDate'
+    const sort = url.searchParams.get('sort') || 'InvDate'
     const order = (url.searchParams.get('order') || 'desc').toLowerCase() === 'asc' ? 'asc' : 'desc'
 
     const where: any = {}
-    if (status) where.status = status
-    if (clientId) where.clientId = Number(clientId)
-    if (billToId) where.billToId = Number(billToId)
-    if (dateFrom || dateTo) where.invDate = {}
-    if (dateFrom) where.invDate.gte = new Date(dateFrom)
-    if (dateTo) where.invDate.lte = new Date(dateTo)
-    if (descr) where.descr = { contains: descr }
-    if (currency) where.currId = currency
+    if (status) where.Status = status
+    if (clientId) where.ClientId = Number(clientId)
+    if (billToId) where.BillToId = Number(billToId)
+    if (dateFrom || dateTo) where.InvDate = {}
+    if (dateFrom) where.InvDate.gte = new Date(dateFrom)
+    if (dateTo) where.InvDate.lte = new Date(dateTo)
+    if (descr) where.Descr = { contains: descr }
+    if (currency) where.CurrId = currency
 
     const orderBy: any = {}
-    if (['invDate', 'dateDue', 'totalInvNET', 'balance'].includes(sort)) orderBy[sort] = order
-    else orderBy['invDate'] = 'desc'
+    if (['InvDate', 'DateDue', 'TotalInvNET', 'Balance'].includes(sort)) orderBy[sort] = order
+    else orderBy['InvDate'] = 'desc'
 
     const p = prisma as any
     const [total, data]: [number, any[]] = await Promise.all([
-      p.simpleInvoice.count({ where }),
-      p.simpleInvoice.findMany({
+      p.tblInvoice.count({ where }),
+      p.tblInvoice.findMany({
         where,
         take: pageSize,
         skip,
-        orderBy,
-        include: { 
-          client: { select: { id: true, name: true } },
-          billTo: { select: { id: true, name: true } }
-        }
+        orderBy
       })
     ])
 
+    // Lookup publisher and client names
+    const billToIds = data.map(d => d.BillToId).filter(Boolean)
+    const clientIds = data.map(d => d.ClientId).filter(Boolean)
+    const uniqueIds = Array.from(new Set([...billToIds, ...clientIds]))
+    let customers: any[] = []
+    if (uniqueIds.length > 0) {
+      customers = await p.tblCustomers.findMany({
+        where: { CustID: { in: uniqueIds } },
+        select: { CustID: true, Name: true }
+      })
+    }
+    const custMap = new Map(customers.map((c: any) => [c.CustID, c.Name]))
+
     const items = data.map(d => ({
-      id: d.id,
-      invType: d.invType || '',
-      invDate: d.invDate?.toISOString() || null,
-      billToId: d.billToId,
-      billToName: d.billTo?.name ?? null,
-      clientId: d.clientId,
-      clientName: d.client?.name ?? null,
-      shipToId: d.shipToId,
-      currId: d.currId || null,
-      totalInvNET: d.totalInvNET ?? 0,
-      vatPerc: d.vatPerc ?? 0,
-      termDD: d.termDD ?? 0,
-      remarks: d.remarks || '',
-      status: d.status || '',
-      sumInWords: d.sumInWords || '',
-      balance: d.balance ?? 0,
-      cliRef: d.cliRef || '',
-      descr: d.descr || '',
-      dateDue: d.dateDue?.toISOString() || null,
-      userName: d.userName || '',
-      agentID: d.agentID,
-      taxCode: d.taxCode || '',
-      taxValue: d.taxValue ?? 0,
-      taxInfo: d.taxInfo || '',
-      propID: d.propID
+      id: d.InvNum,
+      invNum: d.InvNum,
+      invType: d.InvType || '',
+      invDate: d.InvDate?.toISOString() || null,
+      billToId: d.BillToId,
+      billToName: custMap.get(d.BillToId) || null,
+      clientId: d.ClientId,
+      clientName: d.ClientId ? custMap.get(d.ClientId) || null : null,
+      shipToId: d.ShipToId,
+      currId: d.CurrId || null,
+      totalInvNET: d.TotalInvNET ?? 0,
+      vatPerc: d.VATPerc ?? 0,
+      termDD: d.TermDD ?? 0,
+      remarks: d.Remarks || '',
+      status: d.Status || '',
+      sumInWords: d.SumInWords || '',
+      balance: d.Balance ?? 0,
+      cliRef: d.CliRef || '',
+      descr: d.Descr || '',
+      dateDue: d.DateDue?.toISOString() || null,
+      userName: d.UserName || '',
+      agentID: d.AgentID,
+      taxCode: d.TaxCode || '',
+      taxValue: d.TaxValue ?? 0,
+      taxInfo: d.TaxInfo || '',
+      propID: d.PropID
     }))
 
     const meta = { page, pageSize, total, pages: Math.max(1, Math.ceil(total / pageSize)) }
@@ -106,29 +116,29 @@ export async function POST(req: Request) {
     const balance = totalInvNET + taxValue
 
     const p = prisma as any
-    const invoice = await p.simpleInvoice.create({
+    const invoice = await p.tblInvoice.create({
       data: {
-        invType,
-        invDate,
-        billToId,
-        clientId,
-        shipToId,
-        currId,
-        totalInvNET,
-        vatPerc,
-        termDD,
-        remarks,
-        status,
-        descr,
-        dateDue,
-        userName,
-        taxCode,
-        taxValue,
-        balance
+        InvType: invType,
+        InvDate: invDate,
+        BillToId: billToId,
+        ClientId: clientId,
+        ShipToId: shipToId,
+        CurrId: currId,
+        TotalInvNET: totalInvNET,
+        VATPerc: vatPerc,
+        TermDD: termDD,
+        Remarks: remarks,
+        Status: status,
+        Descr: descr,
+        DateDue: dateDue,
+        UserName: userName,
+        TaxCode: taxCode,
+        TaxValue: taxValue,
+        Balance: balance
       }
     })
 
-    return NextResponse.json({ id: invoice.id }, { status: 201 })
+    return NextResponse.json({ invNum: invoice.InvNum }, { status: 201 })
   } catch (err: any) {
     console.error('Error in POST /api/simple-invoices:', err)
     return NextResponse.json({ error: err?.message ?? String(err) }, { status: 500 })

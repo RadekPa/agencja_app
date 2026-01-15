@@ -8,33 +8,33 @@ export async function GET(request: Request) {
     
     const p = prisma as any
     
-    // Pobierz unikalne statusy
-    const statusResults = await p.simpleInvoice.findMany({
-      where: { NOT: { status: null } },
-      select: { status: true },
-      distinct: ['status']
+    // Get unique statuses
+    const statusResults = await p.tblInvoice.findMany({
+      where: { Status: { not: null } },
+      select: { Status: true },
+      distinct: ['Status']
     })
-    const statuses = statusResults.map((r: any) => r.status).filter(Boolean)
+    const statuses = statusResults.map((r: any) => r.Status).filter(Boolean)
 
-    // Pobierz unikalne waluty z opcjonalnym filtrowaniem
-    let currencyQuery: any = { where: { NOT: { currId: null } }, select: { currId: true }, distinct: ['currId'] }
+    // Get unique currencies with optional filtering
+    let currencyQuery: any = { where: { CurrId: { not: null } }, select: { CurrId: true }, distinct: ['CurrId'] }
     if (currencySearch) {
       currencyQuery.where = {
         AND: [
-          { NOT: { currId: null } },
-          { currId: { contains: currencySearch, mode: 'insensitive' } }
+          { CurrId: { not: null } },
+          { CurrId: { contains: currencySearch, mode: 'insensitive' } }
         ]
       }
     }
-    const currencyResults = await p.simpleInvoice.findMany(currencyQuery)
-    const currencies = currencyResults.map((r: any) => r.currId).filter(Boolean)
+    const currencyResults = await p.tblInvoice.findMany(currencyQuery)
+    const currencies = currencyResults.map((r: any) => r.CurrId).filter(Boolean)
 
-    // Pobierz unikalne typy faktur
-    const invTypeResults = await p.simpleInvoice.findMany({
-      select: { invType: true },
-      distinct: ['invType']
+    // Get unique invoice types
+    const invTypeResults = await p.tblInvoice.findMany({
+      select: { InvType: true },
+      distinct: ['InvType']
     })
-    const invTypes = invTypeResults.map((r: any) => r.invType).filter(Boolean)
+    const invTypes = invTypeResults.map((r: any) => r.InvType).filter(Boolean)
 
     return NextResponse.json({
       statuses,

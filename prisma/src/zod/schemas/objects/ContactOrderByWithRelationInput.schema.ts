@@ -1,0 +1,23 @@
+import * as z from 'zod';
+import type { Prisma } from '@prisma/client';
+import { SortOrderSchema } from '../enums/SortOrder.schema';
+import { SortOrderInputObjectSchema as SortOrderInputObjectSchema } from './SortOrderInput.schema';
+import { tblCustContactsOrderByRelationAggregateInputObjectSchema as tblCustContactsOrderByRelationAggregateInputObjectSchema } from './tblCustContactsOrderByRelationAggregateInput.schema'
+
+const makeSchema = () => z.object({
+  id: SortOrderSchema.optional(),
+  phoneNumber: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  firstName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  middleName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  lastName: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  informal: SortOrderSchema.optional(),
+  fax: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  email: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  userMod: SortOrderSchema.optional(),
+  dateMod: SortOrderSchema.optional(),
+  contactPosition: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  accountant: z.union([SortOrderSchema, z.lazy(() => SortOrderInputObjectSchema)]).optional(),
+  tblCustContacts: z.lazy(() => tblCustContactsOrderByRelationAggregateInputObjectSchema).optional()
+}).strict();
+export const ContactOrderByWithRelationInputObjectSchema: z.ZodType<Prisma.ContactOrderByWithRelationInput> = makeSchema() as unknown as z.ZodType<Prisma.ContactOrderByWithRelationInput>;
+export const ContactOrderByWithRelationInputObjectZodSchema = makeSchema();
