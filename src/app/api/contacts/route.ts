@@ -12,33 +12,33 @@ export async function GET(req: Request) {
 
   const mapOrderField = (field: string) => {
     const mapping: Record<string, string> = {
-      id: 'ContactID',
-      firstName: 'FirstName',
-      lastName: 'LastName',
-      email: 'Email',
-      phoneNumber: 'PhoneNumber',
-      dateMod: 'DateMod'
+      id: 'id',
+      firstName: 'firstName',
+      lastName: 'lastName',
+      email: 'email',
+      phoneNumber: 'phoneNumber',
+      dateMod: 'dateMod'
     }
-    return mapping[field] || 'ContactID'
+    return mapping[field] || 'id'
   }
 
-  const where: Prisma.tblContactsWhereInput = search
+  const where: Prisma.ContactWhereInput = search
     ? {
         OR: [
-          { FirstName: { contains: search, mode: 'insensitive' } },
-          { LastName: { contains: search, mode: 'insensitive' } },
-          { Email: { contains: search, mode: 'insensitive' } },
-          { PhoneNumber: { contains: search, mode: 'insensitive' } }
+          { firstName: { contains: search, mode: 'insensitive' } },
+          { lastName: { contains: search, mode: 'insensitive' } },
+          { email: { contains: search, mode: 'insensitive' } },
+          { phoneNumber: { contains: search, mode: 'insensitive' } }
         ]
       }
     : {}
 
   const orderBy = {
     [mapOrderField(sortBy)]: sortOrder === 'desc' ? 'desc' : 'asc'
-  } as Prisma.tblContactsOrderByWithRelationInput
+  } as Prisma.ContactOrderByWithRelationInput
 
-  const total = await (prisma as any).tblContacts.count({ where })
-  const contacts = await (prisma as any).tblContacts.findMany({
+  const total = await prisma.contact.count({ where })
+  const contacts = await prisma.contact.findMany({
     where,
     orderBy,
     skip: (page - 1) * pageSize,
@@ -46,18 +46,18 @@ export async function GET(req: Request) {
   })
 
   const mapped = contacts.map((c: any) => ({
-    id: c.ContactID,
-    phoneNumber: c.PhoneNumber,
-    firstName: c.FirstName,
-    middleName: c.MiddleName,
-    lastName: c.LastName,
-    informal: c.Informal,
-    fax: c.Fax,
-    email: c.Email,
-    contactPosition: c.ContactPosition,
-    accountant: c.Accountant,
-    dateMod: c.DateMod,
-    userMod: c.UserMod
+    id: c.id,
+    phoneNumber: c.phoneNumber,
+    firstName: c.firstName,
+    middleName: c.middleName,
+    lastName: c.lastName,
+    informal: c.informal,
+    fax: c.fax,
+    email: c.email,
+    contactPosition: c.contactPosition,
+    accountant: c.accountant,
+    dateMod: c.dateMod,
+    userMod: c.userMod
   }))
 
   return NextResponse.json({
@@ -73,33 +73,33 @@ export async function GET(req: Request) {
 
 export async function POST(req: Request) {
   const body = await req.json()
-  const contact = await (prisma as any).tblContacts.create({
+  const contact = await prisma.contact.create({
     data: {
-      PhoneNumber: body.phoneNumber || null,
-      FirstName: body.firstName,
-      MiddleName: body.middleName || null,
-      LastName: body.lastName,
-      Informal: body.informal ?? 0,
-      Fax: body.fax || null,
-      Email: body.email || null,
-      ContactPosition: body.contactPosition || null,
-      Accountant: body.accountant || null
+      phoneNumber: body.phoneNumber || null,
+      firstName: body.firstName,
+      middleName: body.middleName || null,
+      lastName: body.lastName,
+      informal: body.informal ?? 0,
+      fax: body.fax || null,
+      email: body.email || null,
+      contactPosition: body.contactPosition || null,
+      accountant: body.accountant || null
     }
   })
 
   const mapped = {
-    id: contact.ContactID,
-    phoneNumber: contact.PhoneNumber,
-    firstName: contact.FirstName,
-    middleName: contact.MiddleName,
-    lastName: contact.LastName,
-    informal: contact.Informal,
-    fax: contact.Fax,
-    email: contact.Email,
-    contactPosition: contact.ContactPosition,
-    accountant: contact.Accountant,
-    dateMod: contact.DateMod,
-    userMod: contact.UserMod
+    id: contact.id,
+    phoneNumber: contact.phoneNumber,
+    firstName: contact.firstName,
+    middleName: contact.middleName,
+    lastName: contact.lastName,
+    informal: contact.informal,
+    fax: contact.fax,
+    email: contact.email,
+    contactPosition: contact.contactPosition,
+    accountant: contact.accountant,
+    dateMod: contact.dateMod,
+    userMod: contact.userMod
   }
 
   return NextResponse.json(mapped, { status: 201 })
